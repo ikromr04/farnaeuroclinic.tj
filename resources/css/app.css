@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  min-width: 320px;
+  background-color: #FAFDFD;
+
+  &.menu-shown {
+    overflow: hidden;
+  }
+}
+
+.container {
+  @apply w-[90vw] max-w-[1150px] mx-auto;
+}
+
+.navlink {
+  @apply flex justify-center border-b-[#D3D3D3] border-b-[1px] leading-6 text-center md:border-b-0 md:px-3 md:py-2;
+
+  &:not([href]) {
+    font-weight: 600;
+  }
+}
