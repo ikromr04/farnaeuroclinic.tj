@@ -10,3 +10,5 @@ Route::get('/doctors', [AppController::class, 'doctors'])->name('doctors');
 Route::get('/services-and-prices', [AppController::class, 'servicesAndPrices'])->name('services&prices');
 Route::get('/contacts', [AppController::class, 'contacts'])->name('contacts');
 Route::get('/apply', [AppController::class, 'apply'])->name('apply');
+
+Route::get('/{path}', [AppController::class, 'react'])->where('path', '.*');

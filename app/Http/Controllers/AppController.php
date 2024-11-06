@@ -30,12 +30,19 @@ class AppController extends Controller
   {
     return view('pages.services&prices');
   }
+
   public function contacts()
   {
     return view('pages.contacts');
   }
+
   public function apply()
   {
     return view('pages.apply');
+  }
+
+  public function react()
+  {
+    return view('react');
   }
 }
