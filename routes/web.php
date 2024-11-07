@@ -11,4 +11,4 @@ Route::get('/services-and-prices', [AppController::class, 'servicesAndPrices'])-
 Route::get('/contacts', [AppController::class, 'contacts'])->name('contacts');
 Route::get('/apply', [AppController::class, 'apply'])->name('apply');
 
-Route::get('/{path}', [AppController::class, 'react'])->where('path', '.*');
+Route::view('/{path}', 'dashboard')->where('path', '.*');

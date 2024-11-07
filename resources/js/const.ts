@@ -13,8 +13,8 @@ export const APIRoute = {
   },
 };
 
-export enum SliceName {
-  Auth = 'Auth',
+export const SliceName = {
+  Auth: 'Auth',
 };
 
 export enum AuthorizationStatus {

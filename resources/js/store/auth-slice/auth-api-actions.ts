@@ -4,7 +4,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
 import { dropToken, saveToken, Token } from '../../services/token';
 import { ValidationError } from '../../types/validation-error';
-import { LoginCredentials } from '@/dto/auth.dto';
+import { LoginCredentials } from '@/dto/auth-dto';
 import { User } from '@/types/auth';
 
 export const checkAuthAction = createAsyncThunk<User, undefined, {
