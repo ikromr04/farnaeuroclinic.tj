@@ -28,6 +28,8 @@
         <use xlink:href="#icon" />
       </svg>
     </div>
+
+    <x-blocks.advantages class="mb-8 md:mb-10" />
   </main>
 @endsection
 
