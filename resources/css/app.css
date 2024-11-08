@@ -32,7 +32,7 @@ body {
 }
 
 .button {
-  @apply flex items-center justify-center text-brand bg-white rounded-full min-h-8 leading-none px-3 md:min-h-10 md:px-5;
+  @apply flex items-center justify-center border border-white text-brand bg-white rounded-full min-h-8 leading-none px-3 transition-all duration-300 hover:bg-transparent hover:text-white md:min-h-10 md:px-5;
 }
 
 .home-vitrin {
