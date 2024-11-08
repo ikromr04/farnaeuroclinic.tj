@@ -15,6 +15,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   @vite(['resources/css/app.css'])
 
   <title>@yield('title'){{ config('app.name') }}</title>
@@ -29,7 +32,8 @@
 
   <x-layouts.page-footer />
 
-  @vite(['resources/js/app.js'])
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  @yield('scripts')
 </body>
 
 </html>

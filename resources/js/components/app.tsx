@@ -18,6 +18,7 @@ export default function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Dashboard} element={<DashboardPage />} />
+        <Route path={AppRoute.Banners.Category} element={<DashboardPage />} />
 
         <Route path={AppRoute.Auth.Login} element={<LoginPage />} />
 

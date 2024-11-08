@@ -26,3 +26,26 @@ body {
     font-weight: 600;
   }
 }
+
+.title {
+  @apply text-2xl md:text-[26px] lg:text-[32px] xl:text-[40px] font-semibold leading-[1.2];
+}
+
+.button {
+  @apply flex items-center justify-center text-brand bg-white rounded-full min-h-8 leading-none px-3 md:min-h-10 md:px-5;
+}
+
+.home-vitrin {
+  .swiper-pagination {
+    @apply absolute bottom-6 left-0 flex justify-center items-center gap-[5px] md:gap-[10px];
+  }
+
+  .swiper-pagination-bullet {
+    @apply flex min-w-[10px] max-w-[10px] min-h-[10px] max-h-[10px] rounded-full !mx-0 border opacity-100 border-white bg-transparent cursor-pointer;
+
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply bg-white;
+  }
+}

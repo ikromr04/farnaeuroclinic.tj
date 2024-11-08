@@ -1,4 +1,4 @@
-<header class="container flex items-center justify-between py-7 after:content-[''] after:fixed after:top-0 after:left-0 after:w-screen after:h-screen after:transition-all after:duration-300 after:pointer-events-none group-[.menu-shown]:after:bg-white group-[.menu-shown]:after:pointer-events-auto md:after:hidden md:pt-14">
+<header class="container z-10 flex items-center justify-between py-7 after:content-[''] after:fixed after:top-0 after:left-0 after:w-screen after:h-screen after:transition-all after:duration-300 after:pointer-events-none group-[.menu-shown]:after:bg-white group-[.menu-shown]:after:pointer-events-auto md:after:hidden md:pt-14">
   <x-layouts.main-logo />
 
   <x-layouts.page-navigation />

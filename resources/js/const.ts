@@ -3,6 +3,9 @@ export const AppRoute = {
   Auth: {
     Login: '/auth/login',
   },
+  Banners: {
+    Category: '/dashboard/banners/:category',
+  },
   NotFound: '*',
 };
 

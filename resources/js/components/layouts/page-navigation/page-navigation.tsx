@@ -2,6 +2,7 @@ import React from 'react';
 import NavItem from './nav-item';
 import { Icons } from '@/components/icons';
 import { generatePath } from 'react-router-dom';
+import { AppRoute } from '@/const';
 
 export default function PageNavigation(): JSX.Element {
   return (
@@ -13,16 +14,8 @@ export default function PageNavigation(): JSX.Element {
             icon: <Icons.banner className="transition-all duration-300" width={24} height={20} />,
             links: [
               {
-                href: generatePath('/admin/banners/:banner', { banner: 'home' }),
+                href: generatePath(AppRoute.Banners.Category, { category: 'home-vitrin' }),
                 label: 'Главная страница',
-              },
-              {
-                href: generatePath('/admin/banners/:banner', { banner: 'test-drive' }),
-                label: 'Тест драйв',
-              },
-              {
-                href: generatePath('/admin/banners/:banner', { banner: 'service' }),
-                label: 'Услуги и сервис',
               },
             ],
           }}
