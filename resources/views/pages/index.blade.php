@@ -29,7 +29,7 @@
       </svg>
     </div>
 
-    <x-blocks.advantages class="mb-8 md:mb-10" />
+    <x-blocks.advantages class="mb-8 md:mb-12" />
 
     <x-blocks.doctors :doctors="$data->doctors" />
   </main>
@@ -49,6 +49,31 @@
         el: '.home-vitrin .swiper-pagination',
         clickable: true,
       },
+    });
+
+    new Swiper('.doctors-swiper .swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      spaceBetween: 8,
+      navigation: {
+        nextEl: '.doctors-swiper .swiper-button-next',
+        prevEl: '.doctors-swiper .swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+        1280: {
+          slidesPerView: 4,
+        }
+      }
     });
   </script>
 @endsection
