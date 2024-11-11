@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -12,6 +13,7 @@ class AppController extends Controller
   {
     $data = new stdClass();
     $data->banners = Banner::where('category', 'home-vitrin')->get();
+    $data->doctors = Doctor::paginate(10);
 
     return view('pages.index', compact('data'));
   }

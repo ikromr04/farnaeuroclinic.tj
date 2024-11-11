@@ -30,6 +30,8 @@
     </div>
 
     <x-blocks.advantages class="mb-8 md:mb-10" />
+
+    <x-blocks.doctors :doctors="$data->doctors" />
   </main>
 @endsection
 
