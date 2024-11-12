@@ -8,6 +8,6 @@
     <source media="(min-width: 1024px)" srcSet="/images/main-logo.desktop.svg" width="174" height="60" />
     <source media="(min-width: 768px)" srcSet="/images/main-logo.tablet.svg" width="60" height="60" />
     <source srcSet="/images/main-logo.mobile.svg" width="95" height="60" />
-    <img src="{{ asset('/images/main-logo.mobile.svg') }}" alt="{{ $isHomePage ? 'Логотип Farna Euroclinic' : 'На главную страницу' }}" />
+    <img src="{{ asset('/images/main-logo.mobile.svg') }}" alt="{{ $isHomePage ? __('Логотип Farna Euroclinic') : __('На главную страницу') }}" />
   </picture>
 </a>

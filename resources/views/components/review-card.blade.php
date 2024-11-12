@@ -27,8 +27,8 @@
     </header>
     <p class="line-clamp-5 group-[.review-shown]:line-clamp-none">{{ $review->comment }}</p>
     <button class="text-[14px] font-semibold mt-2" type="button" onclick="this.closest('article').classList.toggle('review-shown')">
-      <span class="group-[.review-shown]:hidden">Читать дальше</span>
-      <span class="hidden group-[.review-shown]:inline">Свернуть</span>
+      <span class="group-[.review-shown]:hidden">{{ __('Читать дальше') }}</span>
+      <span class="hidden group-[.review-shown]:inline">{{ __('Свернуть') }}</span>
     </button>
   </div>
 </article>

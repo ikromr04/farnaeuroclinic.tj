@@ -9,7 +9,7 @@
 
   <div class="flex justify-between items-center">
     <a class="underline" href="{{ route('article', ['programSlug' => $article->category->slug, 'articleSlug' => $article->slug]) }}">
-      Подробнее
+      {{ __('Подробнее') }}
     </a>
     <a class="button-brand" href="{{ route('article', ['programSlug' => $article->category->slug, 'articleSlug' => $article->slug]) }}#apply">
       Записаться <span class="hidden sm:inline">&nbsp;на приём</span>

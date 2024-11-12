@@ -19,7 +19,7 @@
       </address>
 
       <p class="mb-3">
-        Мы работаем по будням с 8:00 до 20:00 <br> По субботам с 09:00 до 18:00
+        {!! __('Мы работаем по будням с 8:00 до 20:00 <br> По субботам с 09:00 до 18:00') !!}
       </p>
 
       <ul class="mb-8 md:mb-0">
@@ -41,7 +41,7 @@
     </div>
 
     <p class="pt-5 border-opacity-50 border-t border-t-white w-full order-3 md:col-span-2 md:pt-8 md:flex md:justify-around lg:text-[16px]">
-      <span>&copy; 2024 <strong class="font-normal">Farna Euroclinic</strong>.</span> Все права защищены.
+      <span>&copy; 2024 <strong class="font-normal">Farna Euroclinic</strong>.</span> {{ __('Все права защищены.') }}
     </p>
   </div>
 </footer>

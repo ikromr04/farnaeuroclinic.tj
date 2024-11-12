@@ -1,4 +1,11 @@
 @tailwind base;
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 
@@ -57,11 +64,42 @@ body {
 
 .articles-swiper {
   .swiper-pagination-bullet {
-    @apply flex min-w-[10px] max-w-[10px] min-h-[10px] max-h-[10px] rounded-full !m-0 border opacity-100 border-brand bg-transparent cursor-pointer;
+    @apply flex min-w-[10px] max-w-[10px] min-h-[10px] max-h-[10px] rounded-full !mx-0 border opacity-100 border-white bg-transparent cursor-pointer;
 
   }
 
   .swiper-pagination-bullet-active {
-    @apply bg-brand;
+    @apply bg-white;
   }
+}
+
+.iti__flag {
+  box-shadow: none !important;
+  transform: scale(1.4);
+  border-radius: 0 !important;
+}
+
+.iti__selected-country {
+  @apply relative !pl-1;
+}
+
+.iti__selected-dial-code {
+  margin-left: 8px !important;
+}
+
+.iti__country-container,
+.iti__selected-country-primary {
+  @apply !p-0;
+}
+
+.iti__arrow {
+  @apply absolute left-full !border-t-[#222];
+}
+
+.iti__arrow--up {
+  @apply !border-b-[#222];
+}
+
+.iti__selected-country-primary:hover {
+  background-color: transparent !important;
 }

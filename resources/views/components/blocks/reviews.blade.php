@@ -8,10 +8,10 @@
 
   <div class="bg-brand text-white -mb-[150px] pb-[150px] md:bg-transparent md:text-inherit md:m-0 md:p-0">
     <h2 class="title flex items-center justify-between pl-[5vw] pt-9 gap-x-4 mb-5 md:p-0">
-      Отзывы о клинике
+      {{ __('Отзывы о клинике') }}
 
       <a class="text-[15px] font-normal min-h-8 pl-4 py-2 !pr-[5vw] !rounded-r-none md:!pr-4 md:text-white md:bg-brand md:!rounded-r-full min-w-max flex items-center gap-x-2 justify-center border border-white text-brand bg-white rounded-full leading-none px-3">
-        Все отзывы 5.0
+        {{ __('Все отзывы 5.0') }}
         <svg class="text-[#FAC816] mb-[2px]" width="16" height="16">
           <use xlink:href="#star" />
         </svg>
@@ -19,7 +19,7 @@
     </h2>
 
     <p class="mx-[5vw] mb-8 md:mx-0">
-      Наши врачи – это признанные эксперты с международным опытом. В FARNA EUROCLINIC мы следуем самым высоким мировым стандартам качества, используя новейшие протоколы и технологии. Благодаря индивидуальному подходу и комплексному лечению, мы помогаем парам преодолеть бесплодие и обрести радость родительства.
+      {{ __('Наши врачи – это признанные эксперты с международным опытом. В FARNA EUROCLINIC мы следуем самым высоким мировым стандартам качества, используя новейшие протоколы и технологии. Благодаря индивидуальному подходу и комплексному лечению, мы помогаем парам преодолеть бесплодие и обрести радость родительства.') }}
     </p>
   </div>
 

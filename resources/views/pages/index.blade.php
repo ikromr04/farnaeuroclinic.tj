@@ -35,7 +35,9 @@
 
     <x-blocks.programs :articles="$data->articles" />
 
-      <x-blocks.reviews :reviews="$data->reviews" />
+    <x-blocks.reviews class="mb-10" :reviews="$data->reviews" />
+
+    <x-application class="mb-8" />
   </main>
 @endsection
 
@@ -129,6 +131,14 @@
         1280: {
           slidesPerView: 4,
         }
+      }
+    });
+
+    document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
+      const phoneNumber = evt.target.value;
+
+      if (phoneNumber.length > 9) {
+        evt.target.value = phoneNumber.slice(0, 9);
       }
     });
   </script>
