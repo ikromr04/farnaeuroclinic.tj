@@ -54,3 +54,14 @@ body {
     @apply bg-white;
   }
 }
+
+.articles-swiper {
+  .swiper-pagination-bullet {
+    @apply flex min-w-[10px] max-w-[10px] min-h-[10px] max-h-[10px] rounded-full !m-0 border opacity-100 border-brand bg-transparent cursor-pointer;
+
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply bg-brand;
+  }
+}

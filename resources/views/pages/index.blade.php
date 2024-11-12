@@ -32,6 +32,10 @@
     <x-blocks.advantages class="mb-8 md:mb-12" />
 
     <x-blocks.doctors :doctors="$data->doctors" />
+
+    <x-blocks.programs :articles="$data->articles" />
+
+      <x-blocks.reviews :reviews="$data->reviews" />
   </main>
 @endsection
 
@@ -62,6 +66,58 @@
       navigation: {
         nextEl: '.doctors-swiper .swiper-button-next',
         prevEl: '.doctors-swiper .swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+        1280: {
+          slidesPerView: 4,
+        }
+      }
+    });
+
+    new Swiper('.articles-swiper .swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      slidesPerView: 1,
+      spaceBetween: 8,
+      pagination: {
+        el: '.articles-swiper .swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          direction: 'vertical',
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1280: {
+          direction: 'horizontal',
+          slidesPerView: 2,
+          spaceBetween: 10,
+        }
+      }
+    });
+
+    new Swiper('.reviews-swiper .swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      spaceBetween: 8,
+      navigation: {
+        nextEl: '.reviews-swiper .swiper-button-next',
+        prevEl: '.reviews-swiper .swiper-button-prev',
       },
       breakpoints: {
         640: {

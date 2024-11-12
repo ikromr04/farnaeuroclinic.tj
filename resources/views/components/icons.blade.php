@@ -26,4 +26,10 @@
   <symbol id="next" viewBox="0 0 8 16" fill="none">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 .999 6 7-6 7"/>
   </symbol>
+  <symbol id="star" viewBox="0 0 16 15" fill="none">
+    <path fill="currentColor" d="M7.237.486a.5.5 0 0 1 .95 0l1.59 4.894h5.146a.5.5 0 0 1 .294.904L11.054 9.31l1.59 4.894a.5.5 0 0 1-.77.559l-4.162-3.025-4.163 3.025a.5.5 0 0 1-.77-.56L4.37 9.31.208 6.284a.5.5 0 0 1 .294-.904h5.146L7.237.486Z"/>
+  </symbol>
+  <symbol id="yandex" viewBox="0 0 14 20" fill="none">
+    <path fill="currentColor" d="M13.563 19.6h-3.357V2.999H8.711c-2.74 0-4.176 1.37-4.176 3.416 0 2.321.99 3.396 3.038 4.767l1.689 1.137-4.852 7.278H.8L5.168 13.1c-2.51-1.793-3.924-3.544-3.924-6.498C1.243 2.911 3.817.4 8.688.4h4.852v19.194h.023v.006Z"/>
+  </symbol>
 </svg>

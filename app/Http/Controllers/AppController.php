@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Doctor;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -13,7 +15,9 @@ class AppController extends Controller
   {
     $data = new stdClass();
     $data->banners = Banner::where('category', 'home-vitrin')->get();
-    $data->doctors = Doctor::paginate(10);
+    $data->doctors = Doctor::limit(10)->get();
+    $data->articles = Article::limit(8)->get();
+    $data->reviews = Review::get();
 
     return view('pages.index', compact('data'));
   }
