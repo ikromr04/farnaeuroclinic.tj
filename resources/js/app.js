@@ -9,7 +9,6 @@ if (input) {
     i18n: ru,
     initialCountry: 'tj',
     separateDialCode: true,
-    utilsScript: '/intl-tel-input/js/utils.js?1730730622316',
   });
 
   input.addEventListener('input', () => {

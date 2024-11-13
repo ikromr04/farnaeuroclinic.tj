@@ -73,33 +73,30 @@ body {
   }
 }
 
-.iti__flag {
-  box-shadow: none !important;
-  transform: scale(1.4);
-  border-radius: 0 !important;
+.iti__country-container {
+  @apply relative !p-0;
 }
 
-.iti__selected-country {
-  @apply relative !pl-1;
-}
-
-.iti__selected-dial-code {
-  margin-left: 8px !important;
-}
-
-.iti__country-container,
 .iti__selected-country-primary {
   @apply !p-0;
 }
 
+.iti__selected-country-primary {
+  @apply !bg-transparent;
+}
+
+.iti__flag {
+  @apply !shadow-none transform scale-[1.4] translate-x-1 !rounded-none;
+}
+
 .iti__arrow {
-  @apply absolute left-full !border-t-[#222];
+  @apply !m-0 absolute left-[calc(100%+4px)];
 }
 
-.iti__arrow--up {
-  @apply !border-b-[#222];
+.iti__selected-dial-code {
+  @apply !ml-3;
 }
 
-.iti__selected-country-primary:hover {
-  background-color: transparent !important;
+.iti__dropdown-content {
+  @apply min-w-[288px] sm:min-w-max;
 }
