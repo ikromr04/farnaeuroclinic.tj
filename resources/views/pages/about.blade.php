@@ -29,5 +29,10 @@
         </div>
       </div>
     </div>
+
+    <x-blocks.advantages class="mb-8 md:mb-12" />
+
+    <x-blocks.mission class="mb-5 md:mb-8 lg:mb-11" />
+    <x-blocks.vision class="mb-5 md:mb-8 lg:mb-11" />
   </main>
 @endsection
