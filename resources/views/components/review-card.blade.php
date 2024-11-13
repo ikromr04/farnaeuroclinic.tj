@@ -25,10 +25,12 @@
         @endforeach
       </div>
     </header>
-    <p class="line-clamp-5 group-[.review-shown]:line-clamp-none">{{ $review->comment }}</p>
-    <button class="text-[14px] font-semibold mt-2" type="button" onclick="this.closest('article').classList.toggle('review-shown')">
-      <span class="group-[.review-shown]:hidden">{{ __('Читать дальше') }}</span>
-      <span class="hidden group-[.review-shown]:inline">{{ __('Свернуть') }}</span>
-    </button>
+    <div class="relative max-h-[160px] group-[.shown]:max-h-[500px] overflow-hidden transition-all duration-300">
+      <p onclick="this.closest('article').classList.add('shown')">{{ $review->comment }}</p>
+      <button class="text-[14px] font-semibold mt-2" type="button" onclick="this.closest('article').classList.remove('shown')">
+        {{ __('Свернуть') }}
+      </button>
+      <div class="absolute bottom-0 left-0 w-full h-[100px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+    </div>
   </div>
 </article>

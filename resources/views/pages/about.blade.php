@@ -25,7 +25,7 @@
 
         <div class="flex items-center flex-wrap gap-x-5 gap-y-3">
           <a class="button" href="#application">{{ __('Консультация') }}</a>
-          <a class="flex items-center border px-2 rounded-[5px] h-8 md:h-10 md:px-5" href="tel:2000000">{{ __('По телефону – 200-00-00') }}</a>
+          <a class="flex items-center border px-2 rounded-[5px] h-8 md:h-10 md:px-5 leading-none" href="tel:2000000">{{ __('По телефону – 200-00-00') }}</a>
         </div>
       </div>
     </div>
@@ -33,6 +33,51 @@
     <x-blocks.advantages class="mb-8 md:mb-12" />
 
     <x-blocks.mission class="mb-5 md:mb-8 lg:mb-11" />
+
     <x-blocks.vision class="mb-5 md:mb-8 lg:mb-11" />
+
+    <x-blocks.values class="mb-8 md:mb-8 lg:mb-11" />
+
+    <x-blocks.reviews class="mb-8 md:mb-8 lg:mb-11" :reviews="$data->reviews" />
+
+    <x-application class="mb-8 md:mb-8 lg:mb-11" />
   </main>
+@endsection
+
+@section('scripts')
+  <script type="module">
+    new Swiper('.reviews-swiper .swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      spaceBetween: 8,
+      navigation: {
+        nextEl: '.reviews-swiper .swiper-button-next',
+        prevEl: '.reviews-swiper .swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+        1280: {
+          slidesPerView: 4,
+        }
+      }
+    });
+
+
+    document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
+      const phoneNumber = evt.target.value;
+
+      if (phoneNumber.length > 9) {
+        evt.target.value = phoneNumber.slice(0, 9);
+      }
+    });
+  </script>
 @endsection

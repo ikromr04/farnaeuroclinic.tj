@@ -24,7 +24,10 @@ class AppController extends Controller
 
   public function about()
   {
-    return view('pages.about');
+    $data = new stdClass();
+    $data->reviews = Review::get();
+
+    return view('pages.about', compact('data'));
   }
 
   public function forpatient()
