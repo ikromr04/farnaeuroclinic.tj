@@ -71,7 +71,6 @@
       }
     });
 
-
     document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
       const phoneNumber = evt.target.value;
 
