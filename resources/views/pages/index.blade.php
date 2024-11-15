@@ -4,7 +4,7 @@
 
 @section('content')
   <main>
-    <h1 class="sr-only">Farna Euroclinic</h1>
+    <h1 class="sr-only">{{ __('Farna Euroclinic') }}</h1>
 
     <div class="relative z-0 home-vitrin bg-brand text-white overflow-hidden md:px-[5vw] lg:px-20 lg:w-[90vw] lg:max-w-[1150px] lg:mx-auto lg:rounded-[10px] mb-8 md:mb-10">
       <div class="swiper">
@@ -33,7 +33,7 @@
 
     <x-blocks.doctors :doctors="$data->doctors" />
 
-    <x-blocks.programs :articles="$data->articles" />
+    <x-blocks.popular-programs :articles="$data->articles" />
 
     <x-blocks.reviews class="mb-10" :reviews="$data->reviews" />
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Doctor;
+use App\Models\Program;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use stdClass;
@@ -32,7 +33,12 @@ class AppController extends Controller
 
   public function forpatient()
   {
-    return view('pages.forpatient');
+    $data = new stdClass();
+    $data->banners = Banner::where('category', 'for-patient')->get();
+    $data->programs = Program::get();
+    $data->reviews = Review::get();
+
+    return view('pages.forpatient', compact('data'));
   }
 
   public function doctors()

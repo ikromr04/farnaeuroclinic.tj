@@ -18,5 +18,13 @@ class BannerSeeder extends Seeder
         'link' => '/dashboard',
       ]);
     }
+
+    foreach (range(1, 5) as $key) {
+      Banner::create([
+        'category' => 'for-patient',
+        'title' => 'Наши пациенты — это больше, чем клиенты; они часть нашей семьи ФАРНА.',
+        'description' => 'Мы подходим к каждому случаю с глубоким пониманием и эмпатией, стремясь создать комфортную и поддерживающую атмосферу.',
+      ]);
+    }
   }
 }
