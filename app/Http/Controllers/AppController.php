@@ -33,7 +33,7 @@ class AppController extends Controller
   public function forpatient()
   {
     $data = new stdClass();
-    $data->banners = Banner::where('category', 'for-patient')->get();
+    $data->banners = Banner::where('page', 'for-patient')->get();
     $data->programs = Program::get();
     $data->reviews = Review::get();
 

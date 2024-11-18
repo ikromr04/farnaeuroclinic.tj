@@ -8,6 +8,7 @@ const
   doctorsSwiper = document.querySelector('.doctors-swiper'),
   articlesSwiper = document.querySelector('.articles-swiper'),
   reviewsSwiper = document.querySelector('.reviews-swiper'),
+  programsSwiper = document.querySelector('.programs-swiper'),
   valuesWrapper = document.querySelector('[data-shown]'),
 
   setMaxHeight = (wrapper, expanded) => {
@@ -116,6 +117,23 @@ if (reviewsSwiper) {
         slidesPerView: 4,
       }
     }
+  });
+}
+
+if (programsSwiper) {
+  new Swiper('.programs-swiper .swiper', {
+    loop: true,
+    slidesPerView: 1,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    spaceBetween: 16,
+    pagination: {
+      el: '.programs-swiper .swiper-pagination',
+      clickable: true,
+    },
   });
 }
 
