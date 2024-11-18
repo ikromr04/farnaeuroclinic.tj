@@ -1,6 +1,6 @@
 @props(['review'])
 
-<article {{ $attributes->merge(['class' => 'relative flex flex-col w-[240px] md:w-full md:mt-[5px] group']) }}>
+<article {{ $attributes->merge(['class' => 'relative flex flex-col w-[240px] md:w-full md:mt-[5px] group']) }} onmouseover="this.classList.add('shown')" onmouseout="this.classList.remove('shown')">
   <div class="hidden md:block pointer-events-none absolute -top-[5px] left-0 h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
   <div class="bg-white py-8 px-5 rounded-[10px] border border-brand min-h-[300px]">
     <header class="mb-3">
@@ -26,10 +26,7 @@
       </div>
     </header>
     <div class="relative max-h-[160px] group-[.shown]:max-h-[500px] overflow-hidden transition-all duration-300">
-      <p onclick="this.closest('article').classList.add('shown')">{{ $review->comment }}</p>
-      <button class="text-[14px] font-semibold mt-2" type="button" onclick="this.closest('article').classList.remove('shown')">
-        {{ __('Свернуть') }}
-      </button>
+      <p>{{ $review->comment }}</p>
       <div class="absolute bottom-0 left-0 w-full h-[100px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
     </div>
   </div>

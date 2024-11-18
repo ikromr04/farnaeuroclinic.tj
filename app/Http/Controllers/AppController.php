@@ -41,6 +41,17 @@ class AppController extends Controller
     return view('pages.forpatient', compact('data'));
   }
 
+  public function program($slug)
+  {
+    $data = new stdClass();
+    $data->banners = Banner::where('category', 'program')->get();
+    $data->reviews = Review::get();
+    $data->program = Program::where('slug', $slug)->first();
+    $data->articles = Article::where('program_id', $data->program->id)->paginate(8);
+
+    return view('pages.program', compact('data'));
+  }
+
   public function doctors()
   {
     return view('pages.doctors');

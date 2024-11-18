@@ -32,4 +32,7 @@
   <symbol id="yandex" viewBox="0 0 14 20" fill="none">
     <path fill="currentColor" d="M13.563 19.6h-3.357V2.999H8.711c-2.74 0-4.176 1.37-4.176 3.416 0 2.321.99 3.396 3.038 4.767l1.689 1.137-4.852 7.278H.8L5.168 13.1c-2.51-1.793-3.924-3.544-3.924-6.498C1.243 2.911 3.817.4 8.688.4h4.852v19.194h.023v.006Z"/>
   </symbol>
+  <symbol id="arrow-down" viewBox="0 0 14 9" fill="none">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m1 1.5 6 6 6-6"/>
+  </symbol>
 </svg>

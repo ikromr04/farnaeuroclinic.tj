@@ -111,11 +111,6 @@
 
     new Swiper('.reviews-swiper .swiper', {
       loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
       spaceBetween: 8,
       navigation: {
         nextEl: '.reviews-swiper .swiper-button-next',
@@ -137,8 +132,8 @@
     document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
       const phoneNumber = evt.target.value;
 
-      if (phoneNumber.length > 9) {
-        evt.target.value = phoneNumber.slice(0, 9);
+      if (phoneNumber.length > 11) {
+        evt.target.value = phoneNumber.slice(0, 11);
       }
     });
   </script>

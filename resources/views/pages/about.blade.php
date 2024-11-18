@@ -8,10 +8,10 @@
 
     <div class="bg-brand mb-10 lg:bg-transparent">
       <div class="container text-white py-8 md:py-10 lg:rounded-[10px] lg:py-10 lg:px-20 about-vitrin">
-        <strong class="flex text-[24px] md:text-[26px] xl:text-[32px] leading-[1.2] font-semibold mb-8 md:mb-5 lg:max-w-[530px]">
+        <strong class="flex text-[24px] md:text-[26px] xl:text-[32px] leading-[1.2] font-semibold mb-8 md:mb-5 lg:max-w-[530px] xl:max-w-[588px]">
           {{ __('Farna EUROCLINIC – это центр передовых репродуктивных технологий, где наука и опыт сливаются воедино.') }}
         </strong>
-        <div class="mb-8 md:mb-5 lg:max-w-[510px]">
+        <div class="mb-8 md:mb-5 lg:max-w-[510px] xl:max-w-[530px]">
           <p class="pb-2 border-b border-b-[#50C1B7] mb-2">
             {{ __('Наша команда, состоящая из признанных мировых экспертов, применяет инновационные подходы и персонализированные программы лечения, основанные на последних научных исследованиях.') }}
           </p>
@@ -48,11 +48,6 @@
   <script type="module">
     new Swiper('.reviews-swiper .swiper', {
       loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
       spaceBetween: 8,
       navigation: {
         nextEl: '.reviews-swiper .swiper-button-next',
@@ -74,8 +69,8 @@
     document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
       const phoneNumber = evt.target.value;
 
-      if (phoneNumber.length > 9) {
-        evt.target.value = phoneNumber.slice(0, 9);
+      if (phoneNumber.length > 11) {
+        evt.target.value = phoneNumber.slice(0, 11);
       }
     });
   </script>

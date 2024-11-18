@@ -48,7 +48,8 @@ body {
 }
 
 .home-vitrin,
-.patients-swiper {
+.patients-swiper,
+.program-swiper{
   .swiper-pagination {
     @apply absolute bottom-6 left-0 flex justify-center items-center gap-[5px] md:gap-[10px];
   }
