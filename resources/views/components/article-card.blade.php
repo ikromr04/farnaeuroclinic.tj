@@ -13,7 +13,7 @@
     <a class="underline" href="{{ route('article', $article->slug) }}">
       {{ __('Подробнее') }}
     </a>
-    <a class="button-brand" href="{{ route('article', $article->slug) }}#apply">
+    <a class="button-brand" href="{{ route('article', $article->slug) }}">
       Записаться <span class="hidden sm:inline">&nbsp;на приём</span>
     </a>
   </div>

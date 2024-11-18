@@ -1,5 +1,5 @@
 <section id="application" {{ $attributes->merge([
-    'class' => 'container relative z-0 sm:p-10 sm:border sm:border-brand sm:rounded-[10px] md:pl-20 md:pr-12 md:flex md:items-center md:gap-x-10',
+    'class' => 'container relative z-0 sm:p-10 sm:border sm:border-brand sm:rounded-[10px] md:pl-20 md:pr-12 md:flex md:items-center md:gap-x-10 sm:mt-[10px]',
 ]) }}>
   <div class="hidden sm:block pointer-events-none absolute -top-[10px] -left-[.5px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
   <div class="hidden sm:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>

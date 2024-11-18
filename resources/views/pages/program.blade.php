@@ -41,7 +41,7 @@
 
 @section('scripts')
   <script type="module">
-    new Swiper('.program-swiper .swiper', {
+    new Swiper('.patients-swiper .swiper', {
       loop: true,
       autoplay: {
         delay: 5000,
@@ -50,7 +50,7 @@
       },
       spaceBetween: 16,
       pagination: {
-        el: '.program-swiper .swiper-pagination',
+        el: '.patients-swiper .swiper-pagination',
         clickable: true,
       },
     });
@@ -109,7 +109,7 @@
                     <a class="underline" href="/articles/${article.slug}">
                       Подробнее
                     </a>
-                    <a class="button-brand" href="/articles/${article.slug}#apply">
+                    <a class="button-brand" href="/articles/${article.slug}">
                       Записаться <span class="hidden sm:inline">&nbsp;на приём</span>
                     </a>
                   </div>

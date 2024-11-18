@@ -7,7 +7,6 @@ use App\Models\Banner;
 use App\Models\Doctor;
 use App\Models\Program;
 use App\Models\Review;
-use Illuminate\Http\Request;
 use stdClass;
 
 class AppController extends Controller
@@ -15,7 +14,7 @@ class AppController extends Controller
   public function index()
   {
     $data = new stdClass();
-    $data->banners = Banner::where('category', 'home-vitrin')->get();
+    $data->banners = Banner::where('page', 'home')->get();
     $data->doctors = Doctor::limit(10)->get();
     $data->articles = Article::limit(8)->get();
     $data->reviews = Review::get();
@@ -50,6 +49,17 @@ class AppController extends Controller
     $data->articles = Article::where('program_id', $data->program->id)->paginate(8);
 
     return view('pages.program', compact('data'));
+  }
+
+  public function article($slug)
+  {
+    $data = new stdClass();
+    $data->banners = Banner::where('category', 'for-patient')->get();
+    $data->article = Article::where('slug', $slug)->first();
+    $data->articles = Article::where('program_id', $data->article->program_id)->paginate(8);
+    $data->reviews = Review::get();
+
+    return view('pages.articles.show', compact('data'));
   }
 
   public function doctors()
