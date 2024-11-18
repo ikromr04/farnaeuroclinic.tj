@@ -8,7 +8,7 @@ const
   doctorsSwiper = document.querySelector('.doctors-swiper'),
   articlesSwiper = document.querySelector('.articles-swiper'),
   reviewsSwiper = document.querySelector('.reviews-swiper'),
-  wrappers = document.querySelectorAll('[data-sizable-wrapper]'),
+  valuesWrapper = document.querySelector('[data-shown]'),
 
   setMaxHeight = (wrapper, expanded) => {
     const sizable = wrapper.querySelector('[data-sizable]');
@@ -119,37 +119,63 @@ if (reviewsSwiper) {
   });
 }
 
-wrappers.forEach((wrapper) => {
-  const sizableElement = wrapper.querySelector('[data-sizable]');
-  if (!sizableElement) return;
-
-  wrapper.addEventListener('mouseenter', () => {
-    if (!wrapper.classList.contains('shown')) {
-      wrapper.classList.add('shown');
-      setMaxHeight(wrapper, true);
-    }
-  });
-
-  wrapper.addEventListener('mouseleave', () => {
-    if (wrapper.classList.contains('shown')) {
-      wrapper.classList.remove('shown');
-      setMaxHeight(wrapper, false);
-    }
-  });
-});
-
 document.addEventListener('click', (evt) => {
-  const clickedWrapper = evt.target.closest('[data-sizable-wrapper]');
-  const activeWrapper = document.querySelector('.shown[data-sizable-wrapper]');
+  const
+    clickedWrapper = evt.target.closest('[data-sizable-wrapper]'),
+    activeWrapper = document.querySelector('.shown[data-sizable-wrapper]');
 
-  if (activeWrapper && activeWrapper !== clickedWrapper) {
+  if (clickedWrapper) {
+    if (activeWrapper && activeWrapper !== clickedWrapper) {
+      activeWrapper.classList.remove('shown');
+      setMaxHeight(activeWrapper, false);
+    }
+
+    if (clickedWrapper.classList.contains('shown')) {
+      clickedWrapper.classList.remove('shown');
+      setMaxHeight(clickedWrapper, false);
+    } else {
+      clickedWrapper.classList.add('shown');
+      setMaxHeight(clickedWrapper, true);
+    }
+  }
+
+  if (activeWrapper) {
     activeWrapper.classList.remove('shown');
     setMaxHeight(activeWrapper, false);
   }
-
-  if (clickedWrapper && !clickedWrapper.classList.contains('shown')) {
-    clickedWrapper.classList.add('shown');
-    setMaxHeight(clickedWrapper, true);
-  }
 });
 
+if (valuesWrapper) {
+  valuesWrapper.addEventListener('click', (evt) => {
+    const valueItem = evt.target.closest('[data-show]');
+
+    if (valueItem) {
+      if (valuesWrapper.dataset.shown == valueItem.dataset.show) {
+        valuesWrapper.setAttribute('data-shown', '');
+      } else {
+        if (+valueItem.dataset.show < 4) {
+          document.querySelector('.shown[data-show="4"]')?.classList.remove('shown');
+          document.querySelector('.shown[data-show="5"]')?.classList.remove('shown');
+        }
+        valuesWrapper.setAttribute('data-shown', valueItem.dataset.show);
+      }
+    }
+  });
+
+  document.addEventListener('click', (evt) => {
+    if (!evt.target.closest('[data-show]')) {
+      valuesWrapper.setAttribute('data-shown', '');
+      document.querySelector('.shown[data-show]')?.classList.remove('shown');
+    }
+
+    if (evt.target.closest('[data-show="4"]')) {
+      valuesWrapper.setAttribute('data-shown', '');
+      document.querySelector('.shown[data-show="5"]')?.classList.remove('shown');
+    }
+
+    if (evt.target.closest('[data-show="5"]')) {
+      valuesWrapper.setAttribute('data-shown', '');
+      document.querySelector('.shown[data-show="4"]')?.classList.remove('shown');
+    }
+  });
+}

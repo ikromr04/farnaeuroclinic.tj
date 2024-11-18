@@ -3,19 +3,19 @@
 @section('title', __('Главная') . ' | ')
 
 @section('content')
-  <main class="flex flex-col">
+  <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12">
     <h1 class="sr-only">{{ __('Farna Euroclinic') }}</h1>
 
     <x-blocks.banners :banners="$data->banners" />
 
-    <x-blocks.advantages class="my-8 md:my-10 lg:my-12" />
+    <x-blocks.advantages />
 
-    <x-blocks.doctors class="mb-8 md:mb-10 lg:mb-12" :doctors="$data->doctors" />
+    <x-blocks.doctors :doctors="$data->doctors" />
 
-    <x-blocks.popular-programs class="mb-8 md:mb-10 lg:mb-12" :articles="$data->articles" />
+    <x-blocks.popular-programs :articles="$data->articles" />
 
-    <x-blocks.reviews class="mb-8 md:mb-10 lg:mb-12" :reviews="$data->reviews" />
+    <x-blocks.reviews :reviews="$data->reviews" />
 
-    <x-application class="mb-8 md:mb-10 lg:mb-12" />
+    <x-application />
   </main>
 @endsection

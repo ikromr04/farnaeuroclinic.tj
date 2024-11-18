@@ -2,7 +2,7 @@
 
 @if ($reviews && $reviews->count())
   <section {{ $attributes->merge([
-      'class' => 'relative z-0 flex flex-col md:bg-white md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:w-[90vw] md:max-w-[1150px] md:mx-auto md:mb-12 md:mt-[10px]',
+      'class' => 'relative z-0 flex flex-col md:bg-white md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:w-[90vw] md:max-w-[1150px] md:mx-auto md:mt-[10px]',
   ]) }}>
     <div class="hidden md:block pointer-events-none absolute -top-[10px] -left-[.5px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
     <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="absolute z-10 left-1/2 transform -translate-x-1/2 top-[150px] h-0 w-[calc(240px+80px)] sm:w-[584px] md:w-[calc(100%+96px)] md:top-[180px]">
+      <div class="absolute z-10 left-1/2 transform -translate-x-1/2 top-[150px] h-0 w-[calc(240px+80px)] sm:w-[584px] md:w-[calc(100%+96px)] md:top-[160px]">
         <button class="swiper-button-prev after:hidden absolute left-0 !m-0 flex w-8 h-8 transform -translate-y-1/2 justify-center items-center rounded-full bg-brand border border-white pr-[2px]" type="button">
           <svg class="flex text-white !w-2 !h-4" width="8" height="16">
             <use xlink:href="#prev" />
