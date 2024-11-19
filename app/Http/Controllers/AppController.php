@@ -54,7 +54,6 @@ class AppController extends Controller
   public function article($slug)
   {
     $data = new stdClass();
-    $data->banners = Banner::where('category', 'for-patient')->get();
     $data->article = Article::where('slug', $slug)->first();
     $data->articles = Article::where('program_id', $data->article->program_id)->paginate(8);
     $data->reviews = Review::get();

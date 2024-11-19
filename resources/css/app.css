@@ -9,6 +9,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Source Sans 3", sans-serif;
   font-weight: 400;
@@ -28,9 +32,9 @@ body {
 }
 
 .navlink {
-  @apply flex justify-center border-b-[#D3D3D3] border-b-[1px] leading-6 text-center md:border-b-0 md:px-3 md:py-2;
+  @apply flex justify-center border-b-[#D3D3D3] border-b-[1px] leading-6 text-center md:border-b-0 md:px-3 md:py-2 transition-all duration-300 hover:text-brand;
 
-  &:not([href]) {
+  &.active {
     font-weight: 600;
   }
 }
@@ -132,4 +136,10 @@ body {
 .programs-list {
   @apply gap-2;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+}
+
+.plate {
+  p {
+    @apply mb-4;
+  }
 }

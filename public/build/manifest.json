@@ -20,12 +20,12 @@
     "src": "node_modules/intl-tel-input/build/img/globe@2x.webp"
   },
   "resources/css/app.css": {
-    "file": "assets/app-ANUkKbDi.css",
+    "file": "assets/app-BAu-B6jS.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Bw_4rdBR.js",
+    "file": "assets/app-sKgxHZG7.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -43,7 +43,7 @@
     ]
   },
   "resources/js/main.tsx": {
-    "file": "assets/main-B1qdAJxf.js",
+    "file": "assets/main-5d66fSH5.js",
     "name": "main",
     "src": "resources/js/main.tsx",
     "isEntry": true,
@@ -51,7 +51,7 @@
       "__commonjsHelpers-Cpj98o6Y.js"
     ],
     "css": [
-      "assets/main-DDPLVf_Y.css"
+      "assets/main-C1CXh5F9.css"
     ]
   }
 }

@@ -3,128 +3,108 @@
 @section('title', $data->article->title . ' | ')
 
 @section('content')
-  <main>
-    <div class="relative z-0 patients-swiper bg-brand text-white overflow-hidden md:px-[5vw] lg:px-20 lg:w-[90vw] lg:max-w-[1150px] lg:mx-auto lg:rounded-[10px] mb-8 md:mb-10">
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          @foreach ($data->banners as $banner)
-            <div class="swiper-slide md:flex md:items-center md:gap-11 md:py-12 xl:py-10 lg:gap-8 xl:gap-24">
-              <div class="mx-auto max-w-[90vw] pt-8 pb-14 md:max-w-none md:py-0">
-                <h2 class="title mb-5 md:mb-6 lg:mb-8">{{ $banner->title }}</h2>
-                <p>{{ $banner->description }}</p>
-                @if ($banner->link)
-                  <a class="button max-w-max mt-5 md:mt-6 lg:mt-8" href="{{ $banner->link }}">{{ __('Подробнее') }}</a>
-                @endif
-              </div>
-              <img class="hidden md:flex md:min-w-[260px] md:min-h-[260px] lg:min-w-[300px] lg:min-h-[300px] xl:min-w-[320px] xl:min-h-[320px]" src="{{ $banner->image }}" width="260" height="260" alt="{{ $banner->title }}" />
-            </div>
-          @endforeach
+  <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12">
+    <div class="bg-brand py-8 md:py-20">
+      <div class="container text-white">
+        <h1 class="text-2xl md:text-[26px] lg:text-[32px] font-semibold leading-[1.2] max-w-[580px] xl:max-w-[864px] mb-5 md:mb-6 lg:mb-8">{{ $data->article->title }}</h1>
+
+        <p class="max-w-[560px] xl:max-w-[800px]">{{ $data->article->description }}</p>
+
+        <div class="flex items-center flex-wrap gap-x-5 gap-y-3  mt-5 md:mt-6 lg:mt-8">
+          <a class="button" href="#application">{{ __('Записаться') }}</a>
+          <a class="flex items-center border px-2 rounded-[5px] h-8 md:h-10 md:px-5 leading-none" href="tel:2000000">{{ __('По телефону – 200-00-00') }}</a>
         </div>
-        <div class="swiper-pagination"></div>
       </div>
-      <svg class="absolute bottom-0 right-0 min-w-[270px] min-h-[270px] transform translate-x-1/2 translate-y-1/2 opacity-10 md:hidden" width="270" height="270">
-        <use xlink:href="#icon" />
-      </svg>
     </div>
 
-    <div class="container">
-      <h1 class="text-[25px] leading-[1.2] font-semibold mb-2">{{ $data->article->title }}</h1>
+    <div class="container flex flex-col gap-8 md:gap-10 lg:gap-12 md:block">
+      <div class="hidden relative z-10 md:block float-left border bg-white border-brand rounded-[10px] mr-10 lg:mr-14 mb-6 min-w-[270px] max-w-[270px] lg:min-w-[430px] lg:max-w-[430px] overflow-hidden">
+        <div class="hidden md:block pointer-events-none absolute -top-[5px] -left-[1px] h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
+        <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
+        <ul class="p-10 flex flex-col gap-y-2">
+          @foreach ($data->article->blocks as $block)
+            <li>
+              <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1" href="#{{ $block->slug }}">
+                {{ $block->short_title }}
+              </a>
+            </li>
+          @endforeach
+          <li>
+            <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1" href="#articles">
+              {{ __('Статьи по теме') }}
+            </a>
+          </li>
+          <li>
+            <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1" href="#application">
+              {{ __('Записаться на приём') }}
+            </a>
+          </li>
+        </ul>
 
-      <div>{!! $data->article->description !!}</div>
+        <svg class="absolute z-10 top-4 pointer-events-none right-4 hidden lg:block min-w-[380px] min-h-[380px] transform translate-x-1/2 -translate-y-1/2 text-brand opacity-10" width="270" height="270">
+          <use xlink:href="#icon" />
+        </svg>
+      </div>
 
-      <section>
-        <h2>{{ __('Подготовка') }}</h2>
+      <div class="relative group" data-sizable-wrapper>
+        <ul class="hidden md:flex absolute top-0 right-0 items-center py-3 px-5 bg-opacity-10 bg-brand float-left w-[calc(100%-290px)] lg:w-[calc(100%-470px)] mb-4 leading-none">
+          <li class="min-w-max">
+            <a href="{{ route('forpatient') }}">{{ __('Пациентам') }}</a>
+            <span class="inline-block pl-[3px] pr-[5px]">|</span>
+          </li>
+          <li class="min-w-max">
+            <a href="{{ route('program', $data->article->category->slug) }}">{{ $data->article->category->name }}</a>
+            <span class="text-brand inline-block transform translate-y-[1px] px-1"> > </span>
+          </li>
+          <li class="font-light line-clamp-1">
+            {{ $data->article->title }}
+          </li>
+        </ul>
+        <div class="transition-all duration-300 max-h-[90px] overflow-hidden md:!max-h-none md:inline" data-sizable="90">
+          <div class="md:mx-5 md:pt-16 plate lg:mx-10">
+            {!! $data->article->info !!}
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0 md:hidden"></div>
+      </div>
 
-      </section>
+      <div class="relative md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white flex flex-col gap-8 md:mt-12 xl:mt-14 mb-8 md:mb-10 lg:mb-12">
+        <div class="hidden md:block pointer-events-none absolute -top-[10px] -left-[1px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
+        <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
+
+        @foreach ($data->article->blocks as $block)
+          <section id="{{ $block->slug }}">
+            <h2 class="title mb-2">
+              <span class="md:hidden">{{ $block->short_title }}</span>
+              <span class="hidden md:inline">{{ $block->title }}</span>
+            </h2>
+
+            <div class="relative group" data-sizable-wrapper>
+              <div class="transition-all duration-300 max-h-[90px] overflow-hidden md:!max-h-none" data-sizable="90">
+                {!! $block->content !!}
+              </div>
+              <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0 md:hidden"></div>
+            </div>
+          </section>
+        @endforeach
+
+        @if ($data->articles && $data->articles->count())
+          <div class="relative articles-swiper md:flex md:items-center md:justify-center md:mx-auto md:w-auto xl:block xl:max-w-full mt-8" id="articles">
+            <div class="swiper md:h-[448px] xl:h-auto">
+              <div class="swiper-wrapper">
+                @foreach ($data->articles as $article)
+                  <div class="swiper-slide">
+                    <x-article-card :article="$article" />
+                  </div>
+                @endforeach
+              </div>
+            </div>
+
+            <div class="static swiper-pagination mt-6 flex justify-center gap-1 md:flex-col md:gap-2 md:mt-0 md:absolute md:-ml-[5px] md:!left-[calc(100%+40px)] xl:flex-row xl:static xl:mt-10"></div>
+        @endif
+      </div>
     </div>
+
+    <x-application />
   </main>
-@endsection
-
-@section('scripts')
-  <script type="module">
-    new Swiper('.patients-swiper .swiper', {
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      spaceBetween: 16,
-      pagination: {
-        el: '.patients-swiper .swiper-pagination',
-        clickable: true,
-      },
-    });
-
-    // new Swiper('.reviews-swiper .swiper', {
-    //   loop: true,
-    //   spaceBetween: 8,
-    //   navigation: {
-    //     nextEl: '.reviews-swiper .swiper-button-next',
-    //     prevEl: '.reviews-swiper .swiper-button-prev',
-    //   },
-    //   breakpoints: {
-    //     640: {
-    //       slidesPerView: 2,
-    //     },
-    //     1024: {
-    //       slidesPerView: 3,
-    //     },
-    //     1280: {
-    //       slidesPerView: 4,
-    //     }
-    //   }
-    // });
-
-    // document.querySelector('[name="tel"]').addEventListener('input', (evt) => {
-    //   const phoneNumber = evt.target.value;
-
-    //   if (phoneNumber.length > 11) {
-    //     evt.target.value = phoneNumber.slice(0, 11);
-    //   }
-    // });
-
-    // document.querySelector('[data-show-more]').addEventListener('click', (evt) => {
-    //   fetch(`/articles?program_id=${evt.target.dataset.programId}&page=${evt.target.dataset.showMore}`)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       if (window.innerWidth < 768) {
-    //         evt.target.previousElementSibling.insertAdjacentHTML('beforeend', data.data.map((article, index) => `
-  //           <li>
-  //             <a class="flex border-b hover:font-semibold" href="/articles/${article.slug}">
-  //               ${((index+1)+8*(evt.target.dataset.showMore-1)).toString().padStart(2, '0')}. ${article.title}
-  //             </a>
-  //           </li>
-  //         `).join(' '))
-    //       } else {
-    //         evt.target.previousElementSibling.previousElementSibling.insertAdjacentHTML('beforeend', data.data.map((article, index) => `
-  //           <li>
-  //             <article class="relative flex flex-col max-w-[90vw] mx-auto sm:h-[204px] sm:pt-10 sm:pr-6 sm:pb-6 sm:pl-10 sm:border sm:border-brand sm:rounded-[10px] mt-[5px]">
-  //               <div class="hidden sm:block pointer-events-none absolute -top-[5px] -left-[.5px] h-10 rounded-[10px] bg-brand w-[240px] -z-10"></div>
-  //               <div class="hidden sm:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
-
-  //               <h2 class="title mb-3 sm:line-clamp-1 sm:mb-[10px] lg:!text-[26px]">${article.title}</h2>
-  //               <p class="mb-7 sm:line-clamp-2 sm:mb-5 lg:mb-3 xl:mb-5">${article.description}</p>
-
-  //               <div class="flex justify-between items-center">
-  //                 <a class="underline" href="/articles/${article.slug}">
-  //                   Подробнее
-  //                 </a>
-  //                 <a class="button-brand" href="/articles/${article.slug}#apply">
-  //                   Записаться <span class="hidden sm:inline">&nbsp;на приём</span>
-  //                 </a>
-  //               </div>
-  //             </article>
-  //           </li>
-  //         `).join(' '))
-    //       }
-
-    //       if (+data.last_page === +evt.target.dataset.showMore) {
-    //         evt.target.remove();
-    //       } else {
-    //         ++evt.target.dataset.showMore
-    //       }
-    //     })
-    // });
-  </script>
 @endsection

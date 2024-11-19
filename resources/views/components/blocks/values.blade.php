@@ -13,7 +13,7 @@
           <span>0{{ $key }}.</span>
           {{ __('Эмпатия и забота') }}
         </h3>
-        <div class="transition-all duration-300 max-h-[72px] overflow-hidden group-[.shown]:max-h-[500px] md:max-h-none" data-sizable="">
+        <div class="transition-all duration-300 max-h-[72px] overflow-hidden md:max-h-none" data-sizable="72">
           <p>
             {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
           </p>
@@ -23,74 +23,77 @@
     @endforeach
   </ol>
 
-  <div class="hidden md:grid grid-cols-2 gap-2 xl:hidden">
-    <div class="flex flex-col gap-2">
-      <div class="relative group border border-brand py-8 px-6 rounded-[10px]" data-sizable-wrapper>
-        <h3 class="font-semibold mb-3 flex items-center gap-x-2">
-          <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">01</span>
-          {{ __('Эмпатия и забота') }}
-        </h3>
-        <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
-          <p>
-            {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
-          </p>
-          <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+  <div class="group" data-value>
+    <div class="hidden md:grid grid-cols-2 gap-2 xl:hidden max-h-[628px]">
+      <div class="flex flex-col gap-2">
+        <div class="relative group border border-brand py-8 px-6 rounded-[10px] bg-white z-10" data-sizable-wrapper data-value-left>
+          <h3 class="font-semibold mb-3 flex items-center gap-x-2">
+            <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">01</span>
+            {{ __('Эмпатия и забота') }}
+          </h3>
+          <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+            <p>
+              {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
+            </p>
+            <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+          </div>
+        </div>
+        <div class="relative group border border-brand py-8 px-6 rounded-[10px] bg-white z-10" data-sizable-wrapper data-value-left>
+          <h3 class="font-semibold mb-3 flex items-center gap-x-2">
+            <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">03</span>
+            {{ __('Эмпатия и забота') }}
+          </h3>
+          <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+            <p>
+              {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
+            </p>
+
+            <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+          </div>
         </div>
       </div>
-      <div class="relative group border border-brand py-8 px-6 rounded-[10px]" data-sizable-wrapper="">
-        <h3 class="font-semibold mb-3 flex items-center gap-x-2">
-          <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">03</span>
-          {{ __('Эмпатия и забота') }}
-        </h3>
-        <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
-          <p>
-            {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
-          </p>
 
-          <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+      <div class="flex flex-col gap-2 mb-2">
+        <div class="relative group border border-brand py-8 px-6 rounded-[10px] bg-white z-10" data-sizable-wrapper>
+          <h3 class="font-semibold mb-3 flex items-center gap-x-2">
+            <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">02</span>
+            {{ __('Эмпатия и забота') }}
+          </h3>
+          <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+            <p>
+              {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
+            </p>
+
+            <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+          </div>
         </div>
-      </div>
-      <div class="relative group border border-brand py-8 px-6 rounded-[10px]" data-sizable-wrapper="">
-        <h3 class="font-semibold mb-3 flex items-center gap-x-2">
-          <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">05</span>
-          {{ __('Эмпатия и забота') }}
-        </h3>
-        <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
-          <p>
-            {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
-          </p>
+        <div class="relative group border border-brand py-8 px-6 rounded-[10px] bg-white z-10" data-sizable-wrapper>
+          <h3 class="font-semibold mb-3 flex items-center gap-x-2">
+            <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">04</span>
+            {{ __('Эмпатия и забота') }}
+          </h3>
+          <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+            <p>
+              {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
+            </p>
 
-          <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+            <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <div class="relative group border border-brand py-8 px-6 rounded-[10px]" data-sizable-wrapper="">
-        <h3 class="font-semibold mb-3 flex items-center gap-x-2">
-          <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">02</span>
-          {{ __('Эмпатия и забота') }}
-        </h3>
-        <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
-          <p>
-            {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
-          </p>
+    <div class="relative group border border-brand py-8 px-6 rounded-[10px] w-[calc(50%-4px)] xl:hidden transition-all duration-300 group-[[data-value='left']]:ml-[calc(50%+4px)]" data-sizable-wrapper>
+      <h3 class="font-semibold mb-3 flex items-center gap-x-2">
+        <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">05</span>
+        {{ __('Эмпатия и забота') }}
+      </h3>
+      <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+        <p>
+          {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
+        </p>
 
-          <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
-        </div>
-      </div>
-      <div class="relative group border border-brand py-8 px-6 rounded-[10px]" data-sizable-wrapper="">
-        <h3 class="font-semibold mb-3 flex items-center gap-x-2">
-          <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">04</span>
-          {{ __('Эмпатия и забота') }}
-        </h3>
-        <div class="relative transition-all duration-300 max-h-[180px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
-          <p>
-            {{ __('Мы предоставляем высококачественные и интонационные методы помощи пациентам, стремимся к созданию безопасной и эффективной среды для процедур экстракорпорального оплодотворения, обеспечивая ациентам доступ к передовым технологиям и высококвалифицированному медицинскому персоналу. Наша миссия – помочь семьям осуществить свою мечту о рождении здорового ребенка, обеспечивая им поддержку, заботу и понимание на каждом  этапе этого важного и чувствительного процесса.') }}
-          </p>
-
-          <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
-        </div>
+        <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
       </div>
     </div>
   </div>

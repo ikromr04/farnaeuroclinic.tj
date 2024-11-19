@@ -5,27 +5,27 @@
 <nav class="fixed top-0 left-0 flex flex-col-reverse justify-end transform transition-all duration-300 w-screen z-10 -translate-y-full group-[.menu-shown]:translate-y-0 md:translate-y-0 md:static md:flex-row">
   <ul class="flex flex-col gap-[6px] md:flex-row md:items-center md:gap-0">
     <li>
-      <a class="navlink" @if ($routeName !== 'about') href="{{ route('about') }}" @endif>
+      <a class="navlink{{ $routeName == 'about' ? ' active' : ' ' }}" href="{{ route('about') }}">
         {{ __('О клинике') }}
       </a>
     </li>
     <li>
-      <a class="navlink" @if ($routeName !== 'forpatient' && $routeName !== 'program' && $routeName !== 'article') href="{{ route('forpatient') }}" @endif>
+      <a class="navlink{{ $routeName == 'forpatient' || $routeName == 'program' || $routeName == 'article' ? ' active' : ' ' }}" href="{{ route('forpatient') }}">
         {{ __('Пациентам') }}
       </a>
     </li>
     <li>
-      <a class="navlink" @if ($routeName !== 'doctors') href="{{ route('doctors') }}" @endif>
+      <a class="navlink{{ $routeName == 'doctors' ? ' active' : ' ' }}" href="{{ route('doctors') }}">
         {{ __('Врачи') }}
       </a>
     </li>
     <li>
-      <a class="navlink" @if ($routeName !== 'services&prices') href="{{ route('services&prices') }}" @endif>
+      <a class="navlink{{ $routeName == 'services&prices' ? ' active' : ' ' }}" href="{{ route('services&prices') }}">
         {{ __('Услуги и прайс') }}
       </a>
     </li>
     <li>
-      <a class="navlink" @if ($routeName !== 'contacts') href="{{ route('contacts') }}" @endif>
+      <a class="navlink{{ $routeName == 'contacts' ? ' active' : ' ' }}" href="{{ route('contacts') }}">
         {{ __('Контакты') }}
       </a>
     </li>

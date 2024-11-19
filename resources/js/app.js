@@ -10,6 +10,7 @@ const
   reviewsSwiper = document.querySelector('.reviews-swiper'),
   programsSwiper = document.querySelector('.programs-swiper'),
   valuesWrapper = document.querySelector('[data-shown]'),
+  valuesLeft = document.querySelector('[data-value-left]'),
 
   setMaxHeight = (wrapper, expanded) => {
     const sizable = wrapper.querySelector('[data-sizable]');
@@ -241,4 +242,22 @@ if (document.querySelector('.program-page')) {
         }
       })
   });
+}
+
+if (valuesLeft) {
+  document.addEventListener('click', (evt) => {
+    const value = evt.target.closest('[data-value-left]');
+
+    if (value) {
+      const valueWrapper = evt.target.closest('[data-value]');
+
+      if (valueWrapper.dataset.value == 'left') {
+        valueWrapper.setAttribute('data-value', '');
+      } else {
+        valueWrapper.setAttribute('data-value', 'left');
+      }
+    } else {
+      evt.target.closest('[data-value="left"]')?.setAttribute('data-value', '');
+    }
+  })
 }

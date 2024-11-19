@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Article extends Model
+class ArticleBlock extends Model
 {
   use HasSlug;
 
@@ -15,17 +15,12 @@ class Article extends Model
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()
-      ->generateSlugsFrom('title')
+      ->generateSlugsFrom('short_title')
       ->saveSlugsTo('slug');
   }
 
-  public function category()
+  public function article()
   {
-    return $this->belongsTo(Program::class, 'program_id');
-  }
-
-  public function blocks()
-  {
-    return $this->hasMany(ArticleBlock::class, 'article_id');
+    return $this->belongsTo(Article::class, 'article_id');
   }
 }
