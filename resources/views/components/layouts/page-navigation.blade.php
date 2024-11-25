@@ -10,7 +10,7 @@
       </a>
     </li>
     <li>
-      <a class="navlink{{ $routeName == 'forpatient' || $routeName == 'program' || $routeName == 'article' ? ' active' : ' ' }}" href="{{ route('forpatient') }}">
+      <a class="navlink{{ $routeName == 'forpatient' ? ' active' : ' ' }}" href="{{ route('forpatient') }}">
         {{ __('Пациентам') }}
       </a>
     </li>

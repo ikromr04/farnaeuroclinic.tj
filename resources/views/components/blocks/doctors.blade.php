@@ -25,6 +25,7 @@
   @if ($doctors && $doctors->count())
     <div class="relative z-0 doctors-swiper px-[5vw] md:max-w-full md:p-0 md:mt-8">
       <div class="bg-brand absolute top-0 left-0 w-full h-[119px] md:hidden"></div>
+
       <div class="swiper max-w-[240px] sm:max-w-[488px] md:max-w-full">
         <div class="swiper-wrapper">
           @foreach ($doctors as $doctor)

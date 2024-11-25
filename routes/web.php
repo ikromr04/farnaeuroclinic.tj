@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AppController::class, 'index'])->name('home');
@@ -12,9 +13,11 @@ Route::get('/articles/{slug}', [AppController::class, 'article'])->name('article
 Route::get('/doctors', [AppController::class, 'doctors'])->name('doctors');
 Route::get('/doctors/{slug}', [AppController::class, 'doctor'])->name('doctor');
 Route::get('/services-and-prices', [AppController::class, 'servicesAndPrices'])->name('services&prices');
+Route::get('/services', [AppController::class, 'services'])->name('services');
 Route::get('/contacts', [AppController::class, 'contacts'])->name('contacts');
 Route::get('/apply', [AppController::class, 'apply'])->name('apply');
 
 Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/doctor', [DoctorController::class, 'index']);
 
 Route::view('/{path}', 'dashboard')->where('path', '.*');

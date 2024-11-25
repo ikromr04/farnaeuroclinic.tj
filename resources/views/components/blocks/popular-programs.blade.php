@@ -10,7 +10,7 @@
     <h2 class="title flex items-center justify-between pl-[5vw] gap-x-4 mb-5 md:p-0">
       {{ __('Популярные программы') }}
 
-      <a class="text-[15px] font-normal min-w-max min-h-8 pl-4 py-2 !pr-[5vw] button !rounded-r-none md:!pr-4 md:text-white md:bg-brand md:!rounded-r-full md:hover:text-brand md:hover:border-brand" href="{{ route('forpatient') }}">
+      <a class="text-[15px] font-normal min-w-max min-h-8 pl-4 py-2 !pr-[5vw] button !rounded-r-none md:!pr-4 md:text-white md:bg-brand md:!rounded-r-full md:hover:text-brand md:hover:border-brand" href="{{ route('services') }}">
         {{ __('Все услуги') }}
       </a>
     </h2>

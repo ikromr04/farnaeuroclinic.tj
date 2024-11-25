@@ -63,7 +63,18 @@ class AppController extends Controller
 
   public function doctors()
   {
-    return view('pages.doctors');
+    $data = new stdClass();
+    $data->doctors = Doctor::paginate(16);
+
+    return view('pages.doctors', compact('data'));
+  }
+
+  public function services()
+  {
+    $data = new stdClass();
+    $data->articles = Article::paginate(16);
+
+    return view('pages.services', compact('data'));
   }
 
   public function servicesAndPrices()
