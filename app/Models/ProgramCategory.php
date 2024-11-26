@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Doctor extends Model
+class ProgramCategory extends Model
 {
   use HasSlug;
 
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()
-      ->generateSlugsFrom('name')
+      ->generateSlugsFrom('title')
       ->saveSlugsTo('slug');
   }
 
-  public function blocks()
+  public function programs()
   {
-    return $this->hasMany(DoctorBlock::class, 'doctor_id');
+    return $this->hasMany(Program::class, 'category_id');
   }
 }

@@ -22,24 +22,24 @@
 
       <div class="container md:w-full">
         <ul class="hidden md:flex flex-col gap-y-5 gap-x-2 lg:grid lg:grid-cols-2">
-          @foreach ($data->articles as $key => $article)
+          @foreach ($data->programs as $key => $program)
             <li>
-              <x-article-card class="z-10" :article="$article" />
+              <x-program-card class="z-10" :program="$program" />
             </li>
           @endforeach
         </ul>
 
         <ol class="md:hidden">
-          @foreach ($data->articles as $key => $article)
+          @foreach ($data->programs as $key => $program)
             <li>
-              <a class="flex border-b hover:font-semibold" href="{{ route('article', $article->slug) }}">
-                {{ ($key + 1 < 10 ? '0' : '') . ++$key . '. ' . $article->title }}
+              <a class="flex border-b hover:font-semibold" href="{{ route('program', $program->slug) }}">
+                {{ ($key + 1 < 10 ? '0' : '') . ++$key . '. ' . $program->title }}
               </a>
             </li>
           @endforeach
         </ol>
 
-        @if ($data->articles->count() > 16)
+        @if ($data->programs->count() > 16)
           <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2" data-program-id="">
             {{ __('Показать ещё') }}
             <svg width="12" height="6">

@@ -10,7 +10,7 @@
 
     <x-blocks.advantages />
 
-    <x-blocks.programs :programs="$data->programs" />
+    <x-blocks.program-categories :categories="$data->programCategories" />
 
     <x-blocks.reviews :reviews="$data->reviews" />
 

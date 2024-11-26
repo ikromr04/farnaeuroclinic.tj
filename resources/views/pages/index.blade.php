@@ -12,7 +12,7 @@
 
     <x-blocks.doctors :doctors="$data->doctors" />
 
-    <x-blocks.popular-programs :articles="$data->articles" />
+    <x-blocks.popular-programs :programs="$data->programs" />
 
     <x-blocks.reviews :reviews="$data->reviews" />
 

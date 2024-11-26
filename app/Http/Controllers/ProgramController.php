@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
-use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
-  //
+  public function index()
+  {
+    return Program::where('category_id', request()->category_id)->paginate(8, ['*'], 'page', request()->page);
+  }
 }

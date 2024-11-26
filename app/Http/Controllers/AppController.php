@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Doctor;
 use App\Models\Program;
+use App\Models\ProgramCategory;
 use App\Models\Review;
 use stdClass;
 
@@ -16,7 +17,7 @@ class AppController extends Controller
     $data = new stdClass();
     $data->banners = Banner::where('page', 'home')->get();
     $data->doctors = Doctor::limit(10)->get();
-    $data->articles = Article::limit(8)->get();
+    $data->programs = Program::limit(8)->get();
     $data->reviews = Review::get();
 
     return view('pages.index', compact('data'));
@@ -34,31 +35,31 @@ class AppController extends Controller
   {
     $data = new stdClass();
     $data->banners = Banner::where('page', 'for-patient')->get();
-    $data->programs = Program::get();
+    $data->programCategories = ProgramCategory::get();
     $data->reviews = Review::get();
 
     return view('pages.forpatient', compact('data'));
+  }
+
+  public function category($slug)
+  {
+    $data = new stdClass();
+    $data->category = ProgramCategory::where('slug', $slug)->first();
+    $data->banners = Banner::where('program_id', $data->category->id)->get();
+    $data->programs = Program::where('category_id', $data->category->id)->paginate(8);
+    $data->reviews = Review::get();
+
+    return view('pages.category', compact('data'));
   }
 
   public function program($slug)
   {
     $data = new stdClass();
     $data->program = Program::where('slug', $slug)->first();
-    $data->banners = Banner::where('program_id', $data->program->id)->get();
-    $data->articles = Article::where('program_id', $data->program->id)->paginate(8);
+    $data->programs = Program::where('category_id', $data->program->category_id)->paginate(8);
     $data->reviews = Review::get();
 
-    return view('pages.program', compact('data'));
-  }
-
-  public function article($slug)
-  {
-    $data = new stdClass();
-    $data->article = Article::where('slug', $slug)->first();
-    $data->articles = Article::where('program_id', $data->article->program_id)->paginate(8);
-    $data->reviews = Review::get();
-
-    return view('pages.articles.show', compact('data'));
+    return view('pages.programs.show', compact('data'));
   }
 
   public function doctors()
@@ -66,20 +67,38 @@ class AppController extends Controller
     $data = new stdClass();
     $data->doctors = Doctor::paginate(16);
 
-    return view('pages.doctors', compact('data'));
+    return view('pages.doctors.index', compact('data'));
+  }
+
+  public function doctor($slug)
+  {
+    $data = new stdClass();
+    $data->doctor = Doctor::where('slug', $slug)->first();
+
+    return view('pages.doctors.show', compact('data'));
   }
 
   public function services()
   {
     $data = new stdClass();
-    $data->articles = Article::paginate(16);
+    $data->programs = Program::paginate(16);
 
-    return view('pages.services', compact('data'));
+    return view('pages.services.index', compact('data'));
+  }
+
+  public function service($slug)
+  {
+    $data = new stdClass();
+    $data->program = Program::where('slug', $slug)->first();
+
+    return view('pages.services.show', compact('data'));
   }
 
   public function servicesAndPrices()
   {
-    return view('pages.services&prices');
+    $data = new stdClass();
+
+    return view('pages.services&prices', compact('data'));
   }
 
   public function contacts()

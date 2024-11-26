@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
       UserSeeder::class,
       BannerSeeder::class,
       DoctorSeeder::class,
+      ProgramCategorySeeder::class,
       ProgramSeeder::class,
-      ArticleSeeder::class,
       ReviewSeeder::class,
     ]);
   }

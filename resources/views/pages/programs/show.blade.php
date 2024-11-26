@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', $data->article->title . ' | ')
+@section('title', $data->program->title . ' | ')
 
 @section('content')
   <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12">
     <div class="bg-brand py-8 md:py-20">
       <div class="container text-white">
-        <h1 class="text-2xl md:text-[26px] lg:text-[32px] font-semibold leading-[1.2] max-w-[580px] xl:max-w-[864px] mb-5 md:mb-6 lg:mb-8">{{ $data->article->title }}</h1>
+        <h1 class="text-2xl md:text-[26px] lg:text-[32px] font-semibold leading-[1.2] max-w-[580px] xl:max-w-[864px] mb-5 md:mb-6 lg:mb-8">{{ $data->program->title }}</h1>
 
-        <p class="max-w-[560px] xl:max-w-[800px]">{{ $data->article->description }}</p>
+        <p class="max-w-[560px] xl:max-w-[800px]">{{ $data->program->description }}</p>
 
         <div class="flex items-center flex-wrap gap-x-5 gap-y-3  mt-5 md:mt-6 lg:mt-8">
           <a class="button" href="#application">{{ __('Записаться') }}</a>
@@ -22,7 +22,7 @@
         <div class="hidden md:block pointer-events-none absolute -top-[5px] -left-[1px] h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
         <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
         <ul class="p-10 flex flex-col gap-y-2">
-          @foreach ($data->article->blocks as $block)
+          @foreach ($data->program->blocks as $block)
             <li>
               <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1" href="#{{ $block->slug }}">
                 {{ $block->short_title }}
@@ -53,16 +53,16 @@
             <span class="inline-block pl-[3px] pr-[5px]">|</span>
           </li>
           <li class="min-w-max">
-            <a href="{{ route('program', $data->article->category->slug) }}">{{ $data->article->category->name }}</a>
+            <a href="{{ route('category', $data->program->category->slug) }}">{{ $data->program->category->title }}</a>
             <span class="text-brand inline-block transform translate-y-[1px] px-1"> > </span>
           </li>
           <li class="font-light line-clamp-1">
-            {{ $data->article->title }}
+            {{ $data->program->title }}
           </li>
         </ul>
         <div class="transition-all duration-300 max-h-[90px] overflow-hidden md:!max-h-none md:inline" data-sizable="90">
           <div class="md:mx-5 md:pt-16 plate lg:mx-10">
-            {!! $data->article->info !!}
+            {!! $data->program->info !!}
           </div>
         </div>
         <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0 md:hidden"></div>
@@ -72,7 +72,7 @@
         <div class="hidden md:block pointer-events-none absolute -top-[10px] -left-[1px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
         <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
-        @foreach ($data->article->blocks as $block)
+        @foreach ($data->program->blocks as $block)
           <section id="{{ $block->slug }}">
             <h2 class="title mb-2">
               <span class="md:hidden">{{ $block->short_title }}</span>
@@ -88,13 +88,13 @@
           </section>
         @endforeach
 
-        @if ($data->articles && $data->articles->count())
+        @if ($data->programs && $data->programs->count())
           <div class="relative articles-swiper md:flex md:items-center md:justify-center md:mx-auto md:w-auto xl:block xl:max-w-full mt-8" id="articles">
             <div class="swiper md:h-[448px] xl:h-auto">
               <div class="swiper-wrapper">
-                @foreach ($data->articles as $article)
+                @foreach ($data->programs as $program)
                   <div class="swiper-slide">
-                    <x-article-card :article="$article" />
+                    <x-program-card :program="$program" />
                   </div>
                 @endforeach
               </div>

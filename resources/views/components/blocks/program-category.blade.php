@@ -1,4 +1,4 @@
-@props(['program', 'articles'])
+@props(['category', 'programs'])
 
 <section {{ $attributes->merge([
     'class' => 'relative group md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white md:mx-auto md:w-[90vw] md:max-w-[1150px] md:mt-[10px]',
@@ -12,7 +12,7 @@
         <a class="inline transition-all duration-300 hover:text-brand" href="{{ route('forpatient') }}">
           {{ __('Пациентам') }}
         </a> |
-        <span>{{ $program->name }}</span>
+        <span>{{ $category->title }}</span>
       </h2>
 
       <p>
@@ -23,24 +23,24 @@
 
   <div class="container md:w-full">
     <ul class="hidden md:flex flex-col gap-y-5 gap-x-2 lg:grid lg:grid-cols-2">
-      @foreach ($articles as $key => $article)
+      @foreach ($programs as $key => $program)
         <li>
-          <x-article-card class="z-10" :article="$article" />
+          <x-program-card class="z-10" :program="$program" />
         </li>
       @endforeach
     </ul>
 
     <ol class="md:hidden">
-      @foreach ($articles as $key => $article)
+      @foreach ($programs as $key => $program)
         <li>
-          <a class="flex border-b hover:font-semibold" href="{{ route('article', $article->slug) }}">
-            {{ '0' . ++$key . '. ' . $article->title }}
+          <a class="flex border-b hover:font-semibold" href="{{ route('program', $program->slug) }}">
+            {{ '0' . ++$key . '. ' . $program->title }}
           </a>
         </li>
       @endforeach
     </ol>
 
-    <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2" data-program-id="{{ $program->id }}">
+    <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2" data-category-id="{{ $category->id }}">
       {{ __('Показать ещё') }}
       <svg width="12" height="6">
         <use xlink:href="#arrow-down" />

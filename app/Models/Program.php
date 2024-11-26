@@ -10,15 +10,27 @@ class Program extends Model
 {
   use HasSlug;
 
+  protected $guarded = ['id'];
+
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()
-      ->generateSlugsFrom('name')
+      ->generateSlugsFrom('title')
       ->saveSlugsTo('slug');
   }
 
-  public function articles()
+  public function category()
   {
-    return $this->hasMany(Article::class);
+    return $this->belongsTo(ProgramCategory::class, 'category_id');
+  }
+
+  public function blocks()
+  {
+    return $this->hasMany(ProgramBlock::class, 'program_id');
+  }
+
+  public function article()
+  {
+    return $this->hasOne(Article::class, 'program_id');
   }
 }

@@ -1,4 +1,4 @@
-@props(['articles'])
+@props(['programs'])
 
 <section {{ $attributes->merge([
     'class' => 'relative z-0 flex flex-col md:bg-white md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:w-[90vw] md:max-w-[1150px] md:mx-auto md:mt-[10px]',
@@ -20,13 +20,13 @@
     </p>
   </div>
 
-  @if ($articles && $articles->count())
+  @if ($programs && $programs->count())
     <div class="relative articles-swiper md:flex md:items-center md:justify-center md:mx-auto md:w-auto xl:block xl:max-w-full mt-8">
       <div class="swiper md:h-[448px] xl:h-auto">
         <div class="swiper-wrapper">
-          @foreach ($articles as $article)
+          @foreach ($programs as $program)
             <div class="swiper-slide">
-              <x-article-card :article="$article" />
+            <x-program-card :program="$program" />
             </div>
           @endforeach
         </div>

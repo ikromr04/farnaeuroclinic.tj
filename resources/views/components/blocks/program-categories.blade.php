@@ -1,4 +1,4 @@
-@props(['programs'])
+@props(['categories'])
 
 <section {{ $attributes->merge([
     'class' => 'relative group md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white md:mx-auto md:w-[90vw] md:max-w-[1150px] md:mt-[10px]',
@@ -16,13 +16,13 @@
     </div>
   </div>
 
-  @if ($programs && $programs->count())
+  @if ($categories && $categories->count())
     <div class="programs-swiper container md:!hidden mt-8">
       <div class="swiper">
         <div class="swiper-wrapper">
-          @foreach ($programs as $key => $program)
+          @foreach ($categories as $key => $category)
             <div class="swiper-slide">
-              <x-program-card :program="$program" :key="$key" />
+              <x-category-card :category="$category" :key="$key" />
             </div>
           @endforeach
         </div>
@@ -31,9 +31,9 @@
     </div>
 
     <ol class="hidden md:grid programs-list mt-8">
-      @foreach ($programs as $key => $program)
+      @foreach ($categories as $key => $category)
         <li>
-          <x-program-card :program="$program" :key="$key" />
+          <x-category-card :category="$category" :key="$key" />
         </li>
       @endforeach
     </ol>
