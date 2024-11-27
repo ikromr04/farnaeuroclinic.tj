@@ -15,8 +15,6 @@ Route::get('/doctors/{slug}', [AppController::class, 'doctor'])->name('doctor');
 Route::get('/services-and-prices', [AppController::class, 'servicesAndPrices'])->name('services&prices');
 Route::get('/services', [AppController::class, 'services'])->name('services');
 Route::get('/services/{slug}', [AppController::class, 'service'])->name('service');
-Route::get('/contacts', [AppController::class, 'contacts'])->name('contacts');
-Route::get('/apply', [AppController::class, 'apply'])->name('apply');
 
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/doctor', [DoctorController::class, 'index']);
