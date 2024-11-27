@@ -10,4 +10,9 @@ class ProgramController extends Controller
   {
     return Program::where('category_id', request()->category_id)->paginate(8, ['*'], 'page', request()->page);
   }
+
+  public function prices()
+  {
+    return Program::paginate(8, ['*'], 'page', request()->page);
+  }
 }

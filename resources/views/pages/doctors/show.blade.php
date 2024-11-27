@@ -81,7 +81,7 @@
 
       <div class="flex justify-between md:mt-5">
         <a class="button !border-brand hover:!bg-brand" href="{{ route('doctors') }}">{{ __('Все врачи') }}</a>
-        <button class="button-brand">{{ __('Записаться') }}</button>
+        <button class="button-brand" data-modal-show>{{ __('Записаться') }}</button>
       </div>
     </div>
   </main>

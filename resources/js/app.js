@@ -3,7 +3,7 @@ import intlTelInput from 'intl-tel-input';
 import { ru } from 'intl-tel-input/i18n';
 
 const
-  input = document.querySelector('[name="phone"]'),
+  inputs = document.querySelectorAll('[name="phone"]'),
   bannersWrapper = document.querySelector('.banners'),
   doctorsSwiper = document.querySelector('.doctors-swiper'),
   articlesSwiper = document.querySelector('.articles-swiper'),
@@ -19,11 +19,13 @@ const
       : `${sizable.dataset.sizable}px`;
   };
 
-if (input) {
-  intlTelInput(input, {
-    i18n: ru,
-    initialCountry: 'tj',
-    separateDialCode: true,
+if (inputs) {
+  inputs.forEach((input) => {
+    intlTelInput(input, {
+      i18n: ru,
+      initialCountry: 'tj',
+      separateDialCode: true,
+    });
   });
 }
 
@@ -318,3 +320,35 @@ if (document.querySelector('.doctors-page')) {
       })
   });
 }
+
+if (document.querySelector('.prices-page')) {
+  document.querySelector('[data-show-more]').addEventListener('click', (evt) => {
+    fetch(`/prices?&page=${evt.target.dataset.showMore}`)
+      .then((response) => response.json())
+      .then((data) => {
+        evt.target.parentElement.previousElementSibling.insertAdjacentHTML('beforeend', data.data.map((program) => `
+            <li>
+              <a class="flex justify-between border-[#222222] border-dashed border-b border-opacity-20 pt-2 transition-all duration-300 hover:font-semibold" href="/programs/${program.slug}">
+                <span>${program.title}</span>
+                <span>${program.price}, сом.</span>
+              </a>
+            </li>
+          `).join(' '))
+        if (+data.last_page === +evt.target.dataset.showMore) {
+          evt.target.remove();
+        } else {
+          ++evt.target.dataset.showMore
+        }
+      })
+  });
+}
+
+document.addEventListener('click', (evt) => {
+  if (evt.target.closest('[data-modal-show')) {
+    document.body.classList.add('modal-shown');
+  }
+
+  if (evt.target.hasAttribute('data-modal-close')) {
+    document.body.classList.remove('modal-shown');
+  }
+});

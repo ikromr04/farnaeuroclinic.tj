@@ -113,7 +113,7 @@ body {
 }
 
 .iti__selected-dial-code {
-  @apply !ml-3;
+  @apply !ml-3 leading-none mt-[1px];
 }
 
 .iti__dropdown-content {

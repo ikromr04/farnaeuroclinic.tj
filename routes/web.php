@@ -18,5 +18,6 @@ Route::get('/services/{slug}', [AppController::class, 'service'])->name('service
 
 Route::get('/program', [ProgramController::class, 'index']);
 Route::get('/doctor', [DoctorController::class, 'index']);
+Route::get('/prices', [ProgramController::class, 'prices']);
 
 Route::view('/{path}', 'dashboard')->where('path', '.*');
