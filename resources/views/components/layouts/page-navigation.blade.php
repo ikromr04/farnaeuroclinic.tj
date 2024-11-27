@@ -30,7 +30,7 @@
       </a>
     </li>
     <li>
-      <button class="flex justify-center w-full min-h-10 text-white font-semibold bg-brand items-center border-b-[#D3D3D3] md:border md:border-brand mt-4 text-center transition-all duration-300 hover:bg-transparent hover:text-brand md:mt-0 md:py-2 md:px-5 md:rounded-[10px] md:ml-3 md:leading-none md:gap-x-3 md:font-normal" data-modal-show>
+      <button class="flex justify-center w-full min-h-10 text-white font-semibold bg-brand items-center border-b-[#D3D3D3] md:border md:border-brand mt-4 text-center transition-all duration-300 hover:bg-transparent hover:text-brand md:mt-0 md:py-2 md:px-5 md:rounded-[10px] md:ml-3 md:leading-none md:gap-x-3 md:font-normal" data-modal-show onclick="window.document.body.classList.remove('menu-shown')">
         <svg class="sr-only md:not-sr-only" width="17" height="18">
           <use xlink:href="#apply" />
         </svg>

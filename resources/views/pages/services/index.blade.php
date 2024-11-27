@@ -3,7 +3,7 @@
 @section('title', __('Все услуги') . ' | ')
 
 @section('content')
-  <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12 program-page">
+  <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12 services-page">
     <section class="relative group md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white md:mx-auto md:w-[90vw] md:max-w-[1150px] md:mt-[10px]">
       <div class="hidden md:block pointer-events-none absolute -top-[10px] -left-[1px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
       <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
@@ -39,14 +39,12 @@
           @endforeach
         </ol>
 
-        @if ($data->programs->count() > 16)
-          <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2" data-program-id="">
-            {{ __('Показать ещё') }}
-            <svg width="12" height="6">
-              <use xlink:href="#arrow-down" />
-            </svg>
-          </button>
-        @endif
+        <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2">
+          {{ __('Показать ещё') }}
+          <svg width="12" height="6">
+            <use xlink:href="#arrow-down" />
+          </svg>
+        </button>
       </div>
     </section>
   </main>

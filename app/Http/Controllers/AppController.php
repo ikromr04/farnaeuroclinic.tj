@@ -81,7 +81,7 @@ class AppController extends Controller
   public function services()
   {
     $data = new stdClass();
-    $data->programs = Program::paginate(16);
+    $data->programs = Program::paginate(8);
 
     return view('pages.services.index', compact('data'));
   }

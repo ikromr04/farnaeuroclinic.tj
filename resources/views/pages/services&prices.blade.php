@@ -19,7 +19,7 @@
             <li>
               <a class="flex justify-between border-[#222222] border-dashed border-b border-opacity-20 pt-2 transition-all duration-300 hover:font-semibold" href="{{ route('program', $program->slug) }}">
                 <span>{{ $program->title }}</span>
-                <span>{{ $program->price }}, сом.</span>
+                <span>{{ $program->price }}.00</span>
               </a>
             </li>
           @endforeach

@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div class="relative group border border-brand py-8 px-6 rounded-[10px] w-[calc(50%-4px)] xl:hidden transition-all duration-300 group-[[data-value='left']]:ml-[calc(50%+4px)]" data-sizable-wrapper>
+    <div class="hidden md:block relative group border border-brand py-8 px-6 rounded-[10px] w-[calc(50%-4px)] xl:hidden transition-all duration-300 group-[[data-value='left']]:ml-[calc(50%+4px)]" data-sizable-wrapper>
       <h3 class="font-semibold mb-3 flex items-center gap-x-2">
         <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">05</span>
         {{ __('Эмпатия и забота') }}
