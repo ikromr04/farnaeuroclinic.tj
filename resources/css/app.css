@@ -130,7 +130,7 @@ body {
   .about-vitrin {
     background-image:
     linear-gradient(to right, #00A596 0 60%, transparent),
-      url("http://127.0.0.1:8000/images/farna-office.png");
+      url("/images/farna-office.png");
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: right;

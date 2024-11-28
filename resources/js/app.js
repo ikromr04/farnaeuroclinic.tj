@@ -407,14 +407,16 @@ document.addEventListener('click', (evt) => {
       form = evt.target.closest('form'),
       dialCode = form.querySelector('.iti__selected-dial-code').textContent;
 
-    if (!form.name.value) {
-      form.name.parentElement.nextElementSibling.classList.remove('hidden');
-      form.name.addEventListener('input', () => form.name.parentElement.nextElementSibling.classList.add('hidden'))
-      return;
-    }
-    if (!form.tel.value) {
-      form.tel.parentElement.nextElementSibling.classList.remove('hidden')
-      form.tel.addEventListener('input', () => form.tel.parentElement.nextElementSibling.classList.add('hidden'))
+    if (!form.name.value || !form.tel.value) {
+      if (!form.name.value) {
+        form.name.parentElement.nextElementSibling.classList.remove('hidden');
+        form.name.addEventListener('input', () => form.name.parentElement.nextElementSibling.classList.add('hidden'))
+      }
+      if (!form.tel.value) {
+        form.tel.parentElement.nextElementSibling.classList.remove('hidden')
+        form.tel.addEventListener('input', () => form.tel.parentElement.nextElementSibling.classList.add('hidden'))
+      }
+
       return;
     }
 
