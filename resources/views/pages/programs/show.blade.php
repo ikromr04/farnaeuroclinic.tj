@@ -21,7 +21,7 @@
       <div class="hidden relative z-10 md:block float-left border bg-white border-brand rounded-[10px] mr-10 lg:mr-14 mb-6 min-w-[270px] max-w-[270px] lg:min-w-[430px] lg:max-w-[430px] overflow-hidden">
         <div class="hidden md:block pointer-events-none absolute -top-[5px] -left-[1px] h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
         <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
-        <ul class="p-10 flex flex-col gap-y-2">
+        <ul class="p-10 pl-8 lg:pl-10 flex flex-col gap-y-2">
           @foreach ($data->program->blocks as $block)
             <li>
               <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1" href="#{{ $block->slug }}">
@@ -61,7 +61,7 @@
           </li>
         </ul>
         <div class="transition-all duration-300 max-h-[90px] overflow-hidden md:!max-h-none md:inline" data-sizable="90">
-          <div class="md:mx-5 md:pt-16 plate lg:mx-10">
+          <div class="md:mx-8 md:pt-16 plate lg:mx-10">
             {!! $data->program->info !!}
           </div>
         </div>

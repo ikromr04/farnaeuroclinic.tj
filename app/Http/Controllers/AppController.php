@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
+use App\Mail\ApplicationMail;
 use App\Models\Banner;
 use App\Models\Doctor;
 use App\Models\Program;
 use App\Models\ProgramCategory;
 use App\Models\Review;
 use stdClass;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AppController extends Controller
 {
@@ -100,6 +102,17 @@ class AppController extends Controller
     $data->program = Program::paginate(8);
 
     return view('pages.services&prices', compact('data'));
+  }
+
+  public function apply(Request $request)
+  {
+    Mail::to('ikromr04@gmail.com')->send(new ApplicationMail([
+      'name' => $request->name,
+      'tel' => '+' . $request->code . ' ' . $request->tel,
+      'doctor' => $request->doctor,
+    ]));
+
+    return response(['message' => 'success'], 200);
   }
 
   public function react()

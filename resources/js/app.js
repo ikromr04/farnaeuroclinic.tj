@@ -311,7 +311,7 @@ if (valuesLeft) {
 
 if (document.querySelector('.doctors-page')) {
   document.querySelector('[data-show-more]').addEventListener('click', (evt) => {
-    fetch(`/doctor?&page=${evt.target.dataset.showMore}`)
+    fetch(`/doctor?page=${evt.target.dataset.showMore}`)
       .then((response) => response.json())
       .then((data) => {
         if (window.innerWidth < 768) {
@@ -368,7 +368,7 @@ if (document.querySelector('.doctors-page')) {
 
 if (document.querySelector('.prices-page')) {
   document.querySelector('[data-show-more]').addEventListener('click', (evt) => {
-    fetch(`/prices?&page=${evt.target.dataset.showMore}`)
+    fetch(`/prices?page=${evt.target.dataset.showMore}`)
       .then((response) => response.json())
       .then((data) => {
         evt.target.parentElement.previousElementSibling.insertAdjacentHTML('beforeend', data.data.map((program) => `
@@ -391,9 +391,47 @@ if (document.querySelector('.prices-page')) {
 document.addEventListener('click', (evt) => {
   if (evt.target.closest('[data-modal-show')) {
     document.body.classList.add('modal-shown');
+    if (evt.target.dataset.doctorId) {
+      document.body.setAttribute('data-doctor-id', evt.target.dataset.doctorId);
+    }
   }
 
   if (evt.target.hasAttribute('data-modal-close')) {
     document.body.classList.remove('modal-shown');
+    document.body.removeAttribute('data-doctor-id');
+  }
+
+  if (evt.target.hasAttribute('data-apply-form')) {
+    evt.preventDefault();
+    const
+      form = evt.target.closest('form'),
+      dialCode = form.querySelector('.iti__selected-dial-code').textContent;
+
+    if (!form.name.value) {
+      form.name.parentElement.nextElementSibling.classList.remove('hidden');
+      form.name.addEventListener('input', () => form.name.parentElement.nextElementSibling.classList.add('hidden'))
+      return;
+    }
+    if (!form.tel.value) {
+      form.tel.parentElement.nextElementSibling.classList.remove('hidden')
+      form.tel.addEventListener('input', () => form.tel.parentElement.nextElementSibling.classList.add('hidden'))
+      return;
+    }
+
+    evt.target.classList.add('submitting');
+    evt.target.setAttribute('disabled', 'disabled');
+
+    fetch(`/apply?name=${form.name.value.trim()}&code=${dialCode}&tel=${form.tel.value.trim()}&doctor=${document.body.dataset.doctorId?.trim() || ''}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        form.reset();
+        form.children[0].classList.remove('hidden')
+        setTimeout(() => {
+          form.children[0].classList.add('hidden')
+        }, 5000);
+        evt.target.classList.remove('submitting');
+        evt.target.removeAttribute('disabled');
+      });
   }
 });

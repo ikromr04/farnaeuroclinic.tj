@@ -51,6 +51,11 @@ body {
   @apply flex items-center py-1 px-5 rounded-[10px] bg-brand text-white transition-all duration-300 text-[15px] min-h-10 leading-none border border-brand hover:bg-white hover:text-brand;
 }
 
+.button-brand:disabled {
+  opacity: 60%;
+  pointer-events: none;
+}
+
 .banners {
   .swiper-pagination {
     @apply absolute bottom-6 left-0 flex justify-center items-center gap-[5px] md:gap-[10px];
