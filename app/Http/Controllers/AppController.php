@@ -106,7 +106,7 @@ class AppController extends Controller
 
   public function apply(Request $request)
   {
-    Mail::to('ikromr04@gmail.com')->send(new ApplicationMail([
+    Mail::to('info@farna.tj')->send(new ApplicationMail([
       'name' => $request->name,
       'tel' => '+' . $request->code . ' ' . $request->tel,
       'doctor' => $request->doctor,
