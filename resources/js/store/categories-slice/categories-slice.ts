@@ -1,0 +1,24 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { SliceName } from '../../const';
+import { fetchCategoriesAction } from './categories-api-actions';
+import { Categories } from '../../types/categories';
+
+export type CategoriesSlice = {
+  categories: Categories | null;
+}
+
+const initialState: CategoriesSlice = {
+  categories: null,
+};
+
+export const categoriesSlice = createSlice({
+  name: SliceName.Categories,
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchCategoriesAction.fulfilled, (state, action) => {
+        state.categories = action.payload;
+      });
+  },
+});

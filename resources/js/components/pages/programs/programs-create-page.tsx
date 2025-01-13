@@ -6,7 +6,7 @@ export default function ProgramsCreatePage(): JSX.Element {
   return (
     <PageLayout>
       <main>
-        <h1 className="relative flex mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
+        <h1 className="relative flex items-end mb-3 min-h-8 mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
           Добавление программы
         </h1>
 

@@ -25,6 +25,9 @@ export const APIRoute = {
   Programs: {
     Index: '/programs',
   },
+  Categories: {
+    Index: '/categories',
+  },
 };
 
 export enum AuthorizationStatus {
@@ -37,4 +40,5 @@ export enum SliceName {
   App = 'App',
   Auth = 'Auth',
   Programs = 'Programs',
+  Categories = 'Categories',
 };

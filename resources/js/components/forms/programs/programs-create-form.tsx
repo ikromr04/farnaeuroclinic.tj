@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { ProgramStoreDTO } from '../../../dto/programs-dto';
 import TextField from '../../ui/fields/text-field';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
 import ContentField from '../../ui/fields/content-field';
+import SelectField from '../../ui/fields/select-field';
+import { getCategories } from '../../../store/categories-slice/categories-selector';
+import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
+  category_id: Yup.number().required('Обязательное поле.'),
   description: Yup.string().required('Обязательное поле.'),
+  info: Yup.string().required('Обязательное поле.'),
+  price: Yup.number().typeError('Цена должна быть числом.').required('Обязательное поле.'),
 });
 
 export default function ProgramsCreateForm({
   className,
 }: PropsWithClassname): JSX.Element {
   const dispatch = useAppDispatch();
+  const categories = useAppSelector(getCategories)
   const initialValues: ProgramStoreDTO = {
-    category_id: 0,
+    category_id: '',
     title: '',
     description: '',
     info: '',
-    price: 0,
+    price: '',
   };
 
   const onSubmit = async (
@@ -42,16 +49,31 @@ export default function ProgramsCreateForm({
     helpers.setSubmitting(false);
   };
 
+  useEffect(() => {
+    if (!categories) dispatch(fetchCategoriesAction());
+  }, [dispatch, categories]);
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, setFieldValue }) => (
         <Form className={classNames(className, 'py-4 px-6 rounded shadow bg-white')}>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             <TextField name="title" label="Заголовок" />
+            {categories &&
+              <SelectField
+                name="category_id"
+                label="Категория"
+                cleanable
+                onClean={() => setFieldValue('category_id', '')}
+                options={categories.map(({ id, title }) => ({ value: id, label: title }))}
+              />}
+
+            <TextField name="price" type="number" label="Цена" />
+
             <ContentField name="description" label="Краткое описание" />
           </div>
 
