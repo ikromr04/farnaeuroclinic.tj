@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProgramController;
 
-Route::get('/auth/check', [AuthController::class, 'check']);
-Route::post('/auth/login', [AuthController::class, 'login']);
+require base_path('routes/auth.php');
 
-Route::middleware(['auth:sanctum'])->group(function () {
-  Route::delete('/auth/logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->group(function () {
+  Route::prefix('programs')->group(function () {
+    Route::get('/', [ProgramController::class, 'get']);
+  });
 });

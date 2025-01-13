@@ -5,7 +5,7 @@ export default function DashboardPage(): JSX.Element {
   return (
     <PageLayout>
       <main>
-        Dashboard
+        DashboardPage
       </main>
     </PageLayout>
   );

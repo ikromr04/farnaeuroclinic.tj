@@ -1,17 +1,17 @@
-import { AuthorizationStatus, SliceName } from '@/const'
-import { createSlice } from '@reduxjs/toolkit'
-import { checkAuthAction, loginAction, logoutAction } from './auth-api-actions'
-import { User } from '@/types/auth'
+import { createSlice } from '@reduxjs/toolkit';
+import { checkAuthAction, loginAction, logoutAction } from './auth-api-actions';
+import { AuthorizationStatus, SliceName } from '../../const';
+import { AuthUser } from '../../types/auth';
 
 export type AuthSlice = {
   authStatus: AuthorizationStatus;
-  user: User | null;
+  user: AuthUser | null;
 }
 
 const initialState: AuthSlice = {
   authStatus: AuthorizationStatus.Unknown,
   user: null,
-}
+};
 
 export const authSlice = createSlice({
   name: SliceName.Auth,
@@ -25,6 +25,7 @@ export const authSlice = createSlice({
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
+        state.user = null;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authStatus = AuthorizationStatus.Auth;
@@ -35,6 +36,6 @@ export const authSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
-      })
+      });
   },
-})
+});

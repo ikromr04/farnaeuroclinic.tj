@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'farna-token';
+const AUTH_TOKEN_KEY_NAME = 'farnaeuroclinic-token';
 
 export type Token = string;
 

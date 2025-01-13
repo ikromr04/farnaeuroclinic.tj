@@ -1,25 +1,36 @@
 import React from 'react';
-import MainLogo from '../ui/main-logo';
-import { Icons } from '../icons';
-import PageNavigation from './page-navigation/page-navigation';
+import NavList from '../ui/nav-list';
+import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks/index';
+import classNames from 'classnames';
+import { toggleNavigationAction } from '../../store/app-slice/app-slice';
+import { PropsWithClassname } from '../../types';
 
-export default function PageSidebar(): JSX.Element {
+export default function PageSidebar({
+  className,
+}: PropsWithClassname): JSX.Element {
+  const dispatch = useAppDispatch();
+
   return (
-    <aside className="w-80 shadow-sm bg-white border overflow-y-auto overflow-x-hidden group-[.menu-hidden]:w-0 transition-all duration-300">
-      <header className="sticky top-0 z-10 bg-white flex items-center justify-between p-4 border-b min-w-80">
-        <MainLogo />
+    <aside className={classNames(className, 'static z-10 bg-white shadow rounded-r-md max-h-[calc(100vh-68px)]  transition-all duration-300 md:h-max md:rounded-md')}>
+      <nav className="flex flex-col h-[calc(100vh-68px)] no-scrollbar md:max-h-[calc(100vh-84px)] md:h-auto">
+        <NavList
+          className="overflow-y-scroll overflow-x-hidden no-scrollbar"
+          links={[
+            { label: 'Программы', icon: 'programs', href: AppRoute.Dashboard.Programs.Index },
+            { label: 'Категории программ', icon: 'categories', href: AppRoute.Dashboard.ProgramCategories },
+            { label: 'Баннеры', icon: 'banners', href: AppRoute.Dashboard.Banners },
+            { label: 'Докторы', icon: 'users', href: AppRoute.Dashboard.Doctors },
+            { label: 'Комментарии', icon: 'comment', href: AppRoute.Dashboard.Reviews },
+          ]}
+        />
 
-        <button
-          className="button rounded-full w-10 h-10 hover:bg-gray-100 pr-1"
-          type="button"
-          onClick={() => document.body.classList.add('menu-hidden')}
-        >
-          <span className="sr-only">Скрыть меню</span>
-          <Icons.anglesLeft width={16} height={16} />
-        </button>
-      </header>
+        <hr className="border-gray-300 mt-auto" />
 
-      <PageNavigation />
+        <NavList links={[
+          { label: 'Свернуть', icon: 'east', onClick: () => dispatch(toggleNavigationAction()) },
+        ]} />
+      </nav>
     </aside>
   );
 }

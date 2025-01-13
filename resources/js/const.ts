@@ -1,10 +1,17 @@
 export const AppRoute = {
-  Dashboard: '/dashboard',
+  Dashboard: {
+    Index: '/dashboard',
+    Programs: {
+      Index: '/dashboard/programs',
+      Create: '/dashboard/programs/create',
+    },
+    ProgramCategories: '/dashboard/categories',
+    Banners: '/dashboard/banners',
+    Doctors: '/dashboard/doctors',
+    Reviews: '/dashboard/reviews',
+  },
   Auth: {
     Login: '/auth/login',
-  },
-  Banners: {
-    Category: '/dashboard/banners/:category',
   },
   NotFound: '*',
 };
@@ -13,15 +20,21 @@ export const APIRoute = {
   Auth: {
     Check: '/auth/check',
     Login: '/auth/login',
+    Logout: '/auth/logout',
   },
-};
-
-export const SliceName = {
-  Auth: 'Auth',
+  Programs: {
+    Index: '/programs',
+  },
 };
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+};
+
+export enum SliceName {
+  App = 'App',
+  Auth = 'Auth',
+  Programs = 'Programs',
 };

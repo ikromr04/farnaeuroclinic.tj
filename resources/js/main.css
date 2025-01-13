@@ -2,15 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Open Sans", sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 14px;
-  min-width: 320px;
-  @apply bg-gray-100;
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  @apply hidden;
 }
 
-.button {
-  @apply flex items-center justify-center min-h-10 rounded transition-all duration-300;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.container {
+  @apply w-[90vw] max-w-[1728px] mx-auto;
+}
+
+.title {
+  @apply leading-[1.2] text-xl text-gray-900 font-semibold;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  @apply hidden h-0 w-0 max-h-0 max-w-0;
+}
+
+.break-word {
+  word-break: break-word;
+}
+
+.scrollbar-y {
+  @apply pr-1;
+
+  &::-webkit-scrollbar {
+    @apply w-0 md:w-2 bg-transparent h-0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-transparent w-0 md:w-2 md:bg-gray-200 rounded-sm cursor-grab;
+  }
+}
+
+.scrollbar {
+  &::-webkit-scrollbar {
+    @apply hidden lg:block w-2 h-2 bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply hidden lg:block bg-transparent w-2 h-2 md:bg-gray-300 rounded-sm;
+  }
+}
+
+.shake {
+  animation: shake 150ms 2 linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(4px, 0);
+  }
+  50% {
+    transform: translate(-4px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }

@@ -1,7 +1,7 @@
-import { ID } from '.';
+import { UserId } from './programs';
 
-export type User = {
-  id: ID;
-  email: string;
+export type AuthUser = {
+  id: UserId;
   name: string;
+  login: string;
 };
