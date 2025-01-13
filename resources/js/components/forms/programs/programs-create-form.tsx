@@ -25,7 +25,7 @@ export default function ProgramsCreateForm({
   className,
 }: PropsWithClassname): JSX.Element {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(getCategories)
+  const categories = useAppSelector(getCategories);
   const initialValues: ProgramStoreDTO = {
     category_id: '',
     title: '',
