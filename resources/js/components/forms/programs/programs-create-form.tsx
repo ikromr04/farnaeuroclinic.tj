@@ -5,13 +5,13 @@ import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { ProgramStoreDTO } from '../../../dto/programs-dto';
-import TextField from '../../ui/fields/text-field';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
 import ContentField from '../../ui/fields/content-field';
 import SelectField from '../../ui/fields/select-field';
 import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
+import TextField from '@/components/ui/fields/text-field';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),

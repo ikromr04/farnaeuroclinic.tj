@@ -9,7 +9,6 @@ export const fetchCategoriesAction = createAsyncThunk<Categories, undefined, {
   'categories/fetch',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<Categories>(APIRoute.Categories.Index);
-    console.log(data);
 
     return data;
   },
