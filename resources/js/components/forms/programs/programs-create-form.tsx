@@ -12,6 +12,7 @@ import SelectField from '../../ui/fields/select-field';
 import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import TextField from '@/components/ui/fields/text-field';
+import EditorField from '@/components/ui/fields/editor-field/editor-field';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
@@ -60,9 +61,10 @@ export default function ProgramsCreateForm({
       onSubmit={onSubmit}
     >
       {({ isSubmitting, setFieldValue }) => (
-        <Form className={classNames(className, 'py-4 px-6 rounded shadow bg-white')}>
+        <Form className={classNames(className, 'flex flex-col gap-4 py-4 px-6 rounded shadow bg-white')}>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             <TextField name="title" label="Заголовок" />
+
             {categories &&
               <SelectField
                 name="category_id"
@@ -73,9 +75,11 @@ export default function ProgramsCreateForm({
               />}
 
             <TextField name="price" type="number" label="Цена" />
-
-            <ContentField name="description" label="Краткое описание" />
           </div>
+
+          <ContentField name="description" label="Краткое описание" />
+
+          <EditorField name="info" label="Подготовка" />
 
           <Button
             className={classNames('justify-center mt-4 ml-auto', isSubmitting && 'opacity-60')}

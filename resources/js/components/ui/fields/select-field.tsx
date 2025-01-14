@@ -85,7 +85,7 @@ export default function SelectField(props: SelectFieldProps): JSX.Element {
   };
 
   return (
-    <div ref={ref} className={classNames(className, 'relative flex flex-col')}>
+    <div ref={ref} className={classNames(className, 'relative flex flex-col h-max')}>
       <Label label={label} htmlFor={uniqueId} />
 
       <div className="relative flex">

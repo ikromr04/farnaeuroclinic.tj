@@ -32,7 +32,7 @@ export default function TextField({
   const uniqueId = useId();
 
   return (
-    <div className={classNames(className, 'flex flex-col')}>
+    <div className={classNames(className, 'flex flex-col h-max')}>
       <Label label={label} htmlFor={uniqueId} />
 
       <div className="relative flex">
