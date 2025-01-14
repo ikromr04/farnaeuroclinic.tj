@@ -68,7 +68,7 @@
         <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0 md:hidden"></div>
       </div>
 
-      <div class="relative md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white flex flex-col gap-8 md:mt-12 xl:mt-14 mb-8 md:mb-10 lg:mb-12">
+      <div class="relative w-full md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white flex flex-col gap-8 md:mt-12 xl:mt-14 mb-8 md:mb-10 lg:mb-12">
         <div class="hidden md:block pointer-events-none absolute -top-[10px] -left-[1px] h-10 rounded-[20px] bg-brand w-[448px] -z-10"></div>
         <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 

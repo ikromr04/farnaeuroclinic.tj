@@ -12,6 +12,8 @@ class ArticleBlock extends Model
 
   protected $guarded = ['id'];
 
+  protected $hidden = ['article_id'];
+
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()

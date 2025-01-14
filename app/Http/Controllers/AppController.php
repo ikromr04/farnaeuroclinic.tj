@@ -48,7 +48,10 @@ class AppController extends Controller
     $data = new stdClass();
     $data->category = ProgramCategory::where('slug', $slug)->first();
     $data->banners = Banner::where('program_id', $data->category->id)->get();
-    $data->programs = Program::where('category_id', $data->category->id)->paginate(8);
+    $data->programs = Program::latest()
+      ->with('article')
+      ->where('category_id', $data->category->id)
+      ->paginate(8);
     $data->reviews = Review::get();
 
     return view('pages.category', compact('data'));

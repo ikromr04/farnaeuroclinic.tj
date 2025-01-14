@@ -11,6 +11,7 @@ class Program extends Model
   use HasSlug;
 
   protected $guarded = ['id'];
+  protected $hidden = ['category_id'];
 
   public function getSlugOptions(): SlugOptions
   {

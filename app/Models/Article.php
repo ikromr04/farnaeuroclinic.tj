@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+  protected $hidden = ['program_id'];
+
+  protected $guarded = [];
+
   public function program()
   {
     return $this->belongsTo(Program::class, 'program_id');

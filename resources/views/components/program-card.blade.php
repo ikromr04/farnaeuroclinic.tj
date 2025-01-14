@@ -10,10 +10,12 @@
   <p class="mb-7 sm:line-clamp-2 sm:mb-5 lg:mb-3 xl:mb-5">{{ $program->description }}</p>
 
   <div class="flex justify-between items-center">
-    <a class="underline" href="{{ route('service', $program->slug) }}">
-      {{ __('Подробнее') }}
-    </a>
-    <a class="button-brand" href="{{ route('program', $program->slug) }}">
+    @if ($program->article)
+      <a class="underline" href="{{ route('service', $program->slug) }}">
+        {{ __('Подробнее') }}
+      </a>
+    @endif
+    <a class="button-brand ml-auto" href="{{ route('program', $program->slug) }}">
       Записаться <span class="hidden sm:inline">&nbsp;на приём</span>
     </a>
   </div>

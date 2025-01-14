@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProgramStoreRequest;
+use App\Models\Article;
+use App\Models\ArticleBlock;
 use App\Models\Program;
+use App\Models\ProgramBlock;
 use Illuminate\Http\JsonResponse;
 
 class ProgramController extends Controller
@@ -10,9 +14,14 @@ class ProgramController extends Controller
   public function index()
   {
     if (request()->category_id) {
-      return Program::where('category_id', request()->category_id)->paginate(8, ['*'], 'page', request()->page);
+      return Program::where('category_id', request()->category_id)
+        ->with('article')
+        ->latest()
+        ->paginate(8, ['*'], 'page', request()->page);
     }
-    return Program::paginate(8, ['*'], 'page', request()->page);
+
+    return Program::with('article')
+      ->paginate(8, ['*'], 'page', request()->page);
   }
 
   public function prices()
@@ -22,7 +31,7 @@ class ProgramController extends Controller
 
   public function get(): JsonResponse
   {
-    $programs = Program::orderBy('title')
+    $programs = Program::latest()
       ->select(
         'id',
         'category_id',
@@ -52,27 +61,109 @@ class ProgramController extends Controller
           );
         },
         'article' => function ($query) {
-          $query->select(
-            'id',
-            'program_id',
-            'info',
-          );
+          $query->select('id', 'program_id', 'info')
+            ->with([
+              'blocks' => function ($query) {
+                $query->select(
+                  'id',
+                  'article_id',
+                  'short_title as shortTitle',
+                  'title',
+                  'slug',
+                  'content',
+                );
+              },
+            ]);
         },
       ])->get();
 
-    foreach ($programs as $program) {
+    return response()->json($programs, 200);
+  }
 
-      unset($program->category_id);
+  public function store(ProgramStoreRequest $request): JsonResponse
+  {
+    $program = Program::create([
+      'category_id' => $request->category_id,
+      'title' => $request->title,
+      'description' => $request->description,
+      'info' => $request->info,
+      'price' => $request->price,
+    ]);
 
-      unset($program->article->program_id);
-
-      if (count($program->blocks) < 1) {
-        unset($program->blocks);
-      } else {
-        foreach ($program->blocks as $key => $value) unset($program->blocks[$key]->program_id);
-      };
+    if ($request->blocks) {
+      foreach ($request->blocks as $block) {
+        ProgramBlock::create([
+          'program_id' => $program->id,
+          'title' => $block['title'],
+          'short_title' => $block['short_title'],
+          'content' => $block['content'],
+        ]);
+      }
     }
 
-    return response()->json($programs, 200);
+    if ($request->article) {
+      $article = Article::create([
+        'program_id' => $program->id,
+        'info' => $request->article['info'],
+      ]);
+
+      if ($request->article['blocks']) {
+        foreach ($request->article['blocks'] as $block) {
+          ArticleBlock::create([
+            'article_id' => $article->id,
+            'title' => $block['title'],
+            'short_title' => $block['short_title'],
+            'content' => $block['content'],
+          ]);
+        }
+      }
+    }
+
+    $program = Program::select(
+      'id',
+      'category_id',
+      'title',
+      'slug',
+      'description',
+      'info',
+      'price',
+    )->with([
+      'category' => function ($query) {
+        $query->select(
+          'id',
+          'title',
+          'slug',
+          'img',
+          'description',
+        );
+      },
+      'blocks' => function ($query) {
+        $query->select(
+          'id',
+          'program_id',
+          'title',
+          'slug',
+          'short_title as shortTitle',
+          'content',
+        );
+      },
+      'article' => function ($query) {
+        $query->select('id', 'program_id', 'info')
+          ->with([
+            'blocks' => function ($query) {
+              $query->select(
+                'id',
+                'article_id',
+                'short_title as shortTitle',
+                'title',
+                'slug',
+                'content',
+              );
+            },
+          ]);
+      },
+    ])->find($program->id);
+
+    return response()->json($program, 200);
   }
 }

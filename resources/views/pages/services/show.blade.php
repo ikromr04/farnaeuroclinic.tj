@@ -18,22 +18,24 @@
     </div>
 
     <div class="container flex flex-col gap-8 md:gap-10 lg:gap-12 md:block">
-      <div class="hidden relative z-10 md:block float-left border bg-white border-brand rounded-[10px] mr-10 lg:mr-14 mb-6 min-w-[270px] max-w-[270px] lg:min-w-[430px] lg:max-w-[430px] overflow-hidden">
-        <div class="hidden md:block pointer-events-none absolute -top-[5px] -left-[1px] h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
-        <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
+      @if (count($data->program->article->blocks))
+        <div class="hidden relative z-10 md:block float-left border bg-white border-brand rounded-[10px] mr-10 lg:mr-14 mb-6 min-w-[270px] max-w-[270px] lg:min-w-[430px] lg:max-w-[430px] overflow-hidden">
+          <div class="hidden md:block pointer-events-none absolute -top-[5px] -left-[1px] h-10 rounded-[10px] bg-brand w-[120px] -z-10"></div>
+          <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
-        <ul class="p-10 pl-8 lg:pl-10 flex flex-col gap-y-2">
-          @foreach ($data->program->article->blocks as $block)
-            <li>
-              <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1 whitespace-pre-line" href="#{{ $block->slug }}">{{ $block->short_title }}</a>
-            </li>
-          @endforeach
-        </ul>
+          <ul class="p-10 pl-8 lg:pl-10 flex flex-col gap-y-2">
+            @foreach ($data->program->article->blocks as $block)
+              <li>
+                <a class="block text-xl max-w-max leading-none border-b border-[#222222] border-opacity-50 border-dashed pt-1 whitespace-pre-line" href="#{{ $block->slug }}">{{ $block->short_title }}</a>
+              </li>
+            @endforeach
+          </ul>
 
-        <svg class="absolute z-10 top-4 pointer-events-none right-4 hidden lg:block min-w-[380px] min-h-[380px] transform translate-x-1/2 -rotate-45 -translate-y-1/2 text-brand opacity-10" width="270" height="270">
-          <use xlink:href="#icon" />
-        </svg>
-      </div>
+          <svg class="absolute z-10 top-4 pointer-events-none right-4 hidden lg:block min-w-[380px] min-h-[380px] transform translate-x-1/2 -rotate-45 -translate-y-1/2 text-brand opacity-10" width="270" height="270">
+            <use xlink:href="#icon" />
+          </svg>
+        </div>
+      @endif
 
       <div class="relative group" data-sizable-wrapper>
         <ul class="hidden md:flex absolute top-0 right-0 items-center py-3 px-5 bg-opacity-10 bg-brand float-left w-[calc(100%-290px)] lg:w-[calc(100%-470px)] mb-4 leading-none">

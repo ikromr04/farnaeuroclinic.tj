@@ -11,6 +11,7 @@ class ProgramBlock extends Model
   use HasSlug;
 
   protected $guarded = ['id'];
+  protected $hidden = ['program_id'];
 
   public function getSlugOptions(): SlugOptions
   {

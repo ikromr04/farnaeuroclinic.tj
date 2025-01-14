@@ -14,9 +14,9 @@ return new class extends Migration
     Schema::create('program_blocks', function (Blueprint $table) {
       $table->id();
       $table->integer('program_id');
-      $table->string('short_title');
-      $table->string('slug')->unique();
       $table->text('title');
+      $table->string('slug')->unique();
+      $table->string('short_title');
       $table->text('content');
       $table->timestamps();
     });

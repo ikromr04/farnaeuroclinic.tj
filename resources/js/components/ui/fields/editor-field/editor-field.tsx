@@ -31,7 +31,7 @@ export default function EditorField({
   className,
   label,
 }: EditorFieldProps): ReactNode {
-  const [, meta, helpers] = useField(name);
+  const [field, meta, helpers] = useField(name);
 
   const editor = useEditor({
     extensions: [
@@ -66,7 +66,7 @@ export default function EditorField({
         alignments: ['left', 'center', 'right', 'justify'],
       }),
     ],
-    content: '',
+    content: field.value,
     injectCSS: true,
     onUpdate: ({ editor }) => {
       if (!editor.getText().length) {
@@ -86,13 +86,17 @@ export default function EditorField({
   });
 
   useEffect(() => {
-    if (editor && editor.view) {
+    if (editor && editor.view)
       editor.view.dom.setAttribute(
         'class',
         `bg-gray-50 min-w-0 border border-gray-200 rounded-b min-h-20 p-2 leading-none text-base focus:outline-none hover:bg-gray-100 focus:border-primary focus:bg-gray-100 ${(meta.error && meta.touched) ? 'border-red-400' : 'border-gray-200'}`,
       );
-    }
   }, [meta])
+
+  useEffect(() => {
+    if (editor && (field.value !== editor.getHTML()))
+      editor.commands.setContent(field.value);
+  }, [field.value])
 
   if (!editor) return null;
 
@@ -101,9 +105,7 @@ export default function EditorField({
       <Label label={label} />
 
       <Toolbar editor={editor} />
-      <EditorContent
-        editor={editor}
-      />
+      <EditorContent editor={editor} />
 
       <ErrorMessage name={name} />
     </div>
