@@ -1,3 +1,5 @@
+import { ProgramsFilter } from "./types/programs";
+
 export const AppRoute = {
   Dashboard: {
     Index: '/dashboard',
@@ -41,4 +43,28 @@ export enum SliceName {
   Auth = 'Auth',
   Programs = 'Programs',
   Categories = 'Categories',
+};
+
+export const initialProgramsFilter: ProgramsFilter = {
+  searchKeyword: '',
+  title: {
+    query: '',
+    visibility: true,
+  },
+  description: {
+    query: '',
+    visibility: true,
+  },
+  info: {
+    query: '',
+    visibility: true,
+  },
+  price: {
+    query: '',
+    visibility: true,
+  },
+  category: {
+    query: 0,
+    visibility: true,
+  },
 };

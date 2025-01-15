@@ -19,6 +19,7 @@ export type DataTableColumn = {
   header: ReactNode;
   width?: number;
   hidden?: boolean;
+  sticky?: 'left' | 'right';
 };
 
 export type DataTableColumns = DataTableColumn[]
@@ -60,8 +61,8 @@ export default function DataTable({
       <div className="relative overflow-hidden rounded shadow bg-white border">
         <table className="flex flex-col h-[calc(100%-49px)] overflow-auto scrollbar text-sm leading-[1.2]">
           <thead className="sticky top-0 z-10 flex min-w-max border-b">
-            <tr className="flex font-semibold text-left bg-gray-100 p-2 gap-1 w-full">
-              <th className="flex items-center w-8 font-semibold">
+            <tr className="flex font-semibold text-left w-full bg-gray-100">
+              <th className="flex items-center w-8 font-semibold bg-gray-100 p-2">
                 №
               </th>
               {columns.map((column) => {
@@ -69,7 +70,11 @@ export default function DataTable({
                   return (
                     <th
                       key={nanoid()}
-                      className="flex items-center font-semibold"
+                      className={classNames(
+                        'flex items-center font-semibold bg-gray-100 p-2',
+                        column.sticky && 'sticky z-10',
+                        column.sticky === 'left' ? 'left-0' : 'right-0',
+                      )}
                       style={{
                         minWidth: column.width || DEFAULT_COLUMN_WIDTH,
                         maxWidth: column.width || DEFAULT_COLUMN_WIDTH,
@@ -84,10 +89,18 @@ export default function DataTable({
             </tr>
           </thead>
 
-          <tbody className="flex flex-col">
+          <tbody className="flex flex-col static z-0">
             {paginatedData.map((record, index) => (
-              <tr key={nanoid()} className={classNames('flex gap-1 min-w-max px-2 py-1', (index % 2 === 1) && 'bg-gray-50')}>
-                <td className="flex items-center text-left w-8">
+              <tr
+                key={nanoid()}
+                className={classNames(
+                  'flex min-w-max',
+                  (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
+                )}>
+                <td className={classNames(
+                  'flex items-center text-left w-8 px-2 py-1',
+                  (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
+                )}>
                   {from + index + 1}
                 </td>
                 {columns.map((column) => {
@@ -95,7 +108,12 @@ export default function DataTable({
                     return (
                       <td
                         key={nanoid()}
-                        className="flex items-center text-left break-word"
+                        className={classNames(
+                          'flex items-center text-left break-word px-2 py-1',
+                          column.sticky && 'sticky z-10',
+                          column.sticky === 'left' ? 'left-0' : 'right-0',
+                          (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
+                        )}
                         style={{
                           minWidth: column.width || DEFAULT_COLUMN_WIDTH,
                           maxWidth: column.width || DEFAULT_COLUMN_WIDTH,

@@ -1,7 +1,7 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
 import PageLayout from '../../layouts/page-layout';
 import Button from '../../ui/button';
-import { AppRoute } from '../../../const';
+import { AppRoute, initialProgramsFilter } from '../../../const';
 import { Icons } from '../../icons';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { fetchProgramsAction } from '../../../store/programs-slice/programs-api-actions';
@@ -9,13 +9,14 @@ import Spinner from '../../ui/spinner';
 import { getPrograms } from '../../../store/programs-slice/programs-selector';
 import ProgramsTable from '../../blocks/programs-table';
 import classNames from 'classnames';
+import ProgramsFilterForm from '@/components/forms/programs/programs-filter-form';
+import { ProgramsFilter } from '@/types/programs';
+import { filterPrograms } from '@/utils';
 
 export default function ProgramsPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const programs = useAppSelector(getPrograms);
-  const [filter, setFilter] = useState({
-    searchKeyword: '',
-  });
+  const [filter, setFilter] = useState<ProgramsFilter>(initialProgramsFilter);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
@@ -84,7 +85,11 @@ export default function ProgramsPage(): JSX.Element {
         </header>
 
         {programs
-          ? <ProgramsTable className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64" programs={programs} />
+          ? <ProgramsTable
+            className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
+            programs={filterPrograms(programs, filter)}
+            filter={filter}
+          />
           : <Spinner className="w-8 h-8" />}
 
         <section className={classNames(
@@ -101,7 +106,12 @@ export default function ProgramsPage(): JSX.Element {
               <Icons.west className="transform scale-x-[-1]" width={16} />
             </Button>
           </h2>
-          {/* <UsersFilterForm className="grow max-h-[calc(100%-48px)]" /> */}
+
+          <ProgramsFilterForm
+            className="grow max-h-[calc(100%-48px)]"
+            filter={filter}
+            setFilter={setFilter}
+          />
         </section>
       </main>
     </PageLayout>

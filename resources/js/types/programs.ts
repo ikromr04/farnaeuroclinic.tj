@@ -1,5 +1,5 @@
 import { ID } from '.';
-import { Category } from './categories';
+import { Category, CategoryId } from './categories';
 
 export type ProgramId = ID;
 
@@ -33,3 +33,29 @@ export type Program = {
 };
 
 export type Programs = Program[];
+
+export type ProgramsFilter = {
+  searchKeyword: string;
+  orderBy?: keyof ProgramsFilter;
+  orderType?: 'asc' | 'desc';
+  title: {
+    query: string;
+    visibility: boolean;
+  },
+  description: {
+    query: string;
+    visibility: boolean;
+  },
+  info: {
+    query: string;
+    visibility: boolean;
+  },
+  price: {
+    query: string;
+    visibility: boolean;
+  },
+  category: {
+    query: CategoryId;
+    visibility: boolean;
+  },
+};
