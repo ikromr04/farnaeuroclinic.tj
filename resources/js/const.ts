@@ -47,6 +47,7 @@ export enum SliceName {
 
 export const initialProgramsFilter: ProgramsFilter = {
   searchKeyword: '',
+  orderType: 'desc',
   title: {
     query: '',
     visibility: true,

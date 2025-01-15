@@ -40,5 +40,28 @@ export const filterPrograms = (programs: Programs, filter: ProgramsFilter): Prog
     && (filter.description.query ? program.description.toString().toLowerCase().includes(filter.description.query.toLowerCase()) : true)
   ));
 
+  if (filter.orderBy) {
+    type IndexType = 'title' | 'description' | 'info' | 'price' | 'category';
+
+    programs = programs.sort((a, b) => {
+      if (filter.orderBy === 'category') {
+        if (filter.orderType === 'asc') {
+          return a.category.title > b.category.title ? 1 : -1;
+        } else if (filter.orderType === 'desc') {
+          return a.category.title < b.category.title ? 1 : -1;
+        } else {
+          return 0;
+        }
+      }
+      if (filter.orderType === 'asc') {
+        return a[filter.orderBy as IndexType] > b[filter.orderBy as IndexType] ? 1 : -1;
+      } else if (filter.orderType === 'desc') {
+        return a[filter.orderBy as IndexType] < b[filter.orderBy as IndexType] ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
   return programs;
 };

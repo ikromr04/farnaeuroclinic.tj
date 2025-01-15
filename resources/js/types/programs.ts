@@ -36,8 +36,8 @@ export type Programs = Program[];
 
 export type ProgramsFilter = {
   searchKeyword: string;
-  orderBy?: keyof ProgramsFilter;
-  orderType?: 'asc' | 'desc';
+  orderBy?: keyof ProgramsFilter | '';
+  orderType: 'asc' | 'desc';
   title: {
     query: string;
     visibility: boolean;

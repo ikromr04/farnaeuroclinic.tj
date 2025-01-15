@@ -89,6 +89,7 @@ export default function ProgramsPage(): JSX.Element {
             className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
             programs={filterPrograms(programs, filter)}
             filter={filter}
+            setFilter={setFilter}
           />
           : <Spinner className="w-8 h-8" />}
 

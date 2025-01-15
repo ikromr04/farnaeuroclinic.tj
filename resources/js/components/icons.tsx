@@ -223,4 +223,14 @@ export const Icons = {
       <path fill="currentColor" d="M3.3 20a2.031 2.031 0 0 1-1.482-.607 1.984 1.984 0 0 1-.615-1.464V2.722H0V1.027h5.353V0h7.294v1.025H18v1.697h-1.203v15.21c0 .573-.204 1.061-.612 1.464a2.034 2.034 0 0 1-1.484.604H3.299ZM15.077 2.722H2.921V17.93a.361.361 0 0 0 .378.373h11.402c.094 0 .18-.039.26-.116a.356.356 0 0 0 .117-.257V2.722ZM5.923 15.91h1.718V5.11H5.923v10.8Zm4.435 0h1.719V5.11h-1.719v10.8Z" />
     </svg>
   ),
+  south: (props: SVGProps<SVGSVGElement>): JSX.Element => (
+    <svg fill="none" viewBox="0 0 14 20" {...props}>
+      <path fill="currentColor" d="M6.997 20 0 12.944 1.036 11.9l5.218 5.25V0h1.492v17.14l5.213-5.259L14 12.944 6.997 20Z" />
+    </svg>
+  ),
+  north: (props: SVGProps<SVGSVGElement>): JSX.Element => (
+    <svg fill="none" viewBox="0 0 14 20" {...props}>
+      <path fill="currentColor" d="M6.997 0 0 7.056 1.036 8.1l5.218-5.25V20h1.492V2.86L12.96 8.12 14 7.056 6.997 0Z" />
+    </svg>
+  ),
 };

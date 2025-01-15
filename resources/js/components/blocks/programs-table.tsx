@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { PropsWithClassname } from '../../types';
 import DataTable, { DataTableColumns } from '../ui/data-table';
 import { Program, Programs, ProgramsFilter } from '../../types/programs';
@@ -13,35 +13,95 @@ export type AccessorProps = {
 type UsersTableProps = PropsWithClassname<{
   programs: Programs;
   filter: ProgramsFilter;
+  setFilter: Dispatch<SetStateAction<ProgramsFilter>>;
 }>;
 
 export default function ProgramsTable({
   className,
   programs,
   filter,
+  setFilter,
 }: UsersTableProps): JSX.Element {
+  const Icon = Icons[filter.orderType === 'asc' ? 'north' : 'south'];
+
   const columns: DataTableColumns = [
     {
       accessor: 'title',
-      header: 'Заголовок',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'title' && filter.orderType === 'asc' ? '' : 'title',
+              orderType: filter.orderBy === 'title' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Заголовок
+          {filter.orderBy === 'title' && <Icon width={12} height={12} />}
+        </button>,
       width: 440,
       hidden: !filter.title.visibility,
     },
     {
       accessor: 'category',
-      header: 'Категория',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'category' && filter.orderType === 'asc' ? '' : 'category',
+              orderType: filter.orderBy === 'category' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Категория
+          {filter.orderBy === 'category' && <Icon width={12} height={12} />}
+        </button>,
       width: 240,
       hidden: !filter.category.visibility,
     },
     {
       accessor: 'price',
-      header: 'Цена',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'price' && filter.orderType === 'asc' ? '' : 'price',
+              orderType: filter.orderBy === 'price' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Цена
+          {filter.orderBy === 'price' && <Icon width={12} height={12} />}
+        </button>,
       width: 100,
       hidden: !filter.price.visibility,
     },
     {
       accessor: 'description',
-      header: 'Описание',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'description' && filter.orderType === 'asc' ? '' : 'description',
+              orderType: filter.orderBy === 'description' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Описание
+          {filter.orderBy === 'description' && <Icon width={12} height={12} />}
+        </button>,
       width: 700,
       hidden: !filter.description.visibility,
     },
