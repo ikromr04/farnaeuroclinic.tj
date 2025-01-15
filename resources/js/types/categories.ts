@@ -11,3 +11,18 @@ export type Category = {
 };
 
 export type Categories = Category[];
+
+export type CategoriesFilter = {
+  searchKeyword: string;
+  orderBy?: keyof CategoriesFilter | '';
+  orderType: 'asc' | 'desc';
+  title: {
+    query: string;
+    visibility: boolean;
+  },
+  description: {
+    query: string;
+    visibility: boolean;
+  },
+};
+

@@ -1,3 +1,4 @@
+import { CategoriesFilter } from "./types/categories";
 import { ProgramsFilter } from "./types/programs";
 
 export const AppRoute = {
@@ -68,6 +69,19 @@ export const initialProgramsFilter: ProgramsFilter = {
   },
   category: {
     query: 0,
+    visibility: true,
+  },
+};
+
+export const initialCategoriesFilter: CategoriesFilter = {
+  searchKeyword: '',
+  orderType: 'desc',
+  title: {
+    query: '',
+    visibility: true,
+  },
+  description: {
+    query: '',
     visibility: true,
   },
 };

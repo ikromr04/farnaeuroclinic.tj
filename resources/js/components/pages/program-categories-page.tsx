@@ -1,27 +1,27 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
-import PageLayout from '../../layouts/page-layout';
-import Button from '../../ui/button';
-import { AppRoute, initialProgramsFilter } from '../../../const';
-import { Icons } from '../../icons';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { fetchProgramsAction } from '../../../store/programs-slice/programs-api-actions';
-import Spinner from '../../ui/spinner';
-import { getPrograms } from '../../../store/programs-slice/programs-selector';
-import ProgramsTable from '../../blocks/programs-table';
+import PageLayout from '../layouts/page-layout';
 import classNames from 'classnames';
-import ProgramsFilterForm from '@/components/forms/programs/programs-filter-form';
-import { ProgramsFilter } from '@/types/programs';
-import { filterPrograms } from '@/utils/programs';
+import Button from '../ui/button';
+import { Icons } from '../icons';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { getCategories } from '@/store/categories-slice/categories-selector';
+import { CategoriesFilter } from '@/types/categories';
+import { initialCategoriesFilter } from '@/const';
+import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
+import Spinner from '../ui/spinner';
+import CategoriesTable from '../blocks/categories-table';
+import { filterCategories } from '@/utils/categories';
+import CategoriesFilterForm from '../forms/categories/categories-filter-form';
 
-export default function ProgramsPage(): JSX.Element {
+export default function ProgramCategoriesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const programs = useAppSelector(getPrograms);
-  const [filter, setFilter] = useState<ProgramsFilter>(initialProgramsFilter);
+  const categories = useAppSelector(getCategories);
+  const [filter, setFilter] = useState<CategoriesFilter>(initialCategoriesFilter);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
-    if (!programs) dispatch(fetchProgramsAction());
-  }, [programs, dispatch]);
+    if (!categories) dispatch(fetchCategoriesAction());
+  }, [categories, dispatch]);
 
   return (
     <PageLayout>
@@ -32,7 +32,7 @@ export default function ProgramsPage(): JSX.Element {
         <header className="top flex flex-col gap-2 mb-2 md:mb-3 md:gap-3 min-w-64">
           <div className="flex items-end justify-between gap-2">
             <h1 className="relative flex mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
-              Справочник программ
+              Категории программ
             </h1>
             <div className="relative z-10 min-w-6 h-full pointer-events-none -ml-7 bg-gradient-to-l from-gray-100 to-transparent"></div>
 
@@ -40,9 +40,8 @@ export default function ProgramsPage(): JSX.Element {
               className="min-w-max"
               icon="add"
               variant="success"
-              href={AppRoute.Dashboard.Programs.Create}
             >
-              <span className="sr-only md:not-sr-only">Добавить программу</span>
+              <span className="sr-only md:not-sr-only">Добавить категорию</span>
             </Button>
           </div>
 
@@ -84,10 +83,10 @@ export default function ProgramsPage(): JSX.Element {
           </div>
         </header>
 
-        {programs
-          ? <ProgramsTable
+        {categories
+          ? <CategoriesTable
             className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
-            programs={filterPrograms(programs, filter)}
+            categories={filterCategories(categories, filter)}
             filter={filter}
             setFilter={setFilter}
           />
@@ -108,7 +107,7 @@ export default function ProgramsPage(): JSX.Element {
             </Button>
           </h2>
 
-          <ProgramsFilterForm
+          <CategoriesFilterForm
             className="grow max-h-[calc(100%-48px)]"
             filter={filter}
             setFilter={setFilter}
