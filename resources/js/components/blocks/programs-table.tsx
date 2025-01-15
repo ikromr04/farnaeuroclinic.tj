@@ -1,10 +1,12 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { PropsWithClassname } from '../../types';
 import DataTable, { DataTableColumns } from '../ui/data-table';
 import { Program, Programs, ProgramsFilter } from '../../types/programs';
 import Button from '../ui/button';
 import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
+import Modal from '../ui/modal';
+import ProgramsDeleteForm from '../forms/programs/programs-delete-form';
 
 export type AccessorProps = {
   program: Program;
@@ -23,6 +25,11 @@ export default function ProgramsTable({
   setFilter,
 }: UsersTableProps): JSX.Element {
   const Icon = Icons[filter.orderType === 'asc' ? 'north' : 'south'];
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    deleteId: 0,
+    title: '',
+  });
 
   const columns: DataTableColumns = [
     {
@@ -124,7 +131,7 @@ export default function ProgramsTable({
           <Tooltip label="Редактировать" position="left" />
           <Icons.edit width={14} height={14} />
         </Button>
-        <Button variant="error">
+        <Button variant="error" onClick={() => setDeleteModal({ isOpen: true, deleteId: program.id, title: program.title })}>
           <Tooltip label="Удалить" position="left" />
           <Icons.delete width={14} height={14} />
         </Button>
@@ -132,10 +139,15 @@ export default function ProgramsTable({
   }));
 
   return (
-    <DataTable
-      className={className}
-      records={records}
-      columns={columns}
-    />
+    <>
+      <DataTable
+        className={className}
+        records={records}
+        columns={columns}
+      />
+      <Modal isOpen={deleteModal.isOpen}>
+        <ProgramsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+      </Modal>
+    </>
   );
 }

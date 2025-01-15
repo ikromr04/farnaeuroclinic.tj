@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -17,8 +18,13 @@ class ProgramCategory extends Model
       ->saveSlugsTo('slug');
   }
 
-  public function programs()
+  public function programs(): HasMany
   {
-    return $this->hasMany(Program::class, 'category_id');
+    return $this->hasMany(Program::class);
+  }
+
+  public function banners(): HasMany
+  {
+    return $this->hasMany(Banner::class);
   }
 }

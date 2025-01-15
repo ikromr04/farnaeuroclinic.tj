@@ -26,6 +26,7 @@ export const APIRoute = {
   },
   Programs: {
     Index: '/programs',
+    Show: '/programs/:id',
   },
   Categories: {
     Index: '/categories',

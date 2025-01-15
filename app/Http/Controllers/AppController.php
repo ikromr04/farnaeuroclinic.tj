@@ -47,10 +47,10 @@ class AppController extends Controller
   {
     $data = new stdClass();
     $data->category = ProgramCategory::where('slug', $slug)->first();
-    $data->banners = Banner::where('program_id', $data->category->id)->get();
+    $data->banners = Banner::where('program_category_id', $data->category->id)->get();
     $data->programs = Program::latest()
       ->with('article')
-      ->where('category_id', $data->category->id)
+      ->where('program_category_id', $data->category->id)
       ->paginate(8);
     $data->reviews = Review::get();
 
@@ -61,7 +61,7 @@ class AppController extends Controller
   {
     $data = new stdClass();
     $data->program = Program::where('slug', $slug)->first();
-    $data->programs = Program::where('category_id', $data->program->category_id)->paginate(8);
+    $data->programs = Program::where('program_category_id', $data->program->category_id)->paginate(8);
     $data->reviews = Review::get();
 
     return view('pages.programs.show', compact('data'));

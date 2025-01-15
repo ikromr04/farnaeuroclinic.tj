@@ -14,7 +14,10 @@ return new class extends Migration
     Schema::create('banners', function (Blueprint $table) {
       $table->id();
       $table->string('page')->nullable();
-      $table->integer('program_id')->nullable();
+      $table->foreignId('program_category_id')
+        ->nullable()
+        ->constrained()
+        ->onDelete('cascade');
       $table->text('title');
       $table->text('description');
       $table->string('link')->nullable();

@@ -17,6 +17,7 @@ import { storeProgramAction } from '@/store/programs-slice/programs-api-actions'
 import Message, { MessageProps } from '@/components/ui/message';
 import { addProgramAction } from '@/store/programs-slice/programs-slice';
 import { Icons } from '@/components/icons';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
@@ -48,7 +49,6 @@ export default function ProgramsCreateForm({
 }: PropsWithClassname): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
-  const [message, setMessage] = useState<MessageProps['message']>(undefined);
   const initialValues: ProgramStoreDTO = {
     category_id: '',
     title: '',
@@ -71,14 +71,10 @@ export default function ProgramsCreateForm({
       onSuccess: (createdProgram) => {
         dispatch(addProgramAction(createdProgram));
         helpers.resetForm();
-        setMessage(['Новая программа успешно добавлена.', 'success']);
-        setTimeout(() => setMessage(undefined), 5000);
+        toast.success('Новая программа успешно добавлена.');
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
-      onFail: (message) => {
-        setMessage([message, 'error']);
-        setTimeout(() => setMessage(undefined), 5000);
-      },
+      onFail: (message) => toast.error(message),
     }));
 
     helpers.setSubmitting(false);
@@ -96,7 +92,6 @@ export default function ProgramsCreateForm({
     >
       {({ values, isSubmitting, setFieldValue, resetForm }) => (
         <Form className={classNames(className, 'flex flex-col gap-4 py-4 px-6 rounded shadow bg-white')}>
-          <Message className="mb-4 sm:col-span-2" message={message} />
           <div>
             <h2 className="text-md text-gray-900 font-semibold mb-3">Программа</h2>
 

@@ -11,7 +11,7 @@ class Program extends Model
   use HasSlug;
 
   protected $guarded = ['id'];
-  protected $hidden = ['category_id'];
+  protected $hidden = ['program_category_id'];
 
   public function getSlugOptions(): SlugOptions
   {
@@ -22,16 +22,16 @@ class Program extends Model
 
   public function category()
   {
-    return $this->belongsTo(ProgramCategory::class, 'category_id');
+    return $this->belongsTo(ProgramCategory::class, 'program_category_id');
   }
 
   public function blocks()
   {
-    return $this->hasMany(ProgramBlock::class, 'program_id');
+    return $this->hasMany(ProgramBlock::class);
   }
 
   public function article()
   {
-    return $this->hasOne(Article::class, 'program_id');
+    return $this->hasOne(Article::class);
   }
 }

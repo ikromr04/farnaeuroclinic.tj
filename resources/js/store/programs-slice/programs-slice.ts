@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchProgramsAction } from './programs-api-actions';
+import { deleteProgramAction, fetchProgramsAction } from './programs-api-actions';
 import { SliceName } from '../../const';
 import { Program, Programs } from '../../types/programs';
 
@@ -23,6 +23,9 @@ export const programsSlice = createSlice({
     builder
       .addCase(fetchProgramsAction.fulfilled, (state, action) => {
         state.programs = action.payload;
+      })
+      .addCase(deleteProgramAction.fulfilled, (state) => {
+        state.programs = null;
       });
   },
 });

@@ -14,7 +14,7 @@ class ProgramController extends Controller
   public function index()
   {
     if (request()->category_id) {
-      return Program::where('category_id', request()->category_id)
+      return Program::where('program_category_id', request()->category_id)
         ->with('article')
         ->latest()
         ->paginate(8, ['*'], 'page', request()->page);
@@ -34,7 +34,7 @@ class ProgramController extends Controller
     $programs = Program::latest()
       ->select(
         'id',
-        'category_id',
+        'program_category_id',
         'title',
         'slug',
         'description',
@@ -83,7 +83,7 @@ class ProgramController extends Controller
   public function store(ProgramStoreRequest $request): JsonResponse
   {
     $program = Program::create([
-      'category_id' => $request->category_id,
+      'program_category_id' => $request->category_id,
       'title' => $request->title,
       'description' => $request->description,
       'info' => $request->info,
@@ -121,7 +121,7 @@ class ProgramController extends Controller
 
     $program = Program::select(
       'id',
-      'category_id',
+      'program_category_id',
       'title',
       'slug',
       'description',
@@ -165,5 +165,14 @@ class ProgramController extends Controller
     ])->find($program->id);
 
     return response()->json($program, 200);
+  }
+
+  public function delete(int $id)
+  {
+    Program::find($id)->delete();
+
+    return response()->json([
+      'message' => 'Программа успешно удалена.',
+    ], 200);
   }
 }

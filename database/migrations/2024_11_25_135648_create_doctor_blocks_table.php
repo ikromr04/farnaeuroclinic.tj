@@ -13,7 +13,7 @@ return new class extends Migration
   {
     Schema::create('doctor_blocks', function (Blueprint $table) {
       $table->id();
-      $table->integer('doctor_id');
+      $table->foreignId('doctor_id')->constrained()->cascadeOnDelete();
       $table->string('short_title');
       $table->string('slug')->unique();
       $table->text('title');
