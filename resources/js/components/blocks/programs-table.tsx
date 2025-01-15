@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { PropsWithClassname } from '../../types';
 import DataTable, { DataTableColumns } from '../ui/data-table';
 import { Program, Programs, ProgramsFilter } from '../../types/programs';
@@ -7,6 +7,8 @@ import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
 import ProgramsDeleteForm from '../forms/programs/programs-delete-form';
+import { generatePath } from 'react-router-dom';
+import { AppRoute } from '@/const';
 
 export type AccessorProps = {
   program: Program;
@@ -31,7 +33,7 @@ export default function ProgramsTable({
     title: '',
   });
 
-  const columns: DataTableColumns = [
+  const columns: DataTableColumns = useMemo(() => ([
     {
       accessor: 'title',
       header:
@@ -118,16 +120,16 @@ export default function ProgramsTable({
       width: 120,
       sticky: 'right',
     },
-  ];
+  ]), [filter]);
 
-  const records = programs.map((program) => ({
+  const records = useMemo(() => programs.map((program) => ({
     title: program.title,
     category: program.category.title,
     description: program.description,
     price: program.price,
     actions:
       <div className="flex items-center justify-center w-full gap-1">
-        <Button variant="warn">
+        <Button variant="warn" href={generatePath(AppRoute.Dashboard.Programs.Edit, { id: program.id })}>
           <Tooltip label="Редактировать" position="left" />
           <Icons.edit width={14} height={14} />
         </Button>
@@ -136,7 +138,7 @@ export default function ProgramsTable({
           <Icons.delete width={14} height={14} />
         </Button>
       </div>
-  }));
+  })), [filter]);
 
   return (
     <>

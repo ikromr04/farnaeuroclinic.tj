@@ -6,6 +6,7 @@ export const AppRoute = {
     Programs: {
       Index: '/dashboard/programs',
       Create: '/dashboard/programs/create',
+      Edit: '/dashboard/programs/:id',
     },
     ProgramCategories: '/dashboard/categories',
     Banners: '/dashboard/banners',

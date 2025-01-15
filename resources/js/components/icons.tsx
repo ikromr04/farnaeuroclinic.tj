@@ -233,4 +233,9 @@ export const Icons = {
       <path fill="currentColor" d="M6.997 0 0 7.056 1.036 8.1l5.218-5.25V20h1.492V2.86L12.96 8.12 14 7.056 6.997 0Z" />
     </svg>
   ),
+  chevronRight: (props: SVGProps<SVGSVGElement>): JSX.Element => (
+    <svg fill="none" viewBox="0 0 12 20" {...props}>
+      <path fill="currentColor" d="M8.373 10 0 1.795 1.795 0 12 10 1.795 20 0 18.205 8.373 10Z" />
+    </svg>
+  ),
 };

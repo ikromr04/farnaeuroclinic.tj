@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import * as Yup from 'yup';
 import { FieldArray, Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { ProgramStoreDTO } from '../../../dto/programs-dto';
+import { ProgramUpdateDTO } from '../../../dto/programs-dto';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
 import ContentField from '../../ui/fields/content-field';
@@ -13,12 +13,14 @@ import { fetchCategoriesAction } from '../../../store/categories-slice/categorie
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import TextField from '@/components/ui/fields/text-field';
 import EditorField from '@/components/ui/fields/editor-field/editor-field';
-import { storeProgramAction } from '@/store/programs-slice/programs-api-actions';
+import { updateProgramAction } from '@/store/programs-slice/programs-api-actions';
 import { addProgramAction } from '@/store/programs-slice/programs-slice';
 import { Icons } from '@/components/icons';
 import { toast } from 'react-toastify';
+import { Program } from '@/types/programs';
 
 const validationSchema = Yup.object().shape({
+  id: Yup.number().required('Обязательное поле.'),
   title: Yup.string().required('Обязательное поле.'),
   category_id: Yup.number().required('Обязательное поле.'),
   description: Yup.string().required('Обязательное поле.'),
@@ -43,34 +45,55 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-export default function ProgramsCreateForm({
+type ProgramsEditFormProps = PropsWithClassname<{
+  program: Program;
+  setProgram: Dispatch<SetStateAction<Program | null>>;
+}>;
+
+export default function ProgramsEditForm({
   className,
-}: PropsWithClassname): JSX.Element {
+  program,
+  setProgram,
+}: ProgramsEditFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
-  const initialValues: ProgramStoreDTO = {
-    category_id: '',
-    title: '',
-    description: '',
-    info: '',
-    price: '',
+  const initialValues: ProgramUpdateDTO = {
+    id: program.id,
+    category_id: program.category.id,
+    title: program.title,
+    description: program.description,
+    info: program.info,
+    price: program.price,
+    blocks: program.blocks?.map((block) => ({
+      id: block.id,
+      title: block.title,
+      short_title: block.shortTitle,
+      content: block.content,
+    })),
     article: {
-      info: '',
+      id: program.article.id,
+      info: program.article.info,
+      blocks: program.article.blocks?.map((block) => ({
+        id: block.id,
+        title: block.title,
+        short_title: block.shortTitle,
+        content: block.content,
+      }))
     },
   };
 
   const onSubmit = async (
-    values: ProgramStoreDTO,
-    helpers: FormikHelpers<ProgramStoreDTO>
+    values: ProgramUpdateDTO,
+    helpers: FormikHelpers<ProgramUpdateDTO>
   ) => {
     helpers.setSubmitting(true);
 
-    await dispatch(storeProgramAction({
+    await dispatch(updateProgramAction({
       dto: values,
-      onSuccess: (createdProgram) => {
-        dispatch(addProgramAction(createdProgram));
-        helpers.resetForm();
-        toast.success('Новая программа успешно добавлена.');
+      onSuccess: (updatedProgram) => {
+        dispatch(addProgramAction(updatedProgram));
+        setProgram(updatedProgram);
+        toast.success('Программа успешно обновлена.');
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -136,7 +159,7 @@ export default function ProgramsCreateForm({
                   <button
                     className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
                     type="button"
-                    onClick={() => push({ title: '', short_title: '', content: '' })}
+                    onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
                   >
                     <Icons.add width={14} />
                     Добавить блок
@@ -170,7 +193,7 @@ export default function ProgramsCreateForm({
                   <button
                     className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
                     type="button"
-                    onClick={() => push({ title: '', short_title: '', content: '' })}
+                    onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
                   >
                     <Icons.add width={14} />
                     Добавить блок
@@ -195,7 +218,7 @@ export default function ProgramsCreateForm({
               disabled={isSubmitting}
               variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Создать'}
+              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Редактировать'}
             </Button>
           </div>
         </Form>

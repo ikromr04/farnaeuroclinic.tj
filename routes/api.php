@@ -10,6 +10,8 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::prefix('programs')->group(function () {
     Route::get('/', [ProgramController::class, 'get']);
     Route::post('/', [ProgramController::class, 'store']);
+    Route::put('/', [ProgramController::class, 'update']);
+    Route::get('/{id}', [ProgramController::class, 'show']);
     Route::delete('/{id}', [ProgramController::class, 'delete']);
   });
 

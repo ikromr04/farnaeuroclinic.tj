@@ -9,6 +9,7 @@ import NotFoundPage from './pages/not-found-page';
 import DashboardPage from './pages/dashboard-page';
 import ProgramsPage from './pages/programs/programs-page';
 import ProgramsCreatePage from './pages/programs/programs-create-page';
+import ProgramsEditPage from './pages/programs/programs-edit-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -34,6 +35,7 @@ export default function App(): JSX.Element {
 
         <Route path={AppRoute.Dashboard.Programs.Index} element={<ProgramsPage />} />
         <Route path={AppRoute.Dashboard.Programs.Create} element={<ProgramsCreatePage />} />
+        <Route path={AppRoute.Dashboard.Programs.Edit} element={<ProgramsEditPage />} />
 
         <Route path={AppRoute.Dashboard.ProgramCategories} element={<DashboardPage />} />
         <Route path={AppRoute.Dashboard.Banners} element={<DashboardPage />} />

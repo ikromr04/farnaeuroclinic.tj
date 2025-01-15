@@ -29,7 +29,7 @@ export type Program = {
   price: number;
   category: Category;
   blocks?: Blocks;
-  article?: Article;
+  article: Article;
 };
 
 export type Programs = Program[];

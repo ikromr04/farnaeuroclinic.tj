@@ -3,7 +3,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
 import { ValidationError } from '../../types/validation-error';
 import { Program, ProgramId, Programs } from '../../types/programs';
-import { ProgramStoreDTO } from '@/dto/programs-dto';
+import { ProgramStoreDTO, ProgramUpdateDTO } from '@/dto/programs-dto';
 import { generatePath } from 'react-router-dom';
 
 export const fetchProgramsAction = createAsyncThunk<Programs, undefined, {
@@ -14,6 +14,20 @@ export const fetchProgramsAction = createAsyncThunk<Programs, undefined, {
     const { data } = await api.get<Programs>(APIRoute.Programs.Index);
 
     return data;
+  },
+);
+
+export const fetchProgramByIdAction = createAsyncThunk<void, {
+  id: ProgramId;
+  onSuccess?: (program: Program) => void,
+}, {
+  extra: AxiosInstance
+}>(
+  'programs/fetchById',
+  async ({id, onSuccess}, { extra: api }) => {
+    const { data } = await api.get<Program>(generatePath(APIRoute.Programs.Show, { id }));
+
+    if (onSuccess) onSuccess(data);
   },
 );
 
@@ -30,6 +44,31 @@ export const storeProgramAction = createAsyncThunk<void, {
   async ({ dto, onValidationError, onSuccess, onFail }, { extra: api, rejectWithValue }) => {
     try {
       const { data } = await api.post<Program>(APIRoute.Programs.Index, dto);
+      if (onSuccess) onSuccess(data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const error: AxiosError<ValidationError> = err;
+      if (!error.response) throw err;
+      if (onValidationError && (error.response?.status === 422)) onValidationError(error.response.data);
+      if (onFail && (error.response?.status !== 422)) onFail(error.response.data.message);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const updateProgramAction = createAsyncThunk<void, {
+  dto: ProgramUpdateDTO,
+  onSuccess?: (program: Program) => void,
+  onValidationError?: (error: ValidationError) => void,
+  onFail?: (message: string) => void,
+}, {
+  extra: AxiosInstance,
+  rejectWithValue: ValidationError,
+}>(
+  'programs/update',
+  async ({ dto, onValidationError, onSuccess, onFail }, { extra: api, rejectWithValue }) => {
+    try {
+      const { data } = await api.put<Program>(APIRoute.Programs.Index, dto);
       if (onSuccess) onSuccess(data);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
