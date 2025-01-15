@@ -11,7 +11,7 @@ import ProgramsTable from '../../blocks/programs-table';
 import classNames from 'classnames';
 import ProgramsFilterForm from '@/components/forms/programs/programs-filter-form';
 import { ProgramsFilter } from '@/types/programs';
-import { filterPrograms } from '@/utils';
+import { filterPrograms } from '@/utils/programs';
 
 export default function ProgramsPage(): JSX.Element {
   const dispatch = useAppDispatch();
