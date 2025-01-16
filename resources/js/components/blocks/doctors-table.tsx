@@ -5,8 +5,8 @@ import Button from '../ui/button';
 import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
-import BannersDeleteForm from '../forms/banners/banners-delete-form';
 import { Doctors, DoctorsFilter } from '@/types/doctors';
+import DoctorsDeleteForm from '../forms/doctors/doctors-delete-form';
 
 type DoctorsTableProps = PropsWithClassname<{
   doctors: Doctors;
@@ -145,7 +145,7 @@ export default function DoctorsTable({
         columns={columns}
       />
       <Modal isOpen={deleteModal.isOpen}>
-        <BannersDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+        <DoctorsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
       </Modal>
     </>
   );

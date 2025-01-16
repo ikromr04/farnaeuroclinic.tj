@@ -92,4 +92,13 @@ class DoctorController extends Controller
 
     return response()->json($doctor, 200);
   }
+
+  public function delete(int $id)
+  {
+    Doctor::find($id)->delete();
+
+    return response()->json([
+      'message' => 'Доктор успешно удален.',
+    ], 200);
+  }
 }
