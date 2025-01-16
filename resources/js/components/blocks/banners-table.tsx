@@ -5,14 +5,9 @@ import Button from '../ui/button';
 import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
-import { Category } from '@/types/categories';
 import { Banner, Banners, BannersFilter } from '@/types/banners';
 import BannersDeleteForm from '../forms/banners/banners-delete-form';
 import BannersEditForm from '../forms/banners/banners-edit-form';
-
-export type AccessorProps = {
-  category: Category;
-};
 
 type BannersTableProps = PropsWithClassname<{
   banners: Banners;

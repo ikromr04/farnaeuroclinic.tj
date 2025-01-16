@@ -12,6 +12,7 @@ import ProgramsCreatePage from './pages/programs/programs-create-page';
 import ProgramsEditPage from './pages/programs/programs-edit-page';
 import ProgramCategoriesPage from './pages/program-categories-page';
 import BannersPage from './pages/banners-page';
+import DoctorsPage from './pages/doctors-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -43,7 +44,8 @@ export default function App(): JSX.Element {
 
         <Route path={AppRoute.Dashboard.Banners} element={<BannersPage />} />
 
-        <Route path={AppRoute.Dashboard.Doctors} element={<DashboardPage />} />
+        <Route path={AppRoute.Dashboard.Doctors} element={<DoctorsPage />} />
+
         {/* <Route path={AppRoute.Dashboard.Reviews} element={<DashboardPage />} /> */}
 
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />

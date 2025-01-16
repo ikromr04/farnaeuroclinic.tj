@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramController;
 
@@ -28,5 +29,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/', [BannerController::class, 'store']);
     Route::post('/update', [BannerController::class, 'update']);
     Route::delete('/{id}', [BannerController::class, 'delete']);
+  });
+
+  Route::prefix('doctors')->group(function () {
+    Route::get('/', [DoctorController::class, 'get']);
+    Route::post('/', [DoctorController::class, 'store']);
+    Route::post('/update', [DoctorController::class, 'update']);
+    Route::delete('/{id}', [DoctorController::class, 'delete']);
   });
 });

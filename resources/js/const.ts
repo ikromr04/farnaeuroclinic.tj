@@ -1,5 +1,6 @@
 import { BannersFilter } from "./types/banners";
 import { CategoriesFilter } from "./types/categories";
+import { DoctorsFilter } from "./types/doctors";
 import { ProgramsFilter } from "./types/programs";
 
 export const AppRoute = {
@@ -41,6 +42,11 @@ export const APIRoute = {
     Update: '/banners/update',
     Show: '/banners/:id',
   },
+  Doctors: {
+    Index: '/doctors',
+    Update: '/doctors/update',
+    Show: '/doctors/:id',
+  },
 };
 
 export enum AuthorizationStatus {
@@ -55,6 +61,7 @@ export enum SliceName {
   Programs = 'Programs',
   Categories = 'Categories',
   Banners = 'Banners',
+  Doctors = 'Doctors',
 };
 
 export const initialProgramsFilter: ProgramsFilter = {
@@ -112,6 +119,27 @@ export const initialBannersFilter: BannersFilter = {
   },
   category: {
     query: 0,
+    visibility: true,
+  },
+};
+
+export const inititalDoctorsFilter: DoctorsFilter = {
+  searchKeyword: '',
+  orderType: 'desc',
+  name: {
+    query: '',
+    visibility: true,
+  },
+  position: {
+    query: '',
+    visibility: true,
+  },
+  specialization: {
+    query: '',
+    visibility: true,
+  },
+  experience: {
+    query: '',
     visibility: true,
   },
 };

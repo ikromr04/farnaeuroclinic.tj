@@ -100,25 +100,25 @@ class BannerController extends Controller
     $banner->update();
 
     $banner = Banner::latest()
-    ->select(
-      'id',
-      'page',
-      'title',
-      'description',
-      'link',
-      'program_category_id',
-      'image',
-    )->with([
-      'category' => function ($query) {
-        $query->select(
-          'id',
-          'title',
-          'slug',
-          'img',
-          'description',
-        );
-      },
-    ])->find($banner->id);
+      ->select(
+        'id',
+        'page',
+        'title',
+        'description',
+        'link',
+        'program_category_id',
+        'image',
+      )->with([
+        'category' => function ($query) {
+          $query->select(
+            'id',
+            'title',
+            'slug',
+            'img',
+            'description',
+          );
+        },
+      ])->find($banner->id);
 
     return response()->json($banner, 200);
   }

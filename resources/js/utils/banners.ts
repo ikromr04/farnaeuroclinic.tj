@@ -19,9 +19,9 @@ export const filterBanners = (banners: Banners, filter: BannersFilter): Banners 
     banners = banners.sort((a, b) => {
       if (filter.orderBy === 'category') {
         if (filter.orderType === 'asc') {
-          return a.category?.title > b.category?.title ? 1 : -1;
+          return a.category?.title || '' > (b.category?.title || '') ? 1 : -1;
         } else if (filter.orderType === 'desc') {
-          return a.category?.title < b.category?.title ? 1 : -1;
+          return a.category?.title || '' < (b.category?.title || '') ? 1 : -1;
         } else {
           return 0;
         }

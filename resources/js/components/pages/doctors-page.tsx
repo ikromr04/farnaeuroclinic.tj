@@ -4,27 +4,24 @@ import classNames from 'classnames';
 import Button from '../ui/button';
 import { Icons } from '../icons';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { initialBannersFilter } from '@/const';
+import { inititalDoctorsFilter } from '@/const';
 import Spinner from '../ui/spinner';
-import Modal from '../ui/modal';
-import { getBanners } from '@/store/banners-slice/banners-selector';
-import { BannersFilter } from '@/types/banners';
-import { fetchBannersAction } from '@/store/banners-slice/banners-api-actions';
-import BannersFilterForm from '../forms/banners/banners-filter-form';
-import BannersTable from '../blocks/banners-table';
-import { filterBanners } from '@/utils/banners';
-import BannersCreateForm from '../forms/banners/banners-create-form';
+import { fetchDoctorsAction } from '@/store/doctors-slice/doctors-api-actions';
+import { filterDoctors } from '@/utils/doctors';
+import DoctorsTable from '../blocks/doctors-table';
+import { DoctorsFilter } from '@/types/doctors';
+import { getDoctors } from '@/store/doctors-slice/doctors-selector';
+import DoctorsFilterForm from '../forms/doctors/doctors-filter-form';
 
-export default function BannersPage(): JSX.Element {
+export default function DoctorsPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const banners = useAppSelector(getBanners);
-  const [filter, setFilter] = useState<BannersFilter>(initialBannersFilter);
+  const doctors = useAppSelector(getDoctors);
+  const [filter, setFilter] = useState<DoctorsFilter>(inititalDoctorsFilter);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!banners) dispatch(fetchBannersAction());
-  }, [banners, dispatch]);
+    if (!doctors) dispatch(fetchDoctorsAction());
+  }, [doctors, dispatch]);
 
   return (
     <PageLayout>
@@ -43,9 +40,8 @@ export default function BannersPage(): JSX.Element {
               className="min-w-max"
               icon="add"
               variant="success"
-              onClick={() => setIsCreateModalOpen(true)}
             >
-              <span className="sr-only md:not-sr-only">Добавить баннер</span>
+              <span className="sr-only md:not-sr-only">Добавить доктора</span>
             </Button>
           </div>
 
@@ -59,7 +55,7 @@ export default function BannersPage(): JSX.Element {
                 type="search"
                 value={filter.searchKeyword}
                 onInput={(evt: BaseSyntheticEvent) => setFilter((filter) => ({ ...filter, searchKeyword: evt.target.value.toLowerCase() }))}
-                placeholder="Поиск по заголовке или описанию"
+                placeholder="Поиск по имени"
               />
               {filter.searchKeyword &&
                 <button
@@ -87,10 +83,10 @@ export default function BannersPage(): JSX.Element {
           </div>
         </header>
 
-        {banners
-          ? <BannersTable
+        {doctors
+          ? <DoctorsTable
             className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
-            banners={filterBanners(banners, filter)}
+            doctors={filterDoctors(doctors, filter)}
             filter={filter}
             setFilter={setFilter}
           />
@@ -111,17 +107,13 @@ export default function BannersPage(): JSX.Element {
             </Button>
           </h2>
 
-          <BannersFilterForm
+          <DoctorsFilterForm
             className="grow max-h-[calc(100%-48px)]"
             filter={filter}
             setFilter={setFilter}
           />
         </section>
       </main>
-
-      <Modal isOpen={isCreateModalOpen}>
-        <BannersCreateForm key={isCreateModalOpen.toString()} setIsOpen={setIsCreateModalOpen} />
-      </Modal>
     </PageLayout>
   );
 }
