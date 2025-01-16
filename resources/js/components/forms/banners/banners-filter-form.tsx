@@ -4,32 +4,33 @@ import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
 import TextField from '../../ui/fields/text-field';
 import { Icons } from '../../icons';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import SelectField from '../../ui/fields/select-field';
 import Button from '../../ui/button';
-import { ProgramsFilter } from '@/types/programs';
+import { initialBannersFilter } from '@/const';
+import { BannersFilter } from '@/types/banners';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
-import { initialProgramsFilter } from '@/const';
+import SelectField from '@/components/ui/fields/select-field';
 
-type ProgramsFilterFormProps = PropsWithClassname<{
-  filter: ProgramsFilter;
-  setFilter: Dispatch<SetStateAction<ProgramsFilter>>
+type BannersFilterFormProps = PropsWithClassname<{
+  filter: BannersFilter;
+  setFilter: Dispatch<SetStateAction<BannersFilter>>
 }>;
 
-export default function ProgramsFilterForm({
+export default function BannersFilterForm({
   className,
   filter,
   setFilter,
-}: ProgramsFilterFormProps): JSX.Element {
+}: BannersFilterFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   const categories = useAppSelector(getCategories);
 
   useEffect(() => {
     if (!categories) dispatch(fetchCategoriesAction());
   }, [categories, dispatch]);
 
-  const onSubmit = async (values: ProgramsFilter) => setFilter(values);
+  const onSubmit = async (values: BannersFilter) => setFilter(values);
 
   return (
     <Formik
@@ -88,30 +89,6 @@ export default function ProgramsFilterForm({
               />}
 
             <TextField
-              name="price.query"
-              type="number"
-              label="Цена"
-              cleanable
-              onClean={() => {
-                setFieldValue('price.query', '');
-                handleSubmit();
-              }}
-              onInput={() => handleSubmit()}
-              after={
-                <button
-                  className="flex items-center justify-center w-full h-full hover:bg-gray-200 transition-all duration-300 border-l"
-                  type="button"
-                  onClick={() => {
-                    setFieldValue('price.visibility', !values.price.visibility);
-                    handleSubmit();
-                  }}
-                >
-                  {values.price.visibility ? <Icons.visibility width={20} /> : <Icons.visibilityOff width={20} />}
-                </button>
-              }
-            />
-
-            <TextField
               name="description.query"
               label="Описание"
               cleanable
@@ -133,11 +110,34 @@ export default function ProgramsFilterForm({
                 </button>
               }
             />
+
+            <TextField
+              name="link.query"
+              label="Ссылка подробнее"
+              cleanable
+              onClean={() => {
+                setFieldValue('link.query', '');
+                handleSubmit();
+              }}
+              onInput={() => handleSubmit()}
+              after={
+                <button
+                  className="flex items-center justify-center w-full h-full hover:bg-gray-200 transition-all duration-300 border-l"
+                  type="button"
+                  onClick={() => {
+                    setFieldValue('link.visibility', !values.link.visibility);
+                    handleSubmit();
+                  }}
+                >
+                  {values.link.visibility ? <Icons.visibility width={20} /> : <Icons.visibilityOff width={20} />}
+                </button>
+              }
+            />
           </div>
 
           <Button
             className="justify-center min-h-8"
-            onClick={() => setFilter(initialProgramsFilter)}
+            onClick={() => setFilter(initialBannersFilter)}
             type="reset"
           >
             Сбросить

@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Banner extends Model
 {
-  public function banners(): BelongsTo
+  protected $guarded = [];
+  protected $hidden = ['program_category_id'];
+
+  public function category(): BelongsTo
   {
     return $this->belongsTo(ProgramCategory::class, 'program_category_id');
   }

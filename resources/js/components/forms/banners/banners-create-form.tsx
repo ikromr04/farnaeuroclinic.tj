@@ -1,71 +1,66 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
 import ContentField from '../../ui/fields/content-field';
-import { storeCategoryAction } from '../../../store/categories-slice/categories-api-actions';
+import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
+import { getCategories } from '@/store/categories-slice/categories-selector';
 import TextField from '@/components/ui/fields/text-field';
 import { toast } from 'react-toastify';
-import { CategoryStoreDTO } from '@/dto/categories-dto';
-import { addCategoryAction } from '@/store/categories-slice/categories-slice';
 import ImageField from '@/components/ui/fields/image-field';
+import SelectField from '@/components/ui/fields/select-field';
+import { BannerStoreDTO } from '@/dto/banners-dto';
+import { storeBannerAction } from '@/store/banners-slice/banners-api-actions';
+import { addBannerAction } from '@/store/banners-slice/banners-slice';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
-  img: Yup.mixed()
-    .required('Обязательное поле.')
-    .test(
-      'fileSize',
-      'Размер файла слишком большой (макс. 2MB)',
-      (value) => !value || (value instanceof File && value.size <= 2 * 1024 * 1024)
-    )
-    .test(
-      'fileType',
-      'Неподдерживаемый формат файла. Разрешены только JPEG, JPG или PNG.',
-      (value) =>
-        !value ||
-        (value instanceof File &&
-          ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type))
-    ),
   description: Yup.string().required('Обязательное поле.'),
 });
 
-type CategoriesCreateFormProps = PropsWithClassname<{
+type BannersCreateFormProps = PropsWithClassname<{
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }>;
 
-export default function CategoriesCreateForm({
+export default function BannersCreateForm({
   className,
   setIsOpen,
-}: CategoriesCreateFormProps): JSX.Element {
+}: BannersCreateFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const initialValues: CategoryStoreDTO = {
+  const categories = useAppSelector(getCategories);
+  const initialValues: BannerStoreDTO = {
     title: '',
-    img: '',
+    image: '',
     description: '',
+    link: '',
+    page: '',
+    program_category_id: '',
   };
 
   const onSubmit = async (
-    values: CategoryStoreDTO,
-    helpers: FormikHelpers<CategoryStoreDTO>,
+    values: BannerStoreDTO,
+    helpers: FormikHelpers<BannerStoreDTO>,
   ) => {
     helpers.setSubmitting(true);
 
     const formData = new FormData();
     formData.append('title', values.title);
-    formData.append('img', values.img);
+    formData.append('image', values.image);
     formData.append('description', values.description);
+    formData.append('link', values.link);
+    formData.append('page', values.page);
+    formData.append('program_category_id', values.program_category_id);
 
-    await dispatch(storeCategoryAction({
+    await dispatch(storeBannerAction({
       dto: formData,
-      onSuccess: (createdCategory) => {
-        dispatch(addCategoryAction(createdCategory));
+      onSuccess: (createdBanner) => {
+        dispatch(addBannerAction(createdBanner));
         helpers.resetForm();
-        toast.success('Новая категория успешно добавлена.');
+        toast.success('Новый баннер добавлен.');
         setIsOpen(false);
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
@@ -75,25 +70,49 @@ export default function CategoriesCreateForm({
     helpers.setSubmitting(false);
   };
 
+  useEffect(() => {
+    if (!categories) dispatch(fetchCategoriesAction());
+  }, [dispatch, categories]);
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, resetForm }) => (
+      {({ isSubmitting, setFieldValue, resetForm }) => (
         <Form className={classNames(className, 'flex flex-col gap-2 py-2 px-3 min-w-[400px]')}>
           <h2 className="text-md text-gray-900 font-semibold">Добавление категории</h2>
 
           <ImageField
-            name="img"
+            name="image"
             label="Картинка"
             accept=".jpeg, .jpg, .png"
+            imgClass="w-[320px] h-[220px]"
           />
 
           <TextField name="title" label="Заголовок" />
 
+          {categories &&
+            <SelectField
+              name="program_category_id"
+              label="Категория"
+              cleanable
+              onClean={() => setFieldValue('program_category_id', '')}
+              options={categories.map(({ id, title }) => ({ value: id, label: title }))}
+            />}
+
+          <SelectField
+            name="page"
+            label="Страница"
+            cleanable
+            onClean={() => setFieldValue('page', '')}
+            options={[{ value: 'home', label: 'Главная' }, { value: 'for-patient', label: 'Пациентам' }]}
+          />
+
           <ContentField name="description" label="Описание" />
+
+          <TextField name="link" label="Ссылка подробнее" />
 
           <div className="flex justify-end mt-4 gap-2">
             <Button

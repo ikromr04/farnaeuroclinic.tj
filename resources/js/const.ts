@@ -1,3 +1,4 @@
+import { BannersFilter } from "./types/banners";
 import { CategoriesFilter } from "./types/categories";
 import { ProgramsFilter } from "./types/programs";
 
@@ -35,6 +36,11 @@ export const APIRoute = {
     Update: '/categories/update',
     Show: '/categories/:id',
   },
+  Banners: {
+    Index: '/banners',
+    Update: '/banners/update',
+    Show: '/banners/:id',
+  },
 };
 
 export enum AuthorizationStatus {
@@ -48,6 +54,7 @@ export enum SliceName {
   Auth = 'Auth',
   Programs = 'Programs',
   Categories = 'Categories',
+  Banners = 'Banners',
 };
 
 export const initialProgramsFilter: ProgramsFilter = {
@@ -84,6 +91,27 @@ export const initialCategoriesFilter: CategoriesFilter = {
   },
   description: {
     query: '',
+    visibility: true,
+  },
+};
+
+export const initialBannersFilter: BannersFilter = {
+  searchKeyword: '',
+  orderType: 'desc',
+  title: {
+    query: '',
+    visibility: true,
+  },
+  description: {
+    query: '',
+    visibility: true,
+  },
+  link: {
+    query: '',
+    visibility: true,
+  },
+  category: {
+    query: 0,
     visibility: true,
   },
 };

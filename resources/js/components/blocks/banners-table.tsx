@@ -5,40 +5,47 @@ import Button from '../ui/button';
 import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
-import { Categories, CategoriesFilter, Category } from '@/types/categories';
-import CategoriesDeleteForm from '../forms/categories/categories-delete-form';
-import CategoriesEditForm from '../forms/categories/categories-edit-form';
+import { Category } from '@/types/categories';
+import { Banner, Banners, BannersFilter } from '@/types/banners';
 
 export type AccessorProps = {
   category: Category;
 };
 
-type CategoriesTableProps = PropsWithClassname<{
-  categories: Categories;
-  filter: CategoriesFilter;
-  setFilter: Dispatch<SetStateAction<CategoriesFilter>>;
+type BannersTableProps = PropsWithClassname<{
+  banners: Banners;
+  filter: BannersFilter;
+  setFilter: Dispatch<SetStateAction<BannersFilter>>;
 }>;
 
-export default function CategoriesTable({
+export default function BannersTable({
   className,
-  categories,
+  banners,
   filter,
   setFilter,
-}: CategoriesTableProps): JSX.Element {
+}: BannersTableProps): JSX.Element {
   const Icon = Icons[filter.orderType === 'asc' ? 'north' : 'south'];
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     deleteId: 0,
     title: '',
   });
-  const [editModal, setEditModal] = useState<{ isOpen: boolean; category: Category }>({
+  const [editModal, setEditModal] = useState<{ isOpen: boolean; banner: Banner }>({
     isOpen: false,
-    category: {
+    banner: {
       id: 0,
       title: '',
-      slug: '',
-      img: '',
+      page: 'home',
+      category: {
+        id: 0,
+        description: '',
+        img: '',
+        slug: '',
+        title: '',
+      },
+      link: '',
       description: '',
+      image: '',
     },
   });
 
@@ -64,6 +71,32 @@ export default function CategoriesTable({
       hidden: !filter.title.visibility,
     },
     {
+      accessor: 'page',
+      header: 'Страница',
+      width: 180,
+      hidden: !filter.title.visibility,
+    },
+    {
+      accessor: 'category',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'category' && filter.orderType === 'asc' ? '' : 'category',
+              orderType: filter.orderBy === 'category' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Категория
+          {filter.orderBy === 'category' && <Icon width={12} height={12} />}
+        </button>,
+      width: 240,
+      hidden: !filter.category.visibility,
+    },
+    {
       accessor: 'description',
       header:
         <button
@@ -80,8 +113,28 @@ export default function CategoriesTable({
           Описание
           {filter.orderBy === 'description' && <Icon width={12} height={12} />}
         </button>,
-      width: 1060,
+      width: 440,
       hidden: !filter.description.visibility,
+    },
+    {
+      accessor: 'link',
+      header:
+        <button
+          className="flex items-center grow h-6 -m-2 px-2 gap-4"
+          type="button"
+          onClick={() =>
+            setFilter((filter) => ({
+              ...filter,
+              orderBy: filter.orderBy === 'link' && filter.orderType === 'asc' ? '' : 'link',
+              orderType: filter.orderBy === 'link' ? (filter.orderType === 'desc' ? 'asc' : 'desc') : 'desc',
+            }))
+          }
+        >
+          Ссылка подробнее
+          {filter.orderBy === 'link' && <Icon width={12} height={12} />}
+        </button>,
+      width: 200,
+      hidden: !filter.link.visibility,
     },
     {
       accessor: 'actions',
@@ -91,21 +144,23 @@ export default function CategoriesTable({
     },
   ]), [filter]);
 
-  const records = useMemo(() => categories.map((category) => ({
-    title: category.title,
-    description: category.description,
+  const records = useMemo(() => banners.map((banner) => ({
+    title: banner.title,
+    page: banner.page === 'home' ? 'Главная' : (banner.page === 'for-patient' ? 'Пациентам' : ''),
+    category: banner.category?.title,
+    description: banner.description,
     actions:
       <div className="flex items-center justify-center w-full gap-1">
-        <Button variant="warn" onClick={() => setEditModal({ isOpen: true, category })}>
+        <Button variant="warn" onClick={() => setEditModal({ isOpen: true, banner })}>
           <Tooltip label="Редактировать" position="left" />
           <Icons.edit width={14} height={14} />
         </Button>
-        <Button variant="error" onClick={() => setDeleteModal({ isOpen: true, deleteId: category.id, title: category.title })}>
+        <Button variant="error" onClick={() => setDeleteModal({ isOpen: true, deleteId: banner.id, title: banner.title })}>
           <Tooltip label="Удалить" position="left" />
           <Icons.delete width={14} height={14} />
         </Button>
       </div>
-  })), [filter, categories]);
+  })), [filter, banners]);
 
   return (
     <>
@@ -115,10 +170,10 @@ export default function CategoriesTable({
         columns={columns}
       />
       <Modal isOpen={deleteModal.isOpen}>
-        <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+        {/* <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} /> */}
       </Modal>
       <Modal isOpen={editModal.isOpen}>
-        <CategoriesEditForm key={editModal.isOpen.toString()} modal={editModal} setModal={setEditModal} />
+        {/* <CategoriesEditForm key={editModal.isOpen.toString()} modal={editModal} setModal={setEditModal} /> */}
       </Modal>
     </>
   );

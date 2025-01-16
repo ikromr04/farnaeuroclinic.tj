@@ -38,7 +38,7 @@ class ProgramCategorySeeder extends Seeder
     foreach ($programCategories as $category) {
       ProgramCategory::create([
         'title' => $category['title'],
-        'img' => $category['img'],
+        'img' => '/images/categories/' . $category['img'],
         'description' => $category['description'],
       ]);
     }

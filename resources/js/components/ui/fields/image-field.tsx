@@ -1,6 +1,5 @@
-import React, { InputHTMLAttributes, useId, useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import classNames from 'classnames';
-import Label from './partials/label';
 import ErrorMessage from './partials/error-message';
 import { useField } from 'formik';
 import Button from '../button';
@@ -11,7 +10,7 @@ type ImageFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   cleanable?: boolean;
   onClean?: () => void;
   className?: string;
-  imgClassName?: string;
+  imgClass?: string;
   label?: string;
   width?: number;
   height?: number;
@@ -22,7 +21,7 @@ export default function ImageField({
   cleanable = false,
   onClean,
   className,
-  imgClassName,
+  imgClass,
   label,
   width = 300,
   height = 200,
@@ -32,8 +31,8 @@ export default function ImageField({
   const [src, setSrc] = useState<string>(field.value);
 
   return (
-    <div className={classNames(className, 'flex flex-col h-max')}>
-      <div className="relative w-max h-max group">
+    <div className={classNames(className, 'flex flex-col')}>
+      <div className="relative group flex flex-col">
         {field.value &&
           <Button
             className="absolute top-6 right-1 z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300"
@@ -45,7 +44,7 @@ export default function ImageField({
           >
             <Icons.delete width={14} height={14} />
           </Button>}
-        <label className="cursor-pointer">
+        <label className="cursor-pointer flex flex-col w-max">
           <span className="relative z-0 rounded flex max-w-max text-sm text-gray-500 ml-2">
             {label}
           </span>
@@ -54,7 +53,7 @@ export default function ImageField({
               className={classNames(
                 'flex bg-gray-50 rounded border hover:bg-gray-100 object-cover',
                 (meta.error && meta.touched) ? 'border-red-400' : 'border-gray-200',
-                imgClassName,
+                imgClass,
               )}
               src={src || '/images/categories/program.png'}
               width={width}
