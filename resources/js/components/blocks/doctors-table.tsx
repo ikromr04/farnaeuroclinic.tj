@@ -7,6 +7,8 @@ import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
 import { Doctors, DoctorsFilter } from '@/types/doctors';
 import DoctorsDeleteForm from '../forms/doctors/doctors-delete-form';
+import { AppRoute } from '@/const';
+import { generatePath } from 'react-router-dom';
 
 type DoctorsTableProps = PropsWithClassname<{
   doctors: Doctors;
@@ -126,7 +128,7 @@ export default function DoctorsTable({
     experience: doctor.experience,
     actions:
       <div className="flex items-center justify-center w-full gap-1">
-        <Button variant="warn">
+        <Button variant="warn" href={generatePath(AppRoute.Dashboard.Doctors.Edit, { id: doctor.id })}>
           <Tooltip label="Редактировать" position="left" />
           <Icons.edit width={14} height={14} />
         </Button>

@@ -1,39 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import * as Yup from 'yup';
 import { FieldArray, Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { PropsWithClassname } from '../../../types';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
-import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
-import { getCategories } from '@/store/categories-slice/categories-selector';
 import TextField from '@/components/ui/fields/text-field';
 import EditorField from '@/components/ui/fields/editor-field/editor-field';
 import { Icons } from '@/components/icons';
 import { toast } from 'react-toastify';
-import { DoctorStoreDTO } from '@/dto/doctors-dto';
-import { storeDoctorAction } from '@/store/doctors-slice/doctors-api-actions';
-import { addDoctorAction } from '@/store/doctors-slice/doctors-slice';
+import { DoctorUpdateDTO } from '@/dto/doctors-dto';
+import { updateDoctorAction } from '@/store/doctors-slice/doctors-api-actions';
 import ImageField from '@/components/ui/fields/image-field';
+import { Doctor } from '@/types/doctors';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Обязательное поле.'),
-  avatar: Yup.mixed()
-    .required('Обязательное поле.')
-    .test(
-      'fileSize',
-      'Размер файла слишком большой (макс. 2MB)',
-      (value) => !value || (value instanceof File && value.size <= 2 * 1024 * 1024)
-    )
-    .test(
-      'fileType',
-      'Неподдерживаемый формат файла. Разрешены только JPEG, JPG или PNG.',
-      (value) =>
-        !value ||
-        (value instanceof File &&
-          ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type))
-    ),
   position: Yup.string().required('Обязательное поле.'),
   specialization: Yup.string().required('Обязательное поле.'),
   experience: Yup.string().required('Обязательное поле.'),
@@ -46,41 +29,53 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export default function DoctorsCreateForm({
+type DoctorsEditFormProps = PropsWithClassname<{
+  doctor: Doctor;
+  setDoctor: Dispatch<SetStateAction<Doctor | null>>;
+}>;
+
+export default function DoctorsEditForm({
   className,
-}: PropsWithClassname): JSX.Element {
+  doctor,
+  setDoctor,
+}: DoctorsEditFormProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [key, setKey] = useState(1);
-  const initialValues: DoctorStoreDTO = {
-    name: '',
-    avatar: '',
-    position: '',
-    specialization: '',
-    experience: '',
-    blocks: [],
+  const initialValues: DoctorUpdateDTO = {
+    id: doctor.id.toString(),
+    name: doctor.name,
+    avatar: doctor.avatar,
+    position: doctor.position,
+    specialization: doctor.specialization,
+    experience: doctor.experience,
+    blocks: doctor.blocks?.map((block) => ({
+      id: block.id.toString(),
+      title: block.title,
+      short_title: block.shortTitle,
+      content: block.content,
+    })) || [],
   };
 
   const onSubmit = async (
-    values: DoctorStoreDTO,
-    helpers: FormikHelpers<DoctorStoreDTO>
+    values: DoctorUpdateDTO,
+    helpers: FormikHelpers<DoctorUpdateDTO>
   ) => {
     helpers.setSubmitting(true);
 
     const formData = new FormData();
+    formData.append('id', values.id);
     formData.append('name', values.name);
     formData.append('avatar', values.avatar);
     formData.append('position', values.position);
     formData.append('specialization', values.specialization);
     formData.append('experience', values.experience);
     values.blocks && formData.append('blocks', JSON.stringify(values.blocks));
+    console.log(values);
 
-    await dispatch(storeDoctorAction({
+    await dispatch(updateDoctorAction({
       dto: formData,
-      onSuccess: (createdDoctor) => {
-        dispatch(addDoctorAction(createdDoctor));
-        helpers.resetForm();
-        toast.success('Доктор успешно добавлен.');
-        setKey((prevKey) => prevKey + 1);
+      onSuccess: (updatedDoctor) => {
+        setDoctor(updatedDoctor);
+        toast.success('Доктор успешно обновлен.');
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -88,7 +83,7 @@ export default function DoctorsCreateForm({
 
     helpers.setSubmitting(false);
   };
-  
+
   return (
     <Formik
       initialValues={initialValues}
@@ -101,7 +96,6 @@ export default function DoctorsCreateForm({
             <h2 className="text-md text-gray-900 font-semibold mb-3">Доктор</h2>
 
             <ImageField
-              key={key.toString()}
               className="mb-4"
               name="avatar"
               label="Аватар"
@@ -142,7 +136,7 @@ export default function DoctorsCreateForm({
                   <button
                     className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
                     type="button"
-                    onClick={() => push({ title: '', short_title: '', content: '' })}
+                    onClick={() => push({ id: '', title: '', short_title: '', content: '' })}
                   >
                     <Icons.add width={14} />
                     Добавить блок
@@ -159,7 +153,6 @@ export default function DoctorsCreateForm({
               variant="warn"
               onClick={() => {
                 resetForm();
-                setKey((prevKey) => prevKey + 1);
               }}
             >
               Сбросить
@@ -170,7 +163,7 @@ export default function DoctorsCreateForm({
               disabled={isSubmitting}
               variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Добавить'}
+              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Сохранить'}
             </Button>
           </div>
         </Form>

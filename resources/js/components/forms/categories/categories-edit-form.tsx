@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import { Form, Formik, FormikHelpers } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 
 type CategoriesEditFormProps = {
   modal: {
@@ -22,6 +23,11 @@ type CategoriesEditFormProps = {
     category: Category;
   }>>
 }
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required('Обязательное поле.'),
+  description: Yup.string().required('Обязательное поле.'),
+});
 
 export default function CategoriesEditForm({
   modal,
@@ -65,6 +71,7 @@ export default function CategoriesEditForm({
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (

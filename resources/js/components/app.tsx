@@ -14,6 +14,7 @@ import ProgramCategoriesPage from './pages/program-categories-page';
 import BannersPage from './pages/banners-page';
 import DoctorsPage from './pages/doctors/doctors-page';
 import DoctorsCreatePage from './pages/doctors/doctors-create-page';
+import DoctorsEditPage from './pages/doctors/doctors-edit-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -47,6 +48,7 @@ export default function App(): JSX.Element {
 
         <Route path={AppRoute.Dashboard.Doctors.Index} element={<DoctorsPage />} />
         <Route path={AppRoute.Dashboard.Doctors.Create} element={<DoctorsCreatePage />} />
+        <Route path={AppRoute.Dashboard.Doctors.Edit} element={<DoctorsEditPage />} />
 
         {/* <Route path={AppRoute.Dashboard.Reviews} element={<DashboardPage />} /> */}
 

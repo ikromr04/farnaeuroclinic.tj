@@ -41,6 +41,20 @@ export const storeDoctorAction = createAsyncThunk<void, {
   },
 );
 
+export const fetchDoctorByIdAction = createAsyncThunk<void, {
+  id: DoctorId;
+  onSuccess?: (doctor: Doctor) => void,
+}, {
+  extra: AxiosInstance
+}>(
+  'doctors/fetchById',
+  async ({ id, onSuccess }, { extra: api }) => {
+    const { data } = await api.get<Doctor>(generatePath(APIRoute.Doctors.Show, { id }));
+
+    if (onSuccess) onSuccess(data);
+  },
+);
+
 export const updateDoctorAction = createAsyncThunk<void, {
   dto: FormData,
   onSuccess?: (doctor: Doctor) => void,

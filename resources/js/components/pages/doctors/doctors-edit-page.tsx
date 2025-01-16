@@ -4,47 +4,47 @@ import { Link, useParams } from 'react-router-dom';
 import { Icons } from '@/components/icons';
 import { AppRoute } from '@/const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { getPrograms } from '@/store/programs-slice/programs-selector';
-import { fetchProgramByIdAction } from '@/store/programs-slice/programs-api-actions';
-import { Program } from '@/types/programs';
+import { getDoctors } from '@/store/doctors-slice/doctors-selector';
+import { Doctor } from '@/types/doctors';
+import { fetchDoctorByIdAction } from '@/store/doctors-slice/doctors-api-actions';
 import Spinner from '@/components/ui/spinner';
-import ProgramsEditForm from '@/components/forms/programs/programs-edit-form';
+import DoctorsEditForm from '@/components/forms/doctors/doctors-edit-form';
 
-export default function ProgramsEditPage(): JSX.Element {
+export default function DoctorsEditPage(): JSX.Element {
   const params = useParams();
-  const programs = useAppSelector(getPrograms);
-  const [program, setProgram] = useState<Program | null>(programs?.find(({ id }) => id === +(params.id || 0)) || null);
+  const doctors = useAppSelector(getDoctors);
+  const [doctor, setDoctor] = useState<Doctor | null>(doctors?.find(({ id }) => id === +(params.id || 0)) || null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!program && params.id) dispatch(fetchProgramByIdAction({
+    if (!doctor && params.id) dispatch(fetchDoctorByIdAction({
       id: +params.id,
-      onSuccess: (program) => setProgram(program),
+      onSuccess: (doctor) => setDoctor(doctor),
     }));
-  }, [program, params.id]);
+  }, [doctor, params.id]);
 
   return (
     <PageLayout>
       <main className="relative flex flex-col h-full transition-all duration-300 overflow-scroll scrollbar-y">
         <h1 className="relative flex items-end mb-1 min-h-8 mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
-          Добавление программы
+          Редатирование доктора
         </h1>
 
         <ul className="flex items-center gap-1 mb-4 leading-none">
           <li className="flex items-center gap-1">
-            <Link className="transition-all duration-300 hover:text-brand" to={AppRoute.Dashboard.Programs.Index}>
-              Справочник программ
+            <Link className="transition-all duration-300 hover:text-brand" to={AppRoute.Dashboard.Doctors.Index}>
+              Докторы
             </Link>
             <Icons.chevronRight width={6} />
           </li>
           <li className="font-medium text-[15px]">
-            {program?.title}
+            {doctor?.name}
           </li>
         </ul>
 
-        {!program
+        {!doctor
           ? <Spinner className="w-6 h-6" />
-          : <ProgramsEditForm program={program} setProgram={setProgram} />}
+          : <DoctorsEditForm doctor={doctor} setDoctor={setDoctor} />}
       </main>
     </PageLayout>
   );
