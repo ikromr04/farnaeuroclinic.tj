@@ -7,6 +7,8 @@ import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
 import { Category } from '@/types/categories';
 import { Banner, Banners, BannersFilter } from '@/types/banners';
+import BannersDeleteForm from '../forms/banners/banners-delete-form';
+import BannersEditForm from '../forms/banners/banners-edit-form';
 
 export type AccessorProps = {
   category: Category;
@@ -30,6 +32,7 @@ export default function BannersTable({
     deleteId: 0,
     title: '',
   });
+
   const [editModal, setEditModal] = useState<{ isOpen: boolean; banner: Banner }>({
     isOpen: false,
     banner: {
@@ -146,6 +149,7 @@ export default function BannersTable({
 
   const records = useMemo(() => banners.map((banner) => ({
     title: banner.title,
+    link: banner.link,
     page: banner.page === 'home' ? 'Главная' : (banner.page === 'for-patient' ? 'Пациентам' : ''),
     category: banner.category?.title,
     description: banner.description,
@@ -170,10 +174,10 @@ export default function BannersTable({
         columns={columns}
       />
       <Modal isOpen={deleteModal.isOpen}>
-        {/* <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} /> */}
+        <BannersDeleteForm modal={deleteModal} setModal={setDeleteModal} />
       </Modal>
       <Modal isOpen={editModal.isOpen}>
-        {/* <CategoriesEditForm key={editModal.isOpen.toString()} modal={editModal} setModal={setEditModal} /> */}
+        <BannersEditForm key={editModal.isOpen.toString()} modal={editModal} setModal={setEditModal} />
       </Modal>
     </>
   );

@@ -1,5 +1,4 @@
-import { ID } from '@/types';
-import { CategoryId } from '@/types/categories';
+import { BannerId } from '@/types/banners';
 
 export type BannerStoreDTO = {
   page: string;
@@ -10,9 +9,12 @@ export type BannerStoreDTO = {
   image: File | string;
 }
 
-export type CategoryUpdateDTO = {
-  id: CategoryId;
+export type BannerUpdateDTO = {
+  id: BannerId;
+  page: string;
+  program_category_id: string;
   title: string;
-  img: File | string;
   description: string;
+  link: string;
+  image: File | string;
 }

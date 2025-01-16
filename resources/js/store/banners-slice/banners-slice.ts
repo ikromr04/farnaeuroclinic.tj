@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName } from '../../const';
 import { Banner, Banners } from '@/types/banners';
-import { fetchBannersAction } from './banners-api-actions';
+import { deleteBannerAction, fetchBannersAction, updateBannerAction } from './banners-api-actions';
+import { deleteCategoryAction } from '../categories-slice/categories-api-actions';
 
 export type BannersSlice = {
   banners: Banners | null;
@@ -24,13 +25,15 @@ export const bannersSlice = createSlice({
       .addCase(fetchBannersAction.fulfilled, (state, action) => {
         state.banners = action.payload;
       })
-      // .addCase(updateCategoryAction.fulfilled, (state) => {
-      //   state.categories = null;
-      // })
-      // .addCase(deleteCategoryAction.fulfilled, (state) => {
-      //   state.categories = null;
-      // })
-      ;
+      .addCase(updateBannerAction.fulfilled, (state) => {
+        state.banners = null;
+      })
+      .addCase(deleteCategoryAction.fulfilled, (state) => {
+        state.banners = null;
+      })
+      .addCase(deleteBannerAction.fulfilled, (state) => {
+        state.banners = null;
+      });
   },
 });
 

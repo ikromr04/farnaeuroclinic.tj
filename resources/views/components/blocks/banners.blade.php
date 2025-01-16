@@ -15,7 +15,7 @@
                 <a class="button max-w-max mt-5 md:mt-6 lg:mt-8" href="{{ $banner->link }}">{{ __('Подробнее') }}</a>
               @endif
             </div>
-            <img class="hidden object-cover md:flex md:min-w-[260px] md:min-h-[260px] lg:min-w-[300px] lg:min-h-[300px] xl:min-w-[320px] xl:min-h-[320px]" src="{{ $banner->image }}" width="260" height="260" alt="{{ $banner->title }}" />
+            <img class="hidden object-cover md:flex md:min-w-[260px] md:min-h-[260px] lg:min-w-[300px] lg:min-h-[300px] xl:min-w-[320px] xl:min-h-[320px]" src="{{ asset($banner->image) }}" width="260" height="260" alt="{{ $banner->title }}" />
           </div>
         @endforeach
       </div>

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { deleteProgramAction, fetchProgramsAction, updateProgramAction } from './programs-api-actions';
 import { SliceName } from '../../const';
 import { Program, Programs } from '../../types/programs';
+import { deleteCategoryAction } from '../categories-slice/categories-api-actions';
 
 export type ProgramsSlice = {
   programs: Programs | null;
@@ -25,6 +26,9 @@ export const programsSlice = createSlice({
         state.programs = action.payload;
       })
       .addCase(updateProgramAction.fulfilled, (state) => {
+        state.programs = null;
+      })
+      .addCase(deleteCategoryAction.fulfilled, (state) => {
         state.programs = null;
       })
       .addCase(deleteProgramAction.fulfilled, (state) => {

@@ -6,7 +6,7 @@ export type BannerId = ID;
 export type Banner = {
   id: BannerId;
   page: 'home' | 'for-patient';
-  category: Category;
+  category: Category | null;
   title: string;
   description: string;
   link?: string;

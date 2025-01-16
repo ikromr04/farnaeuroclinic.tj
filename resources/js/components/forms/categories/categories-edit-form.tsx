@@ -52,7 +52,7 @@ export default function CategoriesEditForm({
       dto: formData,
       onSuccess: () => {
         helpers.resetForm();
-        toast.success('Новая категория успешно обновлена.');
+        toast.success('Категория успешно обновлена.');
         setModal((prevState) => ({ ...prevState, isOpen: false }));
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),

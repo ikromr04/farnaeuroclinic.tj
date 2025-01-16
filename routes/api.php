@@ -26,5 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::prefix('banners')->group(function () {
     Route::get('/', [BannerController::class, 'index']);
     Route::post('/', [BannerController::class, 'store']);
+    Route::post('/update', [BannerController::class, 'update']);
+    Route::delete('/{id}', [BannerController::class, 'delete']);
   });
 });

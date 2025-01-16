@@ -84,7 +84,7 @@ export default function SelectField(props: SelectFieldProps): JSX.Element {
     return (
       <span className="flex items-center gap-1 overflow-scroll no-scrollbar">
         <span className="flex min-w-max">
-          {props.options.find((option) => option.value === field.value)?.label}
+          {props.options.find((option) => option.value.toString() === field.value.toString())?.label}
         </span>
       </span>
     )
