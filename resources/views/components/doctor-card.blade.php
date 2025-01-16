@@ -11,7 +11,7 @@
 
   <div class="relative doctor-avatar flex border border-brand rounded-[10px] w-[240px] h-[240px] overflow-hidden mb-5 md:h-[360px] md:w-full">
     <a href="{{ route('doctor', $doctor->slug) }}">
-      <img class="absolute w-full h-full object-cover object-top transition-all origin-top duration-300 xl:hover:scale-125 bg-slate-200" src="{{ asset("/images/doctors/$doctor->avatar") }}" width="240" height="360" alt="{{ $doctor->name }}">
+      <img class="absolute w-full h-full object-cover object-top transition-all origin-top duration-300 xl:hover:scale-125 bg-slate-200" src="{{ asset($doctor->avatar) }}" width="240" height="360" alt="{{ $doctor->name }}">
     </a>
     <span class="absolute -bottom-[1px] -right-[1px] button-brand cursor-pointer" data-modal-show data-doctor-id="{{ $doctor->name }}">
       {{ __('Записаться') }}

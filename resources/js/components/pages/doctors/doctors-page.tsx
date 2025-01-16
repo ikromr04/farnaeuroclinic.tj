@@ -1,17 +1,17 @@
 import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
-import PageLayout from '../layouts/page-layout';
+import PageLayout from '../../layouts/page-layout';
 import classNames from 'classnames';
-import Button from '../ui/button';
-import { Icons } from '../icons';
+import Button from '../../ui/button';
+import { Icons } from '../../icons';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { inititalDoctorsFilter } from '@/const';
-import Spinner from '../ui/spinner';
+import { AppRoute, inititalDoctorsFilter } from '@/const';
+import Spinner from '../../ui/spinner';
 import { fetchDoctorsAction } from '@/store/doctors-slice/doctors-api-actions';
 import { filterDoctors } from '@/utils/doctors';
-import DoctorsTable from '../blocks/doctors-table';
+import DoctorsTable from '../../blocks/doctors-table';
 import { DoctorsFilter } from '@/types/doctors';
 import { getDoctors } from '@/store/doctors-slice/doctors-selector';
-import DoctorsFilterForm from '../forms/doctors/doctors-filter-form';
+import DoctorsFilterForm from '../../forms/doctors/doctors-filter-form';
 
 export default function DoctorsPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ export default function DoctorsPage(): JSX.Element {
         <header className="top flex flex-col gap-2 mb-2 md:mb-3 md:gap-3 min-w-64">
           <div className="flex items-end justify-between gap-2">
             <h1 className="relative flex mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
-              Баннеры
+              Докторы
             </h1>
             <div className="relative z-10 min-w-6 h-full pointer-events-none -ml-7 bg-gradient-to-l from-gray-100 to-transparent"></div>
 
@@ -40,6 +40,7 @@ export default function DoctorsPage(): JSX.Element {
               className="min-w-max"
               icon="add"
               variant="success"
+              href={AppRoute.Dashboard.Doctors.Create}
             >
               <span className="sr-only md:not-sr-only">Добавить доктора</span>
             </Button>

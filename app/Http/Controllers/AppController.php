@@ -70,7 +70,7 @@ class AppController extends Controller
   public function doctors()
   {
     $data = new stdClass();
-    $data->doctors = Doctor::paginate(8);
+    $data->doctors = Doctor::latest()->paginate(8);
 
     return view('pages.doctors.index', compact('data'));
   }

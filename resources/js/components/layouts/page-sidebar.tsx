@@ -20,7 +20,7 @@ export default function PageSidebar({
             { label: 'Программы', icon: 'programs', href: AppRoute.Dashboard.Programs.Index },
             { label: 'Категории программ', icon: 'categories', href: AppRoute.Dashboard.ProgramCategories },
             { label: 'Баннеры', icon: 'banners', href: AppRoute.Dashboard.Banners },
-            { label: 'Докторы', icon: 'users', href: AppRoute.Dashboard.Doctors },
+            { label: 'Докторы', icon: 'users', href: AppRoute.Dashboard.Doctors.Index },
             // { label: 'Комментарии', icon: 'comment', href: AppRoute.Dashboard.Reviews },
           ]}
         />

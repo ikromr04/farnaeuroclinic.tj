@@ -20,7 +20,7 @@
           <svg class="absolute top-0 left-0 w-full h-full opacity-20 -z-10 transform -rotate-180 -scale-x-[1]">
             <use xlink:href="#icon" />
           </svg>
-          <img class="flex w-[195px] h-[195px] rounded-full object-cover object-top lg:w-[225px] lg:h-[225px] xl:w-[320px] xl:h-[320px]" src="{{ asset('/images/doctors/') . '/' . $data->doctor->avatar }}" width="195" height="195" alt="">
+          <img class="flex w-[195px] h-[195px] rounded-full object-cover object-top lg:w-[225px] lg:h-[225px] xl:w-[320px] xl:h-[320px]" src="{{ asset($data->doctor->avatar) }}" width="195" height="195" alt="">
         </div>
       </div>
     </div>

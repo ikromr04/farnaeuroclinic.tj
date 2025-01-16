@@ -13,7 +13,11 @@ export const AppRoute = {
     },
     ProgramCategories: '/dashboard/categories',
     Banners: '/dashboard/banners',
-    Doctors: '/dashboard/doctors',
+    Doctors: {
+      Index: '/dashboard/doctors',
+      Create: '/dashboard/doctors/create',
+      Edit: '/dashboard/doctors/:id',
+    },
     Reviews: '/dashboard/reviews',
   },
   Auth: {

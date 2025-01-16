@@ -32,7 +32,7 @@ export default function ImageField({
 
   return (
     <div className={classNames(className, 'flex flex-col')}>
-      <div className="relative group flex flex-col">
+      <div className="relative group flex flex-col w-max">
         {field.value &&
           <Button
             className="absolute top-6 right-1 z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300"
