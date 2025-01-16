@@ -56,6 +56,7 @@ export default function CategoriesCreateForm({
     helpers: FormikHelpers<CategoryStoreDTO>,
   ) => {
     helpers.setSubmitting(true);
+    
     const formData = new FormData();
     formData.append('title', values.title);
     formData.append('img', values.img);
@@ -98,7 +99,7 @@ export default function CategoriesCreateForm({
 
           <TextField name="title" label="Заголовок" />
 
-          <ContentField name="description" label="Краткое описание" />
+          <ContentField name="description" label="Описание" />
 
           <div className="flex justify-end mt-4 gap-2">
             <Button

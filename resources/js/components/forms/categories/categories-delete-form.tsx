@@ -1,12 +1,10 @@
 import Button from '@/components/ui/button';
-import { MessageProps } from '@/components/ui/message';
 import Spinner from '@/components/ui/spinner';
 import { useAppDispatch } from '@/hooks';
 import { deleteCategoryAction } from '@/store/categories-slice/categories-api-actions';
-import { deleteProgramAction } from '@/store/programs-slice/programs-api-actions';
 import classNames from 'classnames';
 import { Form, Formik, FormikHelpers } from 'formik';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
 type CategoriesDeleteFormProps = {

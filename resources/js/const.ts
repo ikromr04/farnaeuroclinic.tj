@@ -32,6 +32,7 @@ export const APIRoute = {
   },
   Categories: {
     Index: '/categories',
+    Update: '/categories/update',
     Show: '/categories/:id',
   },
 };

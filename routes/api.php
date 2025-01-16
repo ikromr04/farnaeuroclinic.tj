@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']);
+    Route::post('/update', [CategoryController::class, 'update']);
     Route::delete('/{id}', [CategoryController::class, 'delete']);
   });
 });

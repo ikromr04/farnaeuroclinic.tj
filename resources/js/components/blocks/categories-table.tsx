@@ -7,6 +7,7 @@ import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
 import { Categories, CategoriesFilter, Category } from '@/types/categories';
 import CategoriesDeleteForm from '../forms/categories/categories-delete-form';
+import CategoriesEditForm from '../forms/categories/categories-edit-form';
 
 export type AccessorProps = {
   category: Category;
@@ -29,6 +30,16 @@ export default function CategoriesTable({
     isOpen: false,
     deleteId: 0,
     title: '',
+  });
+  const [editModal, setEditModal] = useState<{ isOpen: boolean; category: Category }>({
+    isOpen: false,
+    category: {
+      id: 0,
+      title: '',
+      slug: '',
+      img: '',
+      description: 'asd',
+    },
   });
 
   const columns: DataTableColumns = useMemo(() => ([
@@ -85,7 +96,7 @@ export default function CategoriesTable({
     description: category.description,
     actions:
       <div className="flex items-center justify-center w-full gap-1">
-        <Button variant="warn">
+        <Button variant="warn" onClick={() => setEditModal({ isOpen: true, category })}>
           <Tooltip label="Редактировать" position="left" />
           <Icons.edit width={14} height={14} />
         </Button>
@@ -105,6 +116,9 @@ export default function CategoriesTable({
       />
       <Modal isOpen={deleteModal.isOpen}>
         <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+      </Modal>
+      <Modal isOpen={editModal.isOpen}>
+        <CategoriesEditForm key={editModal.isOpen.toString()} modal={editModal} setModal={setEditModal} />
       </Modal>
     </>
   );

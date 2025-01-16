@@ -91,7 +91,6 @@ export default function ProgramsEditForm({
     await dispatch(updateProgramAction({
       dto: values,
       onSuccess: (updatedProgram) => {
-        dispatch(addProgramAction(updatedProgram));
         setProgram(updatedProgram);
         toast.success('Программа успешно обновлена.');
       },

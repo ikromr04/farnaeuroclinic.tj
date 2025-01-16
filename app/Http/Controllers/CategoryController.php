@@ -38,6 +38,36 @@ class CategoryController extends Controller
     return response()->json([
       'id' => $category->id,
       'title' => $category->title,
+      'slug' => $category->title,
+      'img' => $category->img,
+      'description' => $category->description,
+    ], 200);
+  }
+
+  public function update(Request $request): JsonResponse
+  {
+    $category = ProgramCategory::find($request->id);
+    $category->title = $request->title;
+    $category->description = $request->description;
+
+    if ($request->hasFile('img')) {
+      $file = $request->file('img');
+
+      if (file_exists(public_path($category->img))) unlink(public_path($category->img));
+
+      $fileName = uniqid() . '.' . $file->extension();
+      $filePath = '/images/categories/' . $fileName;
+      $file->move(public_path('/images/categories'), $fileName);
+
+      $category->img = $filePath;
+    }
+
+    $category->update();
+
+    return response()->json([
+      'id' => $category->id,
+      'title' => $category->title,
+      'slug' => $category->title,
       'img' => $category->img,
       'description' => $category->description,
     ], 200);

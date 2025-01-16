@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName } from '../../const';
-import { deleteCategoryAction, fetchCategoriesAction } from './categories-api-actions';
+import { deleteCategoryAction, fetchCategoriesAction, updateCategoryAction } from './categories-api-actions';
 import { Categories, Category } from '../../types/categories';
 
 export type CategoriesSlice = {
@@ -23,6 +23,9 @@ export const categoriesSlice = createSlice({
     builder
       .addCase(fetchCategoriesAction.fulfilled, (state, action) => {
         state.categories = action.payload;
+      })
+      .addCase(updateCategoryAction.fulfilled, (state) => {
+        state.categories = null;
       })
       .addCase(deleteCategoryAction.fulfilled, (state) => {
         state.categories = null;
