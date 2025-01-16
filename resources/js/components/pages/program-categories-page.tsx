@@ -12,12 +12,15 @@ import Spinner from '../ui/spinner';
 import CategoriesTable from '../blocks/categories-table';
 import { filterCategories } from '@/utils/categories';
 import CategoriesFilterForm from '../forms/categories/categories-filter-form';
+import Modal from '../ui/modal';
+import CategoriesCreateForm from '../forms/categories/categories-create-form';
 
 export default function ProgramCategoriesPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
   const [filter, setFilter] = useState<CategoriesFilter>(initialCategoriesFilter);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   useEffect(() => {
     if (!categories) dispatch(fetchCategoriesAction());
@@ -40,6 +43,7 @@ export default function ProgramCategoriesPage(): JSX.Element {
               className="min-w-max"
               icon="add"
               variant="success"
+              onClick={() => setIsCreateModalOpen(true)}
             >
               <span className="sr-only md:not-sr-only">Добавить категорию</span>
             </Button>
@@ -114,6 +118,10 @@ export default function ProgramCategoriesPage(): JSX.Element {
           />
         </section>
       </main>
+
+      <Modal isOpen={isCreateModalOpen}>
+        <CategoriesCreateForm key={isCreateModalOpen.toString()} setIsOpen={setIsCreateModalOpen} />
+      </Modal>
     </PageLayout>
   );
 }

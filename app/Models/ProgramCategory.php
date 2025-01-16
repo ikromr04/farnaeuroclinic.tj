@@ -11,6 +11,8 @@ class ProgramCategory extends Model
 {
   use HasSlug;
 
+  protected $guarded = [];
+
   public function getSlugOptions(): SlugOptions
   {
     return SlugOptions::create()

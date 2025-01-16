@@ -3,7 +3,7 @@
 <article {{ $attributes->merge([
     'class' => 'w-full border border-brand rounded-[10px] overflow-hidden',
 ]) }}>
-  <img class="w-full aspect-[490/250] flex object-cover" src="{{ asset("/images/categories/$category->img") }}" width="490" height="250" alt="{{ $category->name }}">
+  <img class="w-full aspect-[490/250] flex object-cover" src="{{ asset($category->img) }}" width="490" height="250" alt="{{ $category->name }}">
 
   <div class="py-8 pl-6 pr-10">
     <h3 class="font-semibold mb-3 flex items-center gap-x-2 uppercase">

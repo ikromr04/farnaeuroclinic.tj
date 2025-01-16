@@ -5,8 +5,8 @@ import Button from '../ui/button';
 import { Icons } from '../icons';
 import Tooltip from '../ui/tooltip';
 import Modal from '../ui/modal';
-import ProgramsDeleteForm from '../forms/programs/programs-delete-form';
 import { Categories, CategoriesFilter, Category } from '@/types/categories';
+import CategoriesDeleteForm from '../forms/categories/categories-delete-form';
 
 export type AccessorProps = {
   category: Category;
@@ -94,7 +94,7 @@ export default function CategoriesTable({
           <Icons.delete width={14} height={14} />
         </Button>
       </div>
-  })), [filter]);
+  })), [filter, categories]);
 
   return (
     <>
@@ -104,7 +104,7 @@ export default function CategoriesTable({
         columns={columns}
       />
       <Modal isOpen={deleteModal.isOpen}>
-        <ProgramsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+        <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} />
       </Modal>
     </>
   );

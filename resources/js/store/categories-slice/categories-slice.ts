@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SliceName } from '../../const';
-import { fetchCategoriesAction } from './categories-api-actions';
-import { Categories } from '../../types/categories';
+import { deleteCategoryAction, fetchCategoriesAction } from './categories-api-actions';
+import { Categories, Category } from '../../types/categories';
 
 export type CategoriesSlice = {
   categories: Categories | null;
@@ -14,11 +14,22 @@ const initialState: CategoriesSlice = {
 export const categoriesSlice = createSlice({
   name: SliceName.Categories,
   initialState,
-  reducers: {},
+  reducers: {
+    addCategoryAction: (state, action: { payload: Category }) => {
+      state.categories = [action.payload, ...(state.categories || [])];
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchCategoriesAction.fulfilled, (state, action) => {
         state.categories = action.payload;
+      })
+      .addCase(deleteCategoryAction.fulfilled, (state) => {
+        state.categories = null;
       });
   },
 });
+
+export const {
+  addCategoryAction,
+} = categoriesSlice.actions;
