@@ -1,12 +1,7 @@
 import React from 'react';
-import PageLayout from '../layouts/page-layout';
+import { Navigate } from 'react-router-dom';
+import { AppRoute } from '@/const';
 
 export default function DashboardPage(): JSX.Element {
-  return (
-    <PageLayout>
-      <main>
-        DashboardPage
-      </main>
-    </PageLayout>
-  );
+  return <Navigate to={AppRoute.Dashboard.Programs.Index} />;
 }

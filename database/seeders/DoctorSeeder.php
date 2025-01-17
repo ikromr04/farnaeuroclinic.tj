@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Doctor;
 use App\Models\DoctorBlock;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DoctorSeeder extends Seeder
@@ -17,7 +16,7 @@ class DoctorSeeder extends Seeder
     foreach (range(1, 16) as $key) {
       $doctor = Doctor::create([
         'name' => 'Базанов Павел Александрович',
-        'avatar' => 'images/doctors/bazanov.png',
+        'avatar' => '/images/doctors/bazanov.png',
         'position' => "Медицинский директор, Главный репродуктолог \n Врач-гинеколог-репродуктолог, к.м.н. \n Член Российской Ассоциации Репродукции Человека (РАРЧ) \n Член Европейской Ассоциации Репродукции Человека и Эмбриологии (ESHRE) \n Член Американского Общества Репродуктивной Медицины (ASRM)",
         'specialization' => 'Репродуктология',
         'experience' => '25 лет',
