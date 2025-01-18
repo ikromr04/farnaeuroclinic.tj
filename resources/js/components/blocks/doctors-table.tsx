@@ -116,7 +116,7 @@ export default function DoctorsTable({
       width: 120,
       sticky: 'right',
     },
-  ]), [filter]);
+  ]), [filter, doctors]);
 
   const records = useMemo(() => doctors.map((doctor) => ({
     name: doctor.name,

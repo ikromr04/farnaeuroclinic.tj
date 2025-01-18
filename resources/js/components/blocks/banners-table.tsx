@@ -140,7 +140,7 @@ export default function BannersTable({
       width: 120,
       sticky: 'right',
     },
-  ]), [filter]);
+  ]), [filter, banners]);
 
   const records = useMemo(() => banners.map((banner) => ({
     title: banner.title,

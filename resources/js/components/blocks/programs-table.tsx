@@ -138,7 +138,7 @@ export default function ProgramsTable({
           <Icons.delete width={14} height={14} />
         </Button>
       </div>
-  })), [filter]);
+  })), [filter, programs]);
 
   return (
     <>
