@@ -8,7 +8,7 @@
 
     <x-blocks.banners :banners="$data->banners" />
 
-    <x-blocks.advantages />
+    <x-blocks.advantages :advantages="$data->advantages" />
 
     <x-blocks.doctors :doctors="$data->doctors" />
 

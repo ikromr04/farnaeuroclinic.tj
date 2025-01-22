@@ -50,7 +50,7 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Dashboard.Doctors.Create} element={<DoctorsCreatePage />} />
         <Route path={AppRoute.Dashboard.Doctors.Edit} element={<DoctorsEditPage />} />
 
-        {/* <Route path={AppRoute.Dashboard.Reviews} element={<DashboardPage />} /> */}
+        <Route path={AppRoute.Dashboard.Reviews} element={<DashboardPage />} />
 
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>

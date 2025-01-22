@@ -1,7 +1,7 @@
-import { BannersFilter } from "./types/banners";
-import { CategoriesFilter } from "./types/categories";
-import { DoctorsFilter } from "./types/doctors";
-import { ProgramsFilter } from "./types/programs";
+import { BannersFilter } from './types/banners';
+import { CategoriesFilter } from './types/categories';
+import { DoctorsFilter } from './types/doctors';
+import { ProgramsFilter } from './types/programs';
 
 export const AppRoute = {
   Dashboard: {
