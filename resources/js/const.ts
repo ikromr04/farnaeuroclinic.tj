@@ -6,6 +6,7 @@ import { ProgramsFilter } from './types/programs';
 export const AppRoute = {
   Dashboard: {
     Index: '/dashboard',
+    SiteInfo: '/dashboard/site-info',
     Programs: {
       Index: '/dashboard/programs',
       Create: '/dashboard/programs/create',

@@ -1,3 +1,5 @@
+@props(['texts'])
+
 <section id="application" {{ $attributes->merge([
     'class' => 'container relative z-0 sm:p-10 sm:border sm:border-brand sm:rounded-[10px] md:pl-20 md:pr-12 md:flex md:items-center md:gap-x-10 sm:mt-[10px]',
 ]) }}>
@@ -5,7 +7,9 @@
   <div class="hidden sm:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
   <div class="md:min-w-[330px]">
-    <h2 class="relative z-10 text-[25px] font-semibold leading-[1.2] whitespace-pre-line mb-5 sm:whitespace-normal">{{ __("Записаться \n на консультацию") }}</h2>
+    <div class="relative z-10 leading-[1.2] mb-5">
+      {!! $texts['application']->title !!}
+    </div>
 
     <form class="flex flex-col mb-5">
       <span class="text-green-600 hidden">Ваша заявка успешно отправлена</span>
@@ -35,11 +39,6 @@
   </div>
 
   <div class="font-light text-xs leading-[1.2] lg:text-[15px] lg:font-normal">
-    <p class="mb-2 md:mb-5">
-      {{ __('Оставьте заявку — с вами свяжется консультант с профильным медицинским образованием, который поможет с выбором программы, сориентирует по срокам и стоимости.') }}
-    </p>
-    <p class="text-[#404040] opacity-50">
-      {!! __('Нажимая на кнопку вы подтверждаете, что согласны на <a class="underline" target="_blank">обработку персональных данных</a>. Мы не передаём ваши данные третьим лицам.') !!}
-    </p>
+    {!! $texts['application']->content !!}
   </div>
 </section>

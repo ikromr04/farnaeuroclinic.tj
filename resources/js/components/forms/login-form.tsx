@@ -4,27 +4,30 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import Button from '../ui/button';
 import { useAppDispatch } from '../../hooks/index';
-import { LoginCredentials } from '../../dto/auth-dto';
 import { loginAction } from '../../store/auth-slice/auth-api-actions';
 import Spinner from '../ui/spinner';
 import TextField from '../ui/fields/text-field';
 import PasswordField from '../ui/fields/password-field';
-import { PropsWithClassname } from '../../types';
+import { LoginCredentials } from '@/dto/auth-dto';
 
 const validationSchema = Yup.object().shape({
   login: Yup.string().required('Введите Ваш логин.'),
   password: Yup.string().required('Введите Ваш пароль.'),
 });
 
+type LoginFormProps = {
+  className?: string;
+}
+
 export default function LoginForm({
   className,
-}: PropsWithClassname): JSX.Element {
+}: LoginFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const initialValues: LoginCredentials = { login: '', password: '' };
 
   const onSubmit = async (
     values: LoginCredentials,
-    helpers: FormikHelpers<LoginCredentials>
+    helpers: FormikHelpers<LoginCredentials>,
   ) => {
     helpers.setSubmitting(true);
 

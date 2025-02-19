@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="font-sourceSans" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="font-sourceSans" lang="ru">
 
 <head>
   <meta charset="utf-8">
@@ -18,8 +18,8 @@
   <title>{{ env('APP_NAME') }}</title>
 </head>
 
-<body>
-  <div class="w-screen h-screen bg-gray-100 text-base" id="root"></div>
+<body class="group">
+  <div id="root"></div>
 
   @viteReactRefresh
   @vite('resources/js/main.tsx')

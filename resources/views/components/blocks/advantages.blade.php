@@ -1,3 +1,5 @@
+@props(['texts'])
+
 <section {{ $attributes->merge(['class' => 'container flex justify-center']) }}>
   <h2 class="sr-only">{{ __('Наши преимущества') }}</h2>
 
@@ -8,7 +10,9 @@
           <use xlink:href="#leaf" />
         </svg>
       </div>
-      <p class="whitespace-pre-line">{{ __("Более 10 лет \n ответственной работы") }}</p>
+      <div>
+        {!! $texts['advantage-1']->content !!}
+      </div>
     </li>
     <li class="flex gap-x-4 gap-y-4 items-center md:flex md:flex-col md:text-center lg:flex-row lg:text-left">
       <div class="text-brand flex justify-center items-center min-w-14 min-h-14">
@@ -16,7 +20,9 @@
           <use xlink:href="#heartcare" />
         </svg>
       </div>
-      <p class="whitespace-pre-line">{{ __("Более 50.000 успешно \n проведённых программ") }}</p>
+      <div>
+        {!! $texts['advantage-1']->content !!}
+      </div>
     </li>
     <li class="flex gap-x-4 gap-y-4 items-center md:flex md:flex-col md:text-center lg:flex-row lg:text-left">
       <div class="text-brand flex justify-center items-center min-w-14 min-h-14">
@@ -24,7 +30,9 @@
           <use xlink:href="#medal" />
         </svg>
       </div>
-      <p class="whitespace-pre-line">{{ __("Врачи высшей категории, \n доценты и к.м.н.") }}</p>
+      <div>
+        {!! $texts['advantage-1']->content !!}
+      </div>
     </li>
   </ul>
 </section>

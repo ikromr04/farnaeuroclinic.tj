@@ -47,7 +47,7 @@ export default function ProgramsPage(): JSX.Element {
           </div>
 
           <div className="flex bg-white rounded-md">
-            <div className="relative flex grow">
+            {/* <div className="relative flex grow">
               <div className="absolute left-[1px] top-[1px] rounded-r-[3px] transform w-[30px] h-[30px] flex justify-center items-center">
                 <Icons.search width={14} />
               </div>
@@ -66,9 +66,9 @@ export default function ProgramsPage(): JSX.Element {
                 >
                   <Icons.close width={12} />
                 </button>}
-            </div>
+            </div> */}
 
-            <Button
+            {/* <Button
               className="relative border border-l-0 rounded-l-none"
               type="button"
               icon="filter"
@@ -80,40 +80,19 @@ export default function ProgramsPage(): JSX.Element {
               onClick={() => setIsFilterOpen(!isFilterOpen)}
             >
               <span className="sr-only md:not-sr-only">Фильтр</span>
-            </Button>
+            </Button> */}
           </div>
         </header>
 
-        {programs
-          ? <ProgramsTable
+        {/* {programs
+          ?
+          <ProgramsTable
             className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
             programs={filterPrograms(programs, filter)}
             filter={filter}
             setFilter={setFilter}
           />
-          : <Spinner className="w-8 h-8" />}
-
-        <section className={classNames(
-          'absolute top-0 left-[calc(100%+8px)] z-10 flex flex-col w-64 h-full py-2 p-4 rounded bg-white border transition-all duration-300 md:left-[calc(100%+16px)]',
-          !isFilterOpen ? 'invisible opacity-0' : 'visible opacity-100',
-        )}>
-          <h2 className="flex items-center justify-between title mb-2">
-            Фильтр
-
-            <Button
-              variant="text"
-              onClick={() => setIsFilterOpen(false)}
-            >
-              <Icons.west className="transform scale-x-[-1]" width={16} />
-            </Button>
-          </h2>
-
-          <ProgramsFilterForm
-            className="grow max-h-[calc(100%-48px)]"
-            filter={filter}
-            setFilter={setFilter}
-          />
-        </section>
+          : <Spinner className="w-8 h-8" />} */}
       </main>
     </PageLayout>
   );

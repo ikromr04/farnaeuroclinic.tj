@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Mail\ApplicationMail;
 use App\Models\Banner;
 use App\Models\Doctor;
@@ -16,31 +17,40 @@ class AppController extends Controller
 {
   public function index()
   {
-    $data = new stdClass();
-    $data->banners = Banner::where('page', 'home')->get();
-    $data->doctors = Doctor::limit(10)->get();
-    $data->programs = Program::limit(8)->get();
-    $data->reviews = Review::get();
+    $data = (object) [
+      'banners' => Banner::where('page', 'home')->get(),
+      'doctors' => Doctor::limit(10)->get(),
+      'programs' => Program::limit(8)->get(),
+      'reviews' => Review::get(),
+    ];
 
-    return view('pages.index', compact('data'));
+    $texts = Helper::getTexts('home');
+
+    return view('pages.index', compact('data', 'texts'));
   }
 
   public function about()
   {
-    $data = new stdClass();
-    $data->reviews = Review::get();
+    $data = (object) [
+      'reviews' => Review::get(),
+    ];
 
-    return view('pages.about', compact('data'));
+    $texts = Helper::getTexts('about');
+
+    return view('pages.about', compact('data', 'texts'));
   }
 
   public function forpatient()
   {
-    $data = new stdClass();
-    $data->banners = Banner::where('page', 'for-patient')->get();
-    $data->programCategories = ProgramCategory::get();
-    $data->reviews = Review::get();
+    $data = (object) [
+      'banners' => Banner::where('page', 'for-patient')->get(),
+      'programCategories' => ProgramCategory::get(),
+      'reviews' => Review::get(),
+    ];
 
-    return view('pages.forpatient', compact('data'));
+    $texts = Helper::getTexts('forpatient');
+
+    return view('pages.forpatient', compact('data', 'texts'));
   }
 
   public function category($slug)
@@ -54,7 +64,9 @@ class AppController extends Controller
       ->paginate(8);
     $data->reviews = Review::get();
 
-    return view('pages.category', compact('data'));
+    $texts = Helper::getTexts('category');
+
+    return view('pages.category', compact('data', 'texts'));
   }
 
   public function program($slug)
@@ -72,7 +84,9 @@ class AppController extends Controller
     $data = new stdClass();
     $data->doctors = Doctor::latest()->paginate(8);
 
-    return view('pages.doctors.index', compact('data'));
+    $texts = Helper::getTexts('doctors');
+
+    return view('pages.doctors.index', compact('data', 'texts'));
   }
 
   public function doctor($slug)

@@ -1,30 +1,23 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React from 'react';
 import { Icons } from '../icons';
 import { LinkProps, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import Button from './button';
-import { PropsWithClassname } from '../../types';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNavigationCollapsedState } from '../../store/app-slice/app-selector';
-import { collapseNavigationAction } from '../../store/app-slice/app-slice';
 
-export type NavLinkProps = PropsWithClassname<{
+export type NavLinkProps = {
   label: string;
-  href?: string;
   icon: keyof typeof Icons;
-} & (LinkProps | ButtonHTMLAttributes<HTMLButtonElement>)>;
+} & LinkProps;
 
 export default function NavLink({
-  className,
   label,
-  href,
   icon,
+  to,
   ...props
 }: NavLinkProps) {
   const { pathname } = useLocation();
   const Icon = Icons[icon];
-  const isActive = href && (href != '/' ? pathname.startsWith(href) : (href === pathname));
-  const isNavigationCollapsed = useAppSelector(getNavigationCollapsedState);
+  const isActive = to && (to != '/' ? pathname.startsWith(href) : (href === pathname));
   const dispatch = useAppDispatch();
 
   const children = <>

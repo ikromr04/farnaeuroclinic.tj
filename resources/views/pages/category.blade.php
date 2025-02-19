@@ -8,7 +8,7 @@
 
     <x-blocks.banners :banners="$data->banners" />
 
-    <x-blocks.advantages />
+    <x-blocks.advantages :texts="$texts" />
 
     <x-blocks.program-category :category="$data->category" :programs="$data->programs" />
 

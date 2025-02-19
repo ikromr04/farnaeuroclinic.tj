@@ -8,14 +8,14 @@
 
     <x-blocks.banners :banners="$data->banners" />
 
-    <x-blocks.advantages :advantages="$data->advantages" />
+    <x-blocks.advantages :texts="$texts" />
 
-    <x-blocks.doctors :doctors="$data->doctors" />
+    <x-blocks.doctors :doctors="$data->doctors" :texts="$texts" />
 
-    <x-blocks.popular-programs :programs="$data->programs" />
+    <x-blocks.popular-programs :programs="$data->programs" :texts="$texts" />
 
-    <x-blocks.reviews :reviews="$data->reviews" />
+    <x-blocks.reviews :reviews="$data->reviews" :texts="$texts" />
 
-    <x-application />
+    <x-application :texts="$texts" />
   </main>
 @endsection

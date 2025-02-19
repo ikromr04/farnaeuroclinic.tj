@@ -8,7 +8,7 @@
 
     <x-blocks.about />
 
-    <x-blocks.advantages />
+    <x-blocks.advantages :texts="$texts" />
 
     <x-blocks.mission />
 
