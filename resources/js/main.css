@@ -28,7 +28,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   &.active {
-    @apply bg-blue-100 pointer-events-none;
+    @apply bg-blue-100 before:hidden;
   }
 }
 

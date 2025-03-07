@@ -49,7 +49,7 @@ class ProgramController extends Controller
       'price' => $request->price,
     ]);
 
-    if ($request->blocks) {
+    if (isset($request->blocks)) {
       foreach ($request->blocks as $block) {
         ProgramBlock::create([
           'program_id' => $program->id,
@@ -66,7 +66,7 @@ class ProgramController extends Controller
         'info' => $request->article['info'],
       ]);
 
-      if ($request->article['blocks']) {
+      if (isset($request->article['blocks'])) {
         foreach ($request->article['blocks'] as $block) {
           ArticleBlock::create([
             'article_id' => $article->id,
