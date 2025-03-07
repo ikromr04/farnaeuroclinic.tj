@@ -28,24 +28,6 @@ export default function ProgramsPage(): JSX.Element {
 
   const columns: ColumnDef<Program>[] = [
     {
-      id: 'Флажки',
-      header: ({ table }) => (
-        <input
-          type="checkbox"
-          checked={table.getIsAllRowsSelected()}
-          onChange={table.getToggleAllRowsSelectedHandler()}
-        />
-      ),
-      cell: ({ row }) => (
-        <input
-          type="checkbox"
-          checked={row.getIsSelected()}
-          onChange={row.getToggleSelectedHandler()}
-        />
-      ),
-      size: 50
-    },
-    {
       id: 'ID',
       accessorKey: 'id',
       header: 'ID',
@@ -68,6 +50,7 @@ export default function ProgramsPage(): JSX.Element {
       accessorKey: 'description',
       header: 'Описание',
       enableSorting: true,
+      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.description }} />,
     },
     {
       id: 'Информация',

@@ -5,8 +5,6 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { ProgramStoreDTO } from '../../../dto/programs-dto';
 import Button from '../../ui/button';
-import Spinner from '../../ui/spinner';
-import ContentField from '../../ui/fields/content-field';
 import SelectField from '../../ui/fields/select-field';
 import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
@@ -190,7 +188,6 @@ function ProgramsCreateForm(): JSX.Element {
                 )}
               </FieldArray>
             </div>
-
           </fieldset>
 
           <div className="flex justify-end mt-4 gap-2 p-4 rounded-tl-md ml-auto sticky bottom-0 bg-gray-100">

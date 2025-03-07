@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { getPrograms } from '@/store/programs-slice/programs-selector';
 import { fetchProgramByIdAction } from '@/store/programs-slice/programs-api-actions';
 import { Program } from '@/types/programs';
-import Spinner from '@/components/ui/spinner';
 import ProgramsEditForm from '@/components/forms/programs/programs-edit-form';
 
 export default function ProgramsEditPage(): JSX.Element {
@@ -25,15 +24,15 @@ export default function ProgramsEditPage(): JSX.Element {
 
   return (
     <PageLayout>
-      <main className="flex flex-col p-4">
-        <h1 className="title mb-1">
-          Редактирование программы
+      <main className="mx-4">
+        <h1 className="title mt-4 mb-2">
+          Редактировать
         </h1>
 
         <ul className="flex items-center gap-1 mb-4 leading-none">
           <li className="flex items-center gap-1">
             <Link className="transition-all duration-300 hover:text-brand" to={AppRoute.Dashboard.Programs.Index}>
-              Справочник программ
+              Программы
             </Link>
             <Icons.chevronRight width={6} />
           </li>
@@ -42,9 +41,7 @@ export default function ProgramsEditPage(): JSX.Element {
           </li>
         </ul>
 
-        {!program
-          ? <Spinner className="w-6 h-6" />
-          : <ProgramsEditForm program={program} setProgram={setProgram} />}
+        {program && <ProgramsEditForm program={program} setProgram={setProgram} />}
       </main>
     </PageLayout>
   );

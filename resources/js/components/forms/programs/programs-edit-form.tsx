@@ -13,9 +13,7 @@ import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-a
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { ProgramUpdateDTO } from '@/dto/programs-dto';
 import SelectField from '@/components/ui/fields/select-field';
-import ContentField from '@/components/ui/fields/content-field';
 import Button from '@/components/ui/button';
-import Spinner from '@/components/ui/spinner';
 
 const validationSchema = Yup.object().shape({
   id: Yup.number().required('Обязательное поле.'),
@@ -61,21 +59,21 @@ function ProgramsEditForm({
     description: program.description,
     info: program.info,
     price: program.price,
-    blocks: program.blocks?.map((block) => ({
+    blocks: program.blocks ? program.blocks.map((block) => ({
       id: block.id,
       title: block.title,
       short_title: block.shortTitle,
       content: block.content,
-    })),
+    })) : [],
     article: {
       id: program.article.id,
       info: program.article.info,
-      blocks: program.article.blocks?.map((block) => ({
+      blocks: program.article.blocks ?program.article.blocks?.map((block) => ({
         id: block.id,
         title: block.title,
         short_title: block.shortTitle,
         content: block.content,
-      }))
+      })) : [],
     },
   };
 
@@ -109,12 +107,16 @@ function ProgramsEditForm({
       onSubmit={onSubmit}
     >
       {({ values, isSubmitting, setFieldValue, resetForm }) => (
-        <Form className="flex flex-col gap-4">
+        <Form className="flex flex-col gap-6">
           <fieldset>
-            <legend className="title ml-2 !text-lg">Программа</legend>
+            <legend className="text-md text-gray-900 font-semibold">
+              Программа
+            </legend>
 
-            <div className="flex flex-col gap-4 rounded bg-white shadow p-6">
-              <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white rounded-md border p-6 flex flex-col gap-2">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                <TextField name="title" label="Заголовок" required />
+
                 {categories &&
                   <SelectField
                     name="category_id"
@@ -122,91 +124,100 @@ function ProgramsEditForm({
                     cleanable
                     onClean={() => setFieldValue('category_id', '')}
                     options={categories.map(({ id, title }) => ({ value: id, label: title }))}
+                    required
                   />}
 
                 <TextField name="price" type="number" label="Цена" required />
               </div>
 
-              <EditorField name="title" label="Заголовок" />
+              <EditorField name="description" label="Краткое описание" required />
 
-              <ContentField name="description" label="Краткое описание" />
-
-              <EditorField name="info" label="Содержание" />
+              <EditorField name="info" label="Содержание" required />
             </div>
           </fieldset>
 
-          <div>
-            <h2 className="text-md text-gray-900 font-semibold mb-3">Блоки программы</h2>
+          <fieldset>
+            <legend className="text-md text-gray-900 font-semibold">
+              Блоки программы
+            </legend>
 
-            <FieldArray name="blocks">
-              {({ push, remove }) => (
-                <div className="flex flex-col gap-4">
-                  {values.blocks?.map((_, index) => (
-                    <div key={index}>
-                      <div className="flex justify-between items-end">
-                        <h3 className="font-semibold">Блок {index + 1}</h3>
-                      </div>
-                      <TextField name={`blocks[${index}.title]`} label="Заголовок" />
-                      <TextField name={`blocks[${index}.short_title]`} label="Краткий заголовок" />
-                      <EditorField name={`blocks[${index}.content]`} label="Содержание" />
-                      <Button className="ml-auto my-2" variant="error" onClick={() => remove(index)}>
-                        Удалить блок
-                      </Button>
-                    </div>
-                  ))}
-                  <button
-                    className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
-                    type="button"
-                    onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
-                  >
-                    <Icons.add width={14} />
-                    Добавить блок
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-          </div>
+            <div className="bg-white rounded-md border p-6 flex flex-col gap-2">
+              <FieldArray name="blocks">
+                {({ push, remove }) => (
+                  <div className="flex flex-col gap-4">
+                    {values.blocks?.map((_, index) => (
+                      <fieldset key={index}>
+                        <legend className="font-semibold">Блок {index + 1}</legend>
 
-          <div>
-            <h2 className="text-md text-gray-900 font-semibold mb-3">Статья программы</h2>
+                        <div className="flex flex-col gap-2">
+                          <TextField name={`blocks[${index}.title]`} label="Заголовок" required />
+                          <TextField name={`blocks[${index}.short_title]`} label="Краткий заголовок" required />
+                          <EditorField name={`blocks[${index}.content]`} label="Содержание" required />
+                        </div>
+                        <Button className="ml-auto mt-3" variant="error" onClick={() => remove(index)}>
+                          Удалить блок
+                        </Button>
+                      </fieldset>
+                    ))}
+                    <button
+                      className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
+                      type="button"
+                      onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
+                    >
+                      <Icons.add width={14} />
+                      Добавить блок
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+          </fieldset>
 
-            <EditorField className="mb-4" name={`article.info`} label="Содержание статьи" />
+          <fieldset>
+            <legend className="text-md text-gray-900 font-semibold">
+              Статья программы
+            </legend>
 
-            <FieldArray name="article.blocks">
-              {({ push, remove }) => (
-                <div className="flex flex-col gap-4">
-                  {values.article?.blocks?.map((_, index) => (
-                    <div key={index}>
-                      <div className="flex justify-between items-end">
-                        <h3 className="font-semibold">Блок статьи {index + 1}</h3>
-                      </div>
-                      <TextField name={`article.blocks[${index}.title]`} label="Заголовок" />
-                      <TextField name={`article.blocks[${index}.short_title]`} label="Краткий заголовок" />
-                      <EditorField name={`article.blocks[${index}.content]`} label="Содержание" />
-                      <Button className="ml-auto my-2" variant="error" onClick={() => remove(index)}>
-                        Удалить блок
-                      </Button>
-                    </div>
-                  ))}
-                  <button
-                    className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
-                    type="button"
-                    onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
-                  >
-                    <Icons.add width={14} />
-                    Добавить блок
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-          </div>
+            <div className="bg-white rounded-md border p-6 flex flex-col gap-2">
+              <EditorField className="mb-4" name={`article.info`} label="Содержание статьи" />
 
-          <div className="flex justify-end mt-4 gap-2">
+              <FieldArray name="article.blocks">
+                {({ push, remove }) => (
+                  <div className="flex flex-col gap-4">
+                    {values.article?.blocks?.map((_, index) => (
+                      <fieldset key={index}>
+                        <legend className="font-semibold">Блок статьи {index + 1}</legend>
+
+                        <div className="flex flex-col gap-2">
+                          <TextField name={`article.blocks[${index}.title]`} label="Заголовок" required />
+                          <TextField name={`article.blocks[${index}.short_title]`} label="Краткий заголовок" required />
+                          <EditorField name={`article.blocks[${index}.content]`} label="Содержание" required />
+                        </div>
+                        <Button className="ml-auto my-2" variant="error" onClick={() => remove(index)}>
+                          Удалить блок
+                        </Button>
+                      </fieldset>
+                    ))}
+                    <button
+                      className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
+                      type="button"
+                      onClick={() => push({ id: 0, title: '', short_title: '', content: '' })}
+                    >
+                      <Icons.add width={14} />
+                      Добавить блок
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+          </fieldset>
+
+          <div className="flex justify-end mt-4 gap-2 p-4 rounded-tl-md ml-auto sticky bottom-0 bg-gray-100">
             <Button
               type="reset"
               disabled={isSubmitting}
-              variant="warn"
-              onClick={() => resetForm()}
+              href={`/programs/${program.slug}`}
+              target="_blank"
             >
               Просмотреть на сайте
             </Button>
