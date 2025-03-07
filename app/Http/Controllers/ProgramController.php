@@ -33,50 +33,8 @@ class ProgramController extends Controller
   public function get(): JsonResponse
   {
     $programs = Program::latest()
-      ->select(
-        'id',
-        'program_category_id',
-        'title',
-        'slug',
-        'description',
-        'info',
-        'price',
-      )->with([
-        'category' => function ($query) {
-          $query->select(
-            'id',
-            'title',
-            'slug',
-            'img',
-            'description',
-          );
-        },
-        'blocks' => function ($query) {
-          $query->select(
-            'id',
-            'program_id',
-            'title',
-            'slug',
-            'short_title as shortTitle',
-            'content',
-          );
-        },
-        'article' => function ($query) {
-          $query->select('id', 'program_id', 'info')
-            ->with([
-              'blocks' => function ($query) {
-                $query->select(
-                  'id',
-                  'article_id',
-                  'short_title as shortTitle',
-                  'title',
-                  'slug',
-                  'content',
-                );
-              },
-            ]);
-        },
-      ])->get();
+      ->with(['category', 'blocks', 'article'])
+      ->get();
 
     return response()->json($programs, 200);
   }

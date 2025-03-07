@@ -2,22 +2,20 @@ import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import * as Yup from 'yup';
 import { FieldArray, Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
-import { PropsWithClassname } from '../../../types';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { ProgramUpdateDTO } from '../../../dto/programs-dto';
-import Button from '../../ui/button';
-import Spinner from '../../ui/spinner';
-import ContentField from '../../ui/fields/content-field';
-import SelectField from '../../ui/fields/select-field';
-import { fetchCategoriesAction } from '../../../store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import TextField from '@/components/ui/fields/text-field';
 import EditorField from '@/components/ui/fields/editor-field/editor-field';
 import { updateProgramAction } from '@/store/programs-slice/programs-api-actions';
-import { addProgramAction } from '@/store/programs-slice/programs-slice';
 import { Icons } from '@/components/icons';
 import { toast } from 'react-toastify';
 import { Program } from '@/types/programs';
+import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { ProgramUpdateDTO } from '@/dto/programs-dto';
+import SelectField from '@/components/ui/fields/select-field';
+import ContentField from '@/components/ui/fields/content-field';
+import Button from '@/components/ui/button';
+import Spinner from '@/components/ui/spinner';
 
 const validationSchema = Yup.object().shape({
   id: Yup.number().required('Обязательное поле.'),
@@ -45,13 +43,12 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-type ProgramsEditFormProps = PropsWithClassname<{
+type ProgramsEditFormProps = {
   program: Program;
   setProgram: Dispatch<SetStateAction<Program | null>>;
-}>;
+};
 
-export default function ProgramsEditForm({
-  className,
+function ProgramsEditForm({
   program,
   setProgram,
 }: ProgramsEditFormProps): JSX.Element {
@@ -112,29 +109,31 @@ export default function ProgramsEditForm({
       onSubmit={onSubmit}
     >
       {({ values, isSubmitting, setFieldValue, resetForm }) => (
-        <Form className={classNames(className, 'flex flex-col gap-4 py-4 px-6 rounded shadow bg-white')}>
-          <div>
-            <h2 className="text-md text-gray-900 font-semibold mb-3">Программа</h2>
+        <Form className="flex flex-col gap-4">
+          <fieldset>
+            <legend className="title ml-2 !text-lg">Программа</legend>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              <TextField name="title" label="Заголовок" />
+            <div className="flex flex-col gap-4 rounded bg-white shadow p-6">
+              <div className="grid grid-cols-2 gap-2">
+                {categories &&
+                  <SelectField
+                    name="category_id"
+                    label="Категория"
+                    cleanable
+                    onClean={() => setFieldValue('category_id', '')}
+                    options={categories.map(({ id, title }) => ({ value: id, label: title }))}
+                  />}
 
-              {categories &&
-                <SelectField
-                  name="category_id"
-                  label="Категория"
-                  cleanable
-                  onClean={() => setFieldValue('category_id', '')}
-                  options={categories.map(({ id, title }) => ({ value: id, label: title }))}
-                />}
+                <TextField name="price" type="number" label="Цена" required />
+              </div>
 
-              <TextField name="price" type="number" label="Цена" />
+              <EditorField name="title" label="Заголовок" />
+
+              <ContentField name="description" label="Краткое описание" />
+
+              <EditorField name="info" label="Содержание" />
             </div>
-
-            <ContentField name="description" label="Краткое описание" />
-
-            <EditorField name="info" label="Содержание" />
-          </div>
+          </fieldset>
 
           <div>
             <h2 className="text-md text-gray-900 font-semibold mb-3">Блоки программы</h2>
@@ -209,15 +208,24 @@ export default function ProgramsEditForm({
               variant="warn"
               onClick={() => resetForm()}
             >
+              Просмотреть на сайте
+            </Button>
+            <Button
+              type="reset"
+              disabled={isSubmitting}
+              variant="warn"
+              onClick={() => resetForm()}
+            >
               Сбросить
             </Button>
             <Button
               className={classNames('justify-center', isSubmitting && 'opacity-60')}
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
               variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Редактировать'}
+              Сохранить
             </Button>
           </div>
         </Form>
@@ -225,3 +233,5 @@ export default function ProgramsEditForm({
     </Formik>
   );
 }
+
+export default ProgramsEditForm;

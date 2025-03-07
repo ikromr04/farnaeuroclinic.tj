@@ -15,7 +15,7 @@ function PageLayout({
       <div className="flex w-screen h-screen bg-gray-100 text-base">
         <PageSidebar />
 
-        <div>
+        <div className="flex grow flex-col h-screen overflow-x-hidden overflow-y-scroll">
           {children}
         </div>
       </div>

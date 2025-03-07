@@ -1,5 +1,4 @@
 import Button from '@/components/ui/button';
-import Spinner from '@/components/ui/spinner';
 import { useAppDispatch } from '@/hooks';
 import { deleteProgramAction } from '@/store/programs-slice/programs-api-actions';
 import classNames from 'classnames';
@@ -7,17 +6,14 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
+type Modal = {
+  isOpen: boolean;
+  id: number;
+};
+
 type ProgramsDeleteFormProps = {
-  modal: {
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  };
-  setModal: Dispatch<SetStateAction<{
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  }>>
+  modal: Modal;
+  setModal: Dispatch<SetStateAction<Modal>>
 }
 
 export default function ProgramsDeleteForm({
@@ -33,13 +29,13 @@ export default function ProgramsDeleteForm({
     helpers.setSubmitting(true);
 
     await dispatch(deleteProgramAction({
-      id: modal.deleteId,
+      id: modal.id,
       onSuccess: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' });
+        setModal({ isOpen: false, id: 0 });
         toast.success(message);
       },
       onFail: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' })
+        setModal({ isOpen: false, id: 0 })
         toast.error(message);
       },
     }));
@@ -56,14 +52,14 @@ export default function ProgramsDeleteForm({
       {({ isSubmitting }) => (
         <Form className="flex flex-col gap-4">
           <p>
-            Вы уверены что хотите удалить '{modal.title}' и все блоки и статьи связанные с этой программой?
+            Вы уверены что хотите удалить эту программу и все блоки и статьи связанные с этой программой?
           </p>
 
           <div className="flex justify-end gap-1">
             <Button
               type="reset"
               variant="success"
-              onClick={() => setModal({ isOpen: false, deleteId: 0, title: '' })}
+              onClick={() => setModal({ isOpen: false, id: 0 })}
             >
               Отмена
             </Button>
@@ -72,8 +68,9 @@ export default function ProgramsDeleteForm({
               variant="error"
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Удалить'}
+              Удалить
             </Button>
           </div>
         </Form>

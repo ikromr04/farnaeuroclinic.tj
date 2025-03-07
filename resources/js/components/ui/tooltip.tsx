@@ -16,13 +16,13 @@ export default function Tooltip({
   const ref = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    ref.current?.parentElement?.classList.add('relative', 'group');
+    ref.current?.parentElement?.classList.add('tooltip');
   }, [ref]);
 
   return (
     <span ref={ref} className={classNames(
       className,
-      'absolute transform w-max bg-gray-900 leading-none font-light text-white pointer-events-none text-sm py-1 px-2 transition-all duration-300 rounded invisible opacity-0 group-hover:opacity-100 group-hover:visible hidden md:flex',
+      'tooltip__label absolute transform w-max bg-gray-900 leading-none font-light text-white pointer-events-none text-sm py-1 px-2 transition-all duration-300 rounded invisible opacity-0 hidden md:flex',
       position === 'top' && 'bottom-full left-1/2 -translate-x-1/2 -translate-y-[5px]',
       position === 'right' && 'left-full top-1/2 -translate-y-1/2 translate-x-[5px]',
       position === 'bottom' && 'left-1/2 top-full -translate-x-1/2 translate-y-[5px]',

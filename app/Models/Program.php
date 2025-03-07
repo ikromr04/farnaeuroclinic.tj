@@ -34,4 +34,10 @@ class Program extends Model
   {
     return $this->hasOne(Article::class);
   }
+
+  public function toArray()
+  {
+    $array = parent::toArray();
+    return array_filter($array, fn($value) => $value);
+  }
 }

@@ -1,168 +1,135 @@
-import React, { BaseSyntheticEvent, ReactNode, useEffect, useState } from 'react';
-import { PropsWithClassname } from '../../types';
+import React, { BaseSyntheticEvent, useState } from 'react';
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  RowSelectionState,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from '@tanstack/react-table';
 import classNames from 'classnames';
-import { nanoid } from 'nanoid';
 import Button from './button';
-import { Icons } from '../icons';
 
-const DEFAULT_COLUMN_WIDTH = 200;
-
-export type DataTableRow = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
+type DataTableProps<T> = {
+  data: T[];
+  columns: ColumnDef<T>[];
+  visibility: VisibilityState;
+  onCreateButtonClick: () => void;
+  className?: string;
 };
 
-export type DataTableRows = DataTableRow[];
-
-export type DataTableColumn = {
-  accessor: string;
-  header: ReactNode;
-  width?: number;
-  hidden?: boolean;
-  sticky?: 'left' | 'right';
-};
-
-export type DataTableColumns = DataTableColumn[]
-
-type DataTableProps = PropsWithClassname<{
-  records: DataTableRows;
-  columns: DataTableColumns;
-  recordsPerPage?: number;
-}>;
-
-export default function DataTable({
-  className,
+export default function DataTable<T>({
+  data,
   columns,
-  records,
-  recordsPerPage = 16,
-}: DataTableProps): JSX.Element {
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(recordsPerPage);
-  const from = (page - 1) * perPage;
-  const to = (page * perPage) > records.length ? records.length : (page * perPage);
-  const paginatedData = records.slice(from, to);
+  visibility,
+  onCreateButtonClick,
+  className,
+}: DataTableProps<T>): JSX.Element {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState<string>('');
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(visibility);
 
-  useEffect(() => {
-    setPage(1);
-  }, [records]);
-
-  const onPerPageChange = (evt: BaseSyntheticEvent) => {
-    if (+evt.target.value > 50) {
-      evt.target.value = 50;
-    }
-    setPerPage(evt.target.value);
-    setPage(1);
-  };
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      globalFilter,
+      rowSelection,
+      columnVisibility,
+    },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnVisibilityChange: setColumnVisibility,
+  });
 
   return (
-    <div className={classNames(className, 'relative z-0 flex flex-col')}>
-      <p className="mb-2 leading-none min-w-max">Отображение {from || 1} - {to} из {records.length}</p>
-
-      <div className="relative overflow-hidden rounded shadow bg-white border">
-        <table className="flex flex-col h-[calc(100%-49px)] overflow-auto scrollbar text-sm leading-[1.2]">
-          <thead className="sticky top-0 z-10 flex min-w-max border-b">
-            <tr className="flex font-semibold text-left w-full bg-gray-100">
-              <th className="flex items-center w-8 font-semibold bg-gray-100 p-2">
-                №
-              </th>
-              {columns.map((column) => {
-                if (!column.hidden) {
-                  return (
-                    <th
-                      key={nanoid()}
-                      className={classNames(
-                        'flex items-center font-semibold bg-gray-100 p-2',
-                        column.sticky && 'sticky z-10',
-                        column.sticky === 'left' ? 'left-0' : 'right-0',
-                      )}
-                      style={{
-                        minWidth: column.width || DEFAULT_COLUMN_WIDTH,
-                        maxWidth: column.width || DEFAULT_COLUMN_WIDTH,
-                      }}
-                    >
-                      {column.header}
-                    </th>
-                  );
-                }
-                return null;
-              })}
-            </tr>
-          </thead>
-
-          <tbody className="flex flex-col static z-0">
-            {paginatedData.map((record, index) => (
-              <tr
-                key={nanoid()}
-                className={classNames(
-                  'flex min-w-max',
-                  (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
-                )}>
-                <td className={classNames(
-                  'flex items-center text-left w-8 px-2 py-1',
-                  (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
-                )}>
-                  {from + index + 1}
-                </td>
-                {columns.map((column) => {
-                  if (!column.hidden) {
-                    return (
-                      <td
-                        key={nanoid()}
-                        className={classNames(
-                          'flex items-center text-left break-word px-2 py-1',
-                          column.sticky && 'sticky z-10',
-                          column.sticky === 'left' ? 'left-0' : 'right-0',
-                          (index % 2 === 1) ? 'bg-gray-50' : 'bg-white',
-                        )}
-                        style={{
-                          minWidth: column.width || DEFAULT_COLUMN_WIDTH,
-                          maxWidth: column.width || DEFAULT_COLUMN_WIDTH,
-                        }}
-                      >
-                        {record[column.accessor]}
-                      </td>
-                    );
-                  }
-                  return null;
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="flex gap-2 flex-wrap w-full p-2 bg-gray-100 border-t">
-          <label className="flex items-center w-max gap-2">
-            Строк
+    <div
+      className={classNames(
+        'bg-white rounded-md shadow-md border py-[6px]',
+        className,
+      )}
+    >
+      <div className="flex gap-x-4 px-3 pt-2">
+        {table.getAllColumns().map(column => (
+          <label key={column.id} className="flex gap-x-1 leading-none">
             <input
-              className="flex leading-none border min-w-0 w-[46px] h-8 rounded text-center"
-              type="number"
-              value={perPage}
-              onInput={onPerPageChange}
+              type="checkbox"
+              checked={column.getIsVisible()}
+              onChange={column.getToggleVisibilityHandler()}
             />
+            {column.id}
           </label>
+        ))}
+      </div>
 
-          <div className="flex items-center gap-2 ml-auto">
+      <table className="w-full">
+        <caption className="sticky z-10 top-0 bg-white">
+          <div className="flex items-end gap-x-2 p-2 border-b">
+            <input
+              className="flex grow px-2 focus:outline-none focus:border-b"
+              type="search"
+              placeholder="Поиск..."
+              value={globalFilter}
+              onInput={(evt: BaseSyntheticEvent) => setGlobalFilter(evt.target.value)}
+            />
+
             <Button
-              className={classNames(page < 2 && 'pointer-events-none shadow-none opacity-60')}
-              onClick={() => setPage((prevPage) => prevPage - 1)}
-              disabled={page < 2}
-              variant="light"
+              icon="add"
+              variant="success"
+              onClick={onCreateButtonClick}
             >
-              <Icons.previous width={14} height={14} />
-              <span className="sr-only">Предыдущий</span>
-            </Button>
-            <Button
-              className={classNames(page >= (records.length / perPage) && 'pointer-events-none shadow-none opacity-60')}
-              onClick={() => setPage((prevPage) => prevPage + 1)}
-              disabled={page >= (records.length / perPage)}
-              variant="light"
-            >
-              <Icons.next width={14} height={14} />
-              <span className="sr-only">Следующий</span>
+              Добавить
             </Button>
           </div>
-        </div>
-      </div>
+        </caption>
+
+        <thead className="sticky top-[49px] z-10 shadow bg-white">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th
+                  key={header.id}
+                  className="p-2 text-start"
+                >
+                  <button
+                    className="flex items-center min-w-max"
+                    type="button"
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {header.column.getIsSorted() === 'asc' ? ' 🔼' : header.column.getIsSorted() === 'desc' ? ' 🔽' : ''}
+                  </button>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+
+        <tbody className="bg-gray-50">
+          {table.getRowModel().rows.map((row) => (
+            <tr
+              key={JSON.stringify(row.original)}
+              className="border-b"
+            >
+              {row.getVisibleCells().map((cell) => (
+                <td key={JSON.stringify(cell)} className="p-2">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

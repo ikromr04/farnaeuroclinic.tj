@@ -11,15 +11,15 @@ function PageSidebar(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <aside className="flex flex-col bg-white shadow border-r w-[240px] transition-all duration-300 group-[.menu-collapsed]:w-10">
+    <aside className="relative z-10 flex flex-col bg-white shadow border-r w-0 min-w-[240px] transition-all duration-300 group-[.menu-collapsed]:min-w-10">
       <header className="relative z-0 flex justify-between gap-x-3 border-b py-2 pl-3">
         <MainLogo
           className="transition-all duration-300 group-[.menu-collapsed]:invisible group-[.menu-collapsed]:opacity-0"
-          imgClass="h-9 w-auto min-w-max"
+          imgClass="h-8 w-auto min-w-max"
         />
 
         <button
-          className="absolute top-1/2 right-0 -translate-y-1/2 flex items-center justify-center w-10 h-10 text-gray-400 pr-[2px] group-[.menu-collapsed]:scale-x-[-1]"
+          className="absolute top-1/2 right-0 -translate-y-1/2 flex items-center justify-center w-10 h-9 text-gray-400 pr-[2px] group-[.menu-collapsed]:scale-x-[-1]"
           type="button"
           onClick={() => document.body.classList.toggle('menu-collapsed')}
         >

@@ -39,3 +39,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .navlink__label {
   @apply min-w-max pointer-events-none transition-all duration-300 group-[.menu-collapsed]:invisible group-[.menu-collapsed]:opacity-0;
 }
+
+.tooltip {
+  @apply relative;
+
+  &:hover .tooltip__label {
+    @apply opacity-100 visible;
+  }
+}

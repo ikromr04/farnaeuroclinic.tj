@@ -25,8 +25,8 @@ export default function ProgramsEditPage(): JSX.Element {
 
   return (
     <PageLayout>
-      <main className="relative flex flex-col h-full transition-all duration-300 overflow-scroll scrollbar-y">
-        <h1 className="relative flex items-end mb-1 min-h-8 mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
+      <main className="flex flex-col p-4">
+        <h1 className="title mb-1">
           Редактирование программы
         </h1>
 

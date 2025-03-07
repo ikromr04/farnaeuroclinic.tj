@@ -1,14 +1,53 @@
-import { Editor } from '@tiptap/core'
-import React from 'react'
+import { Editor } from '@tiptap/core';
+import React, { BaseSyntheticEvent } from 'react';
 import { Icons } from './icons';
 import classNames from 'classnames';
 import Tooltip from '../../tooltip';
+import { useDropdown } from '@/hooks/use-dropdown';
+import ColorPalette from './color-palette';
 
-export default function Toolbar({
-  editor,
-}: {
+type ToolbarProps = {
   editor: Editor;
-}): JSX.Element {
+}
+
+function Toolbar({
+  editor,
+}: ToolbarProps): JSX.Element {
+  const { ref, menuRef, isOpen, setIsOpen } = useDropdown<HTMLLIElement>();
+
+  const handleImageFieldChange = (evt: BaseSyntheticEvent) => {
+    const file = evt.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      editor.chain().focus().setImage({
+        src: base64String,
+      }).run();
+    };
+  };
+
+  const setFontSize = (size: string) => {
+    editor.chain().focus().setMark('textStyle', { fontSize: size }).run();
+    setIsOpen(false);
+  };
+
+  const toggleLink = () => {
+    const previousLink = editor?.getAttributes('link').href;
+
+    if (previousLink) {
+      editor?.chain().focus().unsetLink().run();
+    } else {
+      const url = prompt('Введите URL');
+      if (url) {
+        editor?.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+      }
+    }
+  };
+
   return (
     <div className="flex items-center border border-gray-200 border-b-0 rounded-t p-[1px] gap-1">
       <ul className="flex gap-[1px] text-sm">
@@ -23,6 +62,19 @@ export default function Toolbar({
           >
             <Tooltip label="Текст" position="top" />
             <Icons.paragraph height={12} />
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 hover:border-gray-200',
+              editor.isActive('heading', { level: 1 }) ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <Tooltip label="Заголовок 1" position="top" />
+            H1
           </button>
         </li>
         <li>
@@ -64,11 +116,85 @@ export default function Toolbar({
             H4
           </button>
         </li>
+        <li>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 hover:border-gray-200',
+              editor.isActive('heading', { level: 5 }) ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <Tooltip label="Заголовок 4" position="top" />
+            H5
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 hover:border-gray-200',
+              editor.isActive('heading', { level: 6 }) ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <Tooltip label="Заголовок 4" position="top" />
+            H6
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            onClick={toggleLink}
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 hover:border-gray-200',
+              editor.isActive('link') ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <Tooltip label="Ссылка" position="top" />
+            <Icons.link width={14} />
+          </button>
+        </li>
       </ul>
 
       <hr className="flex h-6 border-r" />
 
       <ul className="flex gap-[1px]">
+        <li className="relative" ref={ref}>
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 hover:border-gray-200',
+              editor.isActive('textStyle') ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <Tooltip label="Размер шрифта" position="top" />
+            <Icons.fontSize height={12} />
+          </button>
+
+          <div
+            ref={menuRef}
+            className={classNames(
+              'absolute left-1/2 top-[calc(100%+4px)] z-10 bg-white border rounded flex flex-col transform -translate-x-1/2 max-h-56 overflow-y-scroll scrollbar-y',
+              isOpen ? 'visible' : 'invisible'
+            )}
+          >
+            {Array.from({ length: 71 }, (_, index) => (
+              <button
+                key={index + 12}
+                className="flex items-center px-2 py-1 text-sm hover:bg-blue-50"
+                type="button"
+                onClick={() => setFontSize(`${index + 12}px`)}
+              >
+                {index + 12}px
+              </button>
+            ))}
+          </div>
+        </li>
+        <li>
+          <ColorPalette editor={editor} />
+        </li>
         <li>
           <button
             type="button"
@@ -236,6 +362,30 @@ export default function Toolbar({
           </button>
         </li>
       </ul>
+
+      <hr className="flex h-6 border-r" />
+
+      <ul className="flex gap-[1px]">
+        <li>
+          <label
+            className={classNames(
+              'flex items-center border border-transparent justify-center w-7 h-7 cursor-pointer hover:border-gray-200',
+              editor.isActive('image') ? 'bg-gray-100 text-success' : ''
+            )}
+          >
+            <input
+              className="sr-only"
+              type="file"
+              accept="image/*"
+              onChange={handleImageFieldChange}
+            />
+            <Tooltip label="Вставить картинку" position="top" />
+            <Icons.image height={14} />
+          </label>
+        </li>
+      </ul>
     </div>
   );
 }
+
+export default Toolbar;

@@ -1,6 +1,4 @@
 import React from 'react';
-import Button from '../ui/button';
-import { AppRoute } from '../../const';
 
 export default function NotFoundPage(): JSX.Element {
   return (
@@ -20,7 +18,10 @@ export default function NotFoundPage(): JSX.Element {
           К сожалению, страница, которую вы ищете, не существует. Если вы уверены, что произошла ошибка, то сообщите своему администратору или дайте нам знать.
         </p>
 
-        <a className="flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-primary text-white text-sm shadow lg:hover:bg-blue-600 lg:hover:shadow-none" href="/">
+        <a
+          className="flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-primary text-white text-sm shadow lg:hover:bg-blue-600 lg:hover:shadow-none"
+          href="/"
+        >
           Вернуться на главную страницу
         </a>
       </div>

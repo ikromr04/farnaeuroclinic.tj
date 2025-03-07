@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { PropsWithClassname } from '../../types';
-import DataTable, { DataTableColumns } from '../ui/data-table';
+import DataTable from '../ui/data-table';
 import { Program, Programs, ProgramsFilter } from '../../types/programs';
 import Button from '../ui/button';
 import { Icons } from '../icons';
@@ -9,6 +9,7 @@ import Modal from '../ui/modal';
 import ProgramsDeleteForm from '../forms/programs/programs-delete-form';
 import { generatePath } from 'react-router-dom';
 import { AppRoute } from '@/const';
+import { ColumnDef } from '@tanstack/react-table';
 
 export type AccessorProps = {
   program: Program;
@@ -33,7 +34,7 @@ export default function ProgramsTable({
     title: '',
   });
 
-  const columns: DataTableColumns = useMemo(() => ([
+  const columns = useMemo(() => ([
     {
       accessor: 'title',
       header:

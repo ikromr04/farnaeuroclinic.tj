@@ -15,7 +15,7 @@ export default {
       },
       colors: {
         'brand': '#00A596',
-        'primary': '#0d457e',
+        'primary': '#1d4ed8',
       },
       textColor: {
         'success': '#16a34a',
@@ -25,6 +25,15 @@ export default {
       },
       backgroundColor: {
         'success': '#66bb6a',
+      },
+      animation: {
+        rotation: 'rotation 1s linear infinite',
+      },
+      keyframes: {
+        rotation: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
     },
   },

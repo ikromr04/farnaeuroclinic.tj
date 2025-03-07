@@ -8,6 +8,8 @@ export type Category = {
   slug: string;
   img: string;
   description: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type Categories = Category[];

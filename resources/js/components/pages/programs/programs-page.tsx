@@ -1,99 +1,178 @@
-import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
-import PageLayout from '../../layouts/page-layout';
-import Button from '../../ui/button';
-import { AppRoute, initialProgramsFilter } from '../../../const';
-import { Icons } from '../../icons';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { fetchProgramsAction } from '../../../store/programs-slice/programs-api-actions';
-import Spinner from '../../ui/spinner';
-import { getPrograms } from '../../../store/programs-slice/programs-selector';
-import ProgramsTable from '../../blocks/programs-table';
-import classNames from 'classnames';
-import ProgramsFilterForm from '@/components/forms/programs/programs-filter-form';
-import { ProgramsFilter } from '@/types/programs';
-import { filterPrograms } from '@/utils/programs';
+import ProgramsDeleteForm from '@/components/forms/programs/programs-delete-form';
+import PageLayout from '@/components/layouts/page-layout';
+import Button from '@/components/ui/button';
+import DataTable from '@/components/ui/data-table';
+import Modal from '@/components/ui/modal';
+import { AppRoute } from '@/const';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchProgramsAction } from '@/store/programs-slice/programs-api-actions';
+import { getPrograms } from '@/store/programs-slice/programs-selector';
+import { Program } from '@/types/programs';
+import { ColumnDef } from '@tanstack/react-table';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 
 export default function ProgramsPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const programs = useAppSelector(getPrograms);
-  const [filter, setFilter] = useState<ProgramsFilter>(initialProgramsFilter);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const navigate = useNavigate();
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    id: 0,
+  });
 
   useEffect(() => {
     if (!programs) dispatch(fetchProgramsAction());
   }, [programs, dispatch]);
 
+  const columns: ColumnDef<Program>[] = [
+    {
+      id: 'Флажки',
+      header: ({ table }) => (
+        <input
+          type="checkbox"
+          checked={table.getIsAllRowsSelected()}
+          onChange={table.getToggleAllRowsSelectedHandler()}
+        />
+      ),
+      cell: ({ row }) => (
+        <input
+          type="checkbox"
+          checked={row.getIsSelected()}
+          onChange={row.getToggleSelectedHandler()}
+        />
+      ),
+      size: 50
+    },
+    {
+      id: 'ID',
+      accessorKey: 'id',
+      header: 'ID',
+      enableSorting: true,
+    },
+    {
+      id: 'Заголовок',
+      accessorKey: 'title',
+      header: 'Заголовок',
+      enableSorting: true,
+    },
+    {
+      id: 'Сленг',
+      accessorKey: 'slug',
+      header: 'Сленг',
+      enableSorting: true,
+    },
+    {
+      id: 'Описание',
+      accessorKey: 'description',
+      header: 'Описание',
+      enableSorting: true,
+    },
+    {
+      id: 'Информация',
+      accessorKey: 'info',
+      header: 'Информация',
+      enableSorting: true,
+      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.info }} />,
+    },
+    {
+      id: 'Цена',
+      accessorKey: 'price',
+      header: 'Цена',
+      enableSorting: true,
+      filterFn: 'inNumberRange',
+    },
+    {
+      id: 'Категория',
+      accessorKey: 'category.title',
+      header: 'Категория',
+      enableSorting: true,
+    },
+    {
+      id: 'Статья',
+      accessorKey: 'article.info',
+      header: 'Статья',
+      enableSorting: true,
+      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.article.info }} />,
+    },
+    {
+      id: 'Блоки',
+      accessorKey: 'blocks',
+      header: 'Блоки',
+      enableSorting: true,
+      cell: ({ row }) => row.original.blocks?.map(({ title }) => title).join(', '),
+    },
+    {
+      id: 'Дата добавления',
+      accessorKey: 'created_at',
+      header: 'Дата добавления',
+      enableSorting: true,
+      cell: ({ row }) => dayjs(row.original.created_at).format('DD MMM YYYY'),
+    },
+    {
+      id: 'Дата обновления',
+      accessorKey: 'updated_at',
+      header: 'Дата обновления',
+      enableSorting: true,
+      cell: ({ row }) => dayjs(row.original.updated_at).format('DD MMM YYYY'),
+    },
+    {
+      id: 'Действия',
+      accessorKey: 'actions',
+      header: 'Действия',
+      enableSorting: false,
+      cell: ({ row }) => (
+        <div className="flex items-center gap-1">
+          <Button
+            icon="visibility"
+            target="_blank"
+            href={`/programs/${row.original.slug}`}
+          >
+            <span className="sr-only">Просмотреть на сайте</span>
+          </Button>
+          <Button
+            icon="edit"
+            variant="warn"
+            href={generatePath(AppRoute.Dashboard.Programs.Edit, { id: row.original.id })}
+          >
+            <span className="sr-only">Редактировать</span>
+          </Button>
+          <Button
+            icon="delete"
+            variant="error"
+            onClick={() => setDeleteModal({ id: row.original.id, isOpen: true, })}
+          >
+            <span className="sr-only">Удалить</span>
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <PageLayout>
-      <main className={classNames(
-        'relative flex flex-col h-full transition-all duration-300',
-        isFilterOpen ? 'mr-[264px] md:mr-[272px]' : 'mr-0',
-      )}>
-        <header className="top flex flex-col gap-2 mb-2 md:mb-3 md:gap-3 min-w-64">
-          <div className="flex items-end justify-between gap-2">
-            <h1 className="relative flex mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
-              Справочник программ
-            </h1>
-            <div className="relative z-10 min-w-6 h-full pointer-events-none -ml-7 bg-gradient-to-l from-gray-100 to-transparent"></div>
+      <h1 className="title mx-8 mt-4 mb-2">
+        Программы ({programs?.length})
+      </h1>
 
-            <Button
-              className="min-w-max"
-              icon="add"
-              variant="success"
-              href={AppRoute.Dashboard.Programs.Create}
-            >
-              <span className="sr-only md:not-sr-only">Добавить программу</span>
-            </Button>
-          </div>
+      {programs &&
+        <DataTable
+          className="mx-4 mb-10"
+          data={programs || []}
+          columns={columns}
+          visibility={{
+            'Сленг': false,
+            'Информация': false,
+            'Статья': false,
+            'Блоки': false,
+          }}
+          onCreateButtonClick={() => navigate(AppRoute.Dashboard.Programs.Create)}
+        />}
 
-          <div className="flex bg-white rounded-md">
-            {/* <div className="relative flex grow">
-              <div className="absolute left-[1px] top-[1px] rounded-r-[3px] transform w-[30px] h-[30px] flex justify-center items-center">
-                <Icons.search width={14} />
-              </div>
-              <input
-                className="flex grow bg-white min-w-0 w-4 border border-gray-200 rounded-l h-8 pl-8 pr-4 leading-none text-base focus:outline-none focus:border-primary"
-                type="search"
-                value={filter.searchKeyword}
-                onInput={(evt: BaseSyntheticEvent) => setFilter((filter) => ({ ...filter, searchKeyword: evt.target.value.toLowerCase() }))}
-                placeholder="Поиск по заголовке или описанию"
-              />
-              {filter.searchKeyword &&
-                <button
-                  className="absolute top-1/2 right-0 flex items-center justify-center h-full w-8 transform -translate-y-1/2"
-                  type="button"
-                  onClick={() => setFilter((filter) => ({ ...filter, searchKeyword: '' }))}
-                >
-                  <Icons.close width={12} />
-                </button>}
-            </div> */}
-
-            {/* <Button
-              className="relative border border-l-0 rounded-l-none"
-              type="button"
-              icon="filter"
-              variant="text"
-              iconClassname={classNames(
-                'transition-all duration-300 transform',
-                isFilterOpen && '-scale-x-[1]'
-              )}
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-            >
-              <span className="sr-only md:not-sr-only">Фильтр</span>
-            </Button> */}
-          </div>
-        </header>
-
-        {/* {programs
-          ?
-          <ProgramsTable
-            className="h-[calc(100%-80px)] md:h-[calc(100%-88px)] min-w-64"
-            programs={filterPrograms(programs, filter)}
-            filter={filter}
-            setFilter={setFilter}
-          />
-          : <Spinner className="w-8 h-8" />} */}
-      </main>
+      <Modal isOpen={deleteModal.isOpen}>
+        <ProgramsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+      </Modal>
     </PageLayout>
   );
 }

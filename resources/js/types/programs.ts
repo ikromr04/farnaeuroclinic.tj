@@ -9,6 +9,8 @@ export type Block = {
   shortTitle: string;
   slug: string;
   content: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type Blocks = Block[];
@@ -16,6 +18,8 @@ export type Blocks = Block[];
 export type Article = {
   id: ID;
   info: string;
+  created_at: string;
+  updated_at: string;
   blocks?: Blocks;
 };
 
@@ -27,9 +31,11 @@ export type Program = {
   description: string;
   info: string;
   price: number;
+  created_at: string;
+  updated_at: string;
   category: Category;
-  blocks?: Blocks;
   article: Article;
+  blocks?: Blocks;
 };
 
 export type Programs = Program[];

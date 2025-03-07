@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import LoginPage from './pages/auth/login-page';
 import { useAppSelector } from '../hooks';
