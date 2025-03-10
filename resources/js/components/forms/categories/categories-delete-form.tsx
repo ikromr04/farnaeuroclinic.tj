@@ -7,17 +7,14 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
+type Modal = {
+  isOpen: boolean;
+  id: number;
+};
+
 type CategoriesDeleteFormProps = {
-  modal: {
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  };
-  setModal: Dispatch<SetStateAction<{
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  }>>
+  modal: Modal;
+  setModal: Dispatch<SetStateAction<Modal>>
 }
 
 export default function CategoriesDeleteForm({
@@ -33,13 +30,13 @@ export default function CategoriesDeleteForm({
     helpers.setSubmitting(true);
 
     await dispatch(deleteCategoryAction({
-      id: modal.deleteId,
+      id: modal.id,
       onSuccess: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' });
+        setModal({ isOpen: false, id: 0 });
         toast.success(message);
       },
       onFail: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' })
+        setModal({ isOpen: false, id: 0 })
         toast.error(message);
       },
     }));
@@ -56,14 +53,14 @@ export default function CategoriesDeleteForm({
       {({ isSubmitting }) => (
         <Form className="flex flex-col gap-4">
           <p>
-            Вы уверены что хотите удалить категорию '{modal.title}'?
+            Вы уверены что хотите удалить эту категорию?
           </p>
 
           <div className="flex justify-end gap-1">
             <Button
               type="reset"
               variant="success"
-              onClick={() => setModal({ isOpen: false, deleteId: 0, title: '' })}
+              onClick={() => setModal({ isOpen: false, id: 0 })}
             >
               Отмена
             </Button>

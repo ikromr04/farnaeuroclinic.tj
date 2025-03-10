@@ -1,50 +1,40 @@
-import Button from '@/components/ui/button';
-import ContentField from '@/components/ui/fields/content-field';
-import ImageField from '@/components/ui/fields/image-field';
-import TextField from '@/components/ui/fields/text-field';
-import Spinner from '@/components/ui/spinner';
-import { CategoryUpdateDTO } from '@/dto/categories-dto';
-import { useAppDispatch } from '@/hooks';
-import { updateCategoryAction } from '@/store/categories-slice/categories-api-actions';
-import { Category } from '@/types/categories';
-import classNames from 'classnames';
-import { Form, Formik, FormikHelpers } from 'formik';
-import React, { Dispatch, SetStateAction } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
 import * as Yup from 'yup';
-
-type CategoriesEditFormProps = {
-  modal: {
-    isOpen: boolean;
-    category: Category;
-  };
-  setModal: Dispatch<SetStateAction<{
-    isOpen: boolean;
-    category: Category;
-  }>>
-}
+import { Form, Formik, FormikHelpers } from 'formik';
+import { useAppDispatch } from '../../../hooks';
+import Button from '../../ui/button';
+import { updateCategoryAction } from '../../../store/categories-slice/categories-api-actions';
+import TextField from '@/components/ui/fields/text-field';
+import { toast } from 'react-toastify';
+import { CategoryUpdateDTO } from '@/dto/categories-dto';
+import { addCategoryAction } from '@/store/categories-slice/categories-slice';
+import ImageField from '@/components/ui/fields/image-field';
+import EditorField from '@/components/ui/fields/editor-field/editor-field';
+import { Category } from '@/types/categories';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
+  img: Yup.mixed().required('Обязательное поле.'),
   description: Yup.string().required('Обязательное поле.'),
 });
 
 export default function CategoriesEditForm({
-  modal,
-  setModal,
-}: CategoriesEditFormProps): JSX.Element {
+  category,
+}: {
+  category: Category
+}): JSX.Element {
   const dispatch = useAppDispatch();
 
   const initialValues: CategoryUpdateDTO = {
-    id: modal.category.id,
-    title: modal.category.title,
-    img: modal.category.img,
-    description: modal.category.description,
+    id: category.id,
+    title: category.title,
+    img: category.img,
+    description: category.description,
   };
 
   const onSubmit = async (
     values: CategoryUpdateDTO,
-    helpers: FormikHelpers<CategoryUpdateDTO>
+    helpers: FormikHelpers<CategoryUpdateDTO>,
   ) => {
     helpers.setSubmitting(true);
 
@@ -56,10 +46,10 @@ export default function CategoriesEditForm({
 
     await dispatch(updateCategoryAction({
       dto: formData,
-      onSuccess: () => {
+      onSuccess: (category) => {
+        dispatch(addCategoryAction(category));
         helpers.resetForm();
-        toast.success('Категория успешно обновлена.');
-        setModal((prevState) => ({ ...prevState, isOpen: false }));
+        toast.success('Данные успешно обновлены.');
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -74,35 +64,37 @@ export default function CategoriesEditForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
-        <Form className="flex flex-col gap-4">
-          <h2 className="text-md text-gray-900 font-semibold">Редактирование категории</h2>
-
+      {({ isSubmitting, resetForm, values }) => (
+        <Form className="flex flex-col gap-2 px-6 py-3 bg-white border rounded-md">
           <ImageField
+            key={values.img.toString()}
+            className="w-max"
             name="img"
             label="Картинка"
             accept=".jpeg, .jpg, .png"
+            required
           />
 
-          <TextField name="title" label="Заголовок" />
+          <TextField name="title" label="Заголовок" required />
 
-          <ContentField name="description" label="Описание" />
+          <EditorField name="description" label="Описание" required />
 
-          <div className="flex justify-end gap-1">
+          <div className="flex justify-end mt-4 gap-2">
             <Button
               type="reset"
-              variant="success"
-              onClick={() => setModal((prevState) => ({ ...prevState, isOpen: false }))}
+              disabled={isSubmitting}
+              variant="error"
+              onClick={() => resetForm()}
             >
               Отмена
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
-              variant="error"
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
+              variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Редактировать'}
+              Сохранить
             </Button>
           </div>
         </Form>

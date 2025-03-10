@@ -4,7 +4,6 @@ import { APIRoute } from '../../const';
 import { Categories, Category, CategoryId } from '../../types/categories';
 import { ValidationError } from '@/types/validation-error';
 import { generatePath } from 'react-router-dom';
-import { CategoryUpdateDTO } from '@/dto/categories-dto';
 
 export const fetchCategoriesAction = createAsyncThunk<Categories, undefined, {
   extra: AxiosInstance

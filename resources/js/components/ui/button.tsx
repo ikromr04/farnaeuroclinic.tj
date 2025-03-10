@@ -5,7 +5,7 @@ import { Icons } from '../icons';
 import Spinner from './spinner';
 
 const ButtonVariant = {
-  primary: 'relative flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-primary text-white text-sm shadow lg:hover:bg-blue-600 lg:hover:shadow-none',
+  primary: 'relative flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-primary text-white text-sm shadow lg:hover:bg-primary/90 lg:hover:shadow-none',
   success: 'relative flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-green-500 text-white text-sm shadow lg:hover:bg-green-600 lg:hover:shadow-none',
   error: 'relative flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-red-500 text-white text-sm shadow lg:hover:bg-red-600 lg:hover:shadow-none',
   warn: 'relative flex items-center gap-x-2 font-medium h-8 rounded-md px-4 transition-all duration-300 bg-orange-400 text-white text-sm shadow lg:hover:bg-orange-500 lg:hover:shadow-none',
@@ -37,8 +37,8 @@ export default function Button({
   const Icon = icon ? Icons[icon] : null;
 
   const childComponent = <>
-    {loading && <Spinner className="!w-[14px] !h-[14px]" />}
-    {Icon && <Icon className={classNames(iconClassname, loading && 'hidden')} width={14} height={14} />}
+    {loading && <Spinner className="absolute top-[calc(50%-10px)] left-[calc(50%-10px)] transform !w-5 !h-5 border-t-white m-auto" />}
+    {Icon && <Icon className={classNames(iconClassname, loading && 'opacity-0')} width={14} height={14} />}
     {children}
   </>;
 
@@ -58,7 +58,7 @@ export default function Button({
     <button
       type="button"
       {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
-      className={classNames(className, ButtonVariant[variant], loading && 'opacity-60')}
+      className={classNames(className, ButtonVariant[variant], loading && '!text-transparent opacity-60')}
     >
       {childComponent}
     </button>

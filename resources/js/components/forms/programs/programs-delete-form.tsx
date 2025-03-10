@@ -64,7 +64,6 @@ export default function ProgramsDeleteForm({
               Отмена
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
               variant="error"
               type="submit"
               disabled={isSubmitting}

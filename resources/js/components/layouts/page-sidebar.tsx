@@ -35,7 +35,7 @@ function PageSidebar(): JSX.Element {
               to={AppRoute.Dashboard.SiteInfo}
             >
               <Icons.info className="navlink__icon" />
-              <span className="navlink__label">Информация о сайте</span>
+              <span className="navlink__label">Данные сайта</span>
             </NavLink>
           </li>
           <li>
@@ -50,10 +50,10 @@ function PageSidebar(): JSX.Element {
           <li>
             <NavLink
               className={({ isActive }) => classNames('group navlink', isActive && 'active')}
-              to={AppRoute.Dashboard.ProgramCategories}
+              to={AppRoute.Dashboard.Categories.Index}
             >
               <Icons.categories className="navlink__icon" />
-              <span className="navlink__label">Категории программ</span>
+              <span className="navlink__label">Категории</span>
             </NavLink>
           </li>
           <li>

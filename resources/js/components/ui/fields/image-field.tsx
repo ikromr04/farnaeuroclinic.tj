@@ -7,24 +7,22 @@ import { Icons } from '@/components/icons';
 
 type ImageFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
-  cleanable?: boolean;
-  onClean?: () => void;
   className?: string;
   imgClass?: string;
   label?: string;
   width?: number;
   height?: number;
+  required?: boolean;
 };
 
 export default function ImageField({
   name,
-  cleanable = false,
-  onClean,
   className,
   imgClass,
   label,
   width = 300,
   height = 200,
+  required,
   ...props
 }: ImageFieldProps): JSX.Element {
   const [field, meta, helpers] = useField(name);
@@ -32,10 +30,10 @@ export default function ImageField({
 
   return (
     <div className={classNames(className, 'flex flex-col')}>
-      <div className="relative group flex flex-col w-max">
+      <div className="relative group flex flex-col">
         {field.value &&
           <Button
-            className="absolute top-6 right-1 z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300"
+            className="!absolute top-6 right-1 z-10 max-w-max ml-auto invisible opacity-0 group-hover:visible group-hover:opacity-100"
             variant="error"
             onClick={() => {
               helpers.setValue('');
@@ -44,21 +42,21 @@ export default function ImageField({
           >
             <Icons.delete width={14} height={14} />
           </Button>}
-        <label className="cursor-pointer flex flex-col w-max">
+        <label className="cursor-pointer flex flex-col">
           <span className="relative z-0 rounded flex max-w-max text-sm text-gray-500 ml-2">
             {label}
+            {required && <span className="text-error transform scale-[1.4] translate-y-[10%] translate-x-[16%]">*</span>}
           </span>
-          <span className="relative flex">
+          <span className="relative flex w-full">
             <img
               className={classNames(
                 'flex bg-gray-50 rounded border hover:bg-gray-100 object-cover',
                 (meta.error && meta.touched) ? 'border-red-400' : 'border-gray-200',
                 imgClass,
               )}
-              src={src || '/images/categories/program.png'}
+              src={src || '/images/image-field.png'}
               width={width}
               height={height}
-              alt={name}
             />
 
             <input
@@ -69,7 +67,7 @@ export default function ImageField({
                 const file = evt.currentTarget.files?.[0];
                 const path = file && URL.createObjectURL(file);
                 helpers.setValue(file);
-                setSrc(path || '')
+                setSrc(path || '');
               }}
             />
           </span>

@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 
-export default function ProgramsPage(): JSX.Element {
+function ProgramsPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const programs = useAppSelector(getPrograms);
   const navigate = useNavigate();
@@ -159,3 +159,5 @@ export default function ProgramsPage(): JSX.Element {
     </PageLayout>
   );
 }
+
+export default ProgramsPage;

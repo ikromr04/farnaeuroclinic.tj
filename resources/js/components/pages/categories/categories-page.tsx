@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import PageLayout from '../layouts/page-layout';
-import Button from '../ui/button';
+import CategoriesDeleteForm from '@/components/forms/categories/categories-delete-form';
+import ProgramsDeleteForm from '@/components/forms/programs/programs-delete-form';
+import PageLayout from '@/components/layouts/page-layout';
+import Button from '@/components/ui/button';
+import DataTable from '@/components/ui/data-table';
+import Modal from '@/components/ui/modal';
+import { AppRoute } from '@/const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import { Category } from '@/types/categories';
-import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
-import Modal from '../ui/modal';
-import CategoriesCreateForm from '../forms/categories/categories-create-form';
-import DataTable from '../ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
-import { AppRoute } from '@/const';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 
-export default function ProgramCategoriesPage(): JSX.Element {
+function CategoriesPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
   const navigate = useNavigate();
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    id: 0,
+  });
 
   useEffect(() => {
     if (!categories) dispatch(fetchCategoriesAction());
@@ -29,6 +33,13 @@ export default function ProgramCategoriesPage(): JSX.Element {
       accessorKey: 'id',
       header: 'ID',
       enableSorting: true,
+    },
+    {
+      id: 'Картинка',
+      accessorKey: 'img',
+      header: 'Картинка',
+      enableSorting: true,
+      cell: ({ row }) => <img className="min-w-[160px] max-w-16 aspect-[490/250]" src={row.original.img} />,
     },
     {
       id: 'Заголовок',
@@ -73,14 +84,14 @@ export default function ProgramCategoriesPage(): JSX.Element {
           <Button
             icon="edit"
             variant="warn"
-          // href={generatePath(AppRoute.Dashboard.Programs.Edit, { id: row.original.id })}
+            href={generatePath(AppRoute.Dashboard.Categories.Edit, { id: row.original.id })}
           >
             <span className="sr-only">Редактировать</span>
           </Button>
           <Button
             icon="delete"
             variant="error"
-          // onClick={() => setDeleteModal({ id: row.original.id, isOpen: true, })}
+            onClick={() => setDeleteModal({ id: row.original.id, isOpen: true, })}
           >
             <span className="sr-only">Удалить</span>
           </Button>
@@ -92,7 +103,7 @@ export default function ProgramCategoriesPage(): JSX.Element {
   return (
     <PageLayout>
       <h1 className="title mx-8 mt-4 mb-2">
-        Категории программ
+        Категории
       </h1>
 
       {categories &&
@@ -102,16 +113,16 @@ export default function ProgramCategoriesPage(): JSX.Element {
           columns={columns}
           visibility={{
             'Сленг': false,
-            'Информация': false,
-            'Статья': false,
-            'Блоки': false,
+            'Картинка': false,
           }}
           onCreateButtonClick={() => navigate(AppRoute.Dashboard.Categories.Create)}
         />}
 
-      <Modal isOpen={isCreateModalOpen}>
-        <CategoriesCreateForm key={isCreateModalOpen.toString()} setIsOpen={setIsCreateModalOpen} />
+      <Modal isOpen={deleteModal.isOpen}>
+        <CategoriesDeleteForm modal={deleteModal} setModal={setDeleteModal} />
       </Modal>
     </PageLayout>
   );
 }
+
+export default CategoriesPage;

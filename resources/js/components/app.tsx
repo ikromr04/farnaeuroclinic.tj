@@ -10,11 +10,14 @@ import DashboardPage from './pages/dashboard-page';
 import ProgramsPage from './pages/programs/programs-page';
 import ProgramsCreatePage from './pages/programs/programs-create-page';
 import ProgramsEditPage from './pages/programs/programs-edit-page';
-import ProgramCategoriesPage from './pages/program-categories-page';
 import BannersPage from './pages/banners-page';
 import DoctorsPage from './pages/doctors/doctors-page';
 import DoctorsCreatePage from './pages/doctors/doctors-create-page';
 import DoctorsEditPage from './pages/doctors/doctors-edit-page';
+import SiteInfoPage from './pages/site-info-page';
+import CategoriesPage from './pages/categories/categories-page';
+import CategoriesCreatePage from './pages/categories/categories-create-page';
+import CategoriesEditPage from './pages/categories/categories-edit-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -38,11 +41,15 @@ export default function App(): JSX.Element {
 
         <Route path={AppRoute.Dashboard.Index} element={<DashboardPage />} />
 
+        <Route path={AppRoute.Dashboard.SiteInfo} element={<SiteInfoPage />} />
+
         <Route path={AppRoute.Dashboard.Programs.Index} element={<ProgramsPage />} />
         <Route path={AppRoute.Dashboard.Programs.Create} element={<ProgramsCreatePage />} />
         <Route path={AppRoute.Dashboard.Programs.Edit} element={<ProgramsEditPage />} />
 
-        <Route path={AppRoute.Dashboard.ProgramCategories} element={<ProgramCategoriesPage />} />
+        <Route path={AppRoute.Dashboard.Categories.Index} element={<CategoriesPage />} />
+        <Route path={AppRoute.Dashboard.Categories.Create} element={<CategoriesCreatePage />} />
+        <Route path={AppRoute.Dashboard.Categories.Edit} element={<CategoriesEditPage />} />
 
         <Route path={AppRoute.Dashboard.Banners} element={<BannersPage />} />
 

@@ -26,7 +26,7 @@ export default function ProgramsEditPage(): JSX.Element {
     <PageLayout>
       <main className="mx-4">
         <h1 className="title mt-4 mb-2">
-          Редактировать
+          Редактирование программы
         </h1>
 
         <ul className="flex items-center gap-1 mb-4 leading-none">

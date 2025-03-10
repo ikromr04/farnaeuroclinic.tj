@@ -15,6 +15,12 @@ class TextSeeder extends Seeder
   {
     $texts = [
       [
+        'slug' => 'company',
+        'title' => 'Преимущества',
+        'page' => 'all',
+        'content' => "Более 10 лет \n ответственной работы",
+      ],
+      [
         'slug' => 'advantage-1',
         'title' => 'Преимущества',
         'page' => 'all',

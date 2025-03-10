@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
-import { PropsWithClassname } from '../../../types';
 import { useAppDispatch } from '../../../hooks';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
@@ -13,6 +12,7 @@ import { toast } from 'react-toastify';
 import { CategoryStoreDTO } from '@/dto/categories-dto';
 import { addCategoryAction } from '@/store/categories-slice/categories-slice';
 import ImageField from '@/components/ui/fields/image-field';
+import EditorField from '@/components/ui/fields/editor-field/editor-field';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
@@ -34,14 +34,7 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().required('Обязательное поле.'),
 });
 
-type CategoriesCreateFormProps = PropsWithClassname<{
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}>;
-
-export default function CategoriesCreateForm({
-  className,
-  setIsOpen,
-}: CategoriesCreateFormProps): JSX.Element {
+export default function CategoriesCreateForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const initialValues: CategoryStoreDTO = {
     title: '',
@@ -66,7 +59,6 @@ export default function CategoriesCreateForm({
         dispatch(addCategoryAction(createdCategory));
         helpers.resetForm();
         toast.success('Новая категория успешно добавлена.');
-        setIsOpen(false);
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -81,29 +73,27 @@ export default function CategoriesCreateForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, resetForm }) => (
-        <Form className={classNames(className, 'flex flex-col gap-2 py-2 px-3 min-w-[400px]')}>
-          <h2 className="text-md text-gray-900 font-semibold">Добавление категории</h2>
-
+      {({ isSubmitting, resetForm, values }) => (
+        <Form className="flex flex-col gap-2 px-6 py-3 bg-white border rounded-md">
           <ImageField
+            key={values.img.toString()}
+            className="w-max"
             name="img"
             label="Картинка"
             accept=".jpeg, .jpg, .png"
+            required
           />
 
-          <TextField name="title" label="Заголовок" />
+          <TextField name="title" label="Заголовок" required />
 
-          <ContentField name="description" label="Описание" />
+          <EditorField name="description" label="Описание" required />
 
           <div className="flex justify-end mt-4 gap-2">
             <Button
               type="reset"
               disabled={isSubmitting}
               variant="error"
-              onClick={() => {
-                resetForm();
-                setIsOpen(false);
-              }}
+              onClick={() => resetForm()}
             >
               Отмена
             </Button>
@@ -111,9 +101,10 @@ export default function CategoriesCreateForm({
               className={classNames('justify-center', isSubmitting && 'opacity-60')}
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
               variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Добавить'}
+              Добавить
             </Button>
           </div>
         </Form>

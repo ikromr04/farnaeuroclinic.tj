@@ -41,7 +41,7 @@
     </div>
 
     <p class="pt-5 border-opacity-50 border-t border-t-white w-full order-3 md:col-span-2 md:pt-8 md:flex md:justify-around lg:text-[16px]">
-      <span>&copy; 2024 <strong class="font-normal">Farna Euroclinic</strong>.</span> {{ __('Все права защищены.') }}
+      <span>&copy; {{ date('Y') }} <strong class="font-normal">Farna Euroclinic</strong>.</span> {{ __('Все права защищены.') }}
     </p>
   </div>
 </footer>
