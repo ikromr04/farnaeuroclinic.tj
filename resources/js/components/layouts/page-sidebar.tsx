@@ -77,7 +77,7 @@ function PageSidebar(): JSX.Element {
           <li>
             <NavLink
               className={({ isActive }) => classNames('group navlink', isActive && 'active')}
-              to={AppRoute.Dashboard.Reviews}
+              to={AppRoute.Dashboard.Reviews.Index}
             >
               <Icons.comment className="navlink__icon" />
               <span className="navlink__label">Комментарии</span>

@@ -1,35 +1,37 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
-import { Banner, BannerId, Banners } from '@/types/banners';
 import { ValidationError } from '@/types/validation-error';
 import { generatePath } from 'react-router-dom';
+import { Review, ReviewId, Reviews } from '@/types/reviews';
+import { ReviewStoreDTO, ReviewUpdateDTO } from '@/dto/reviews-dto';
 
-export const fetchBannersAction = createAsyncThunk<Banners, undefined, {
+export const fetchReviewsAction = createAsyncThunk<Reviews, undefined, {
   extra: AxiosInstance
 }>(
-  'banners/fetch',
+  'reviews/fetch',
   async (_arg, { extra: api }) => {
-    const { data } = await api.get<Banners>(APIRoute.Banners.Index);
+    const { data } = await api.get<Reviews>(APIRoute.Reviews.Index);
 
     return data;
   },
 );
 
-export const storeBannerAction = createAsyncThunk<void, {
-  dto: FormData,
-  onSuccess?: (banner: Banner) => void,
+export const storeReviewAction = createAsyncThunk<Review, {
+  dto: ReviewStoreDTO,
+  onSuccess?: () => void,
   onValidationError?: (error: ValidationError) => void,
   onFail?: (message: string) => void,
 }, {
   extra: AxiosInstance,
   rejectWithValue: ValidationError,
 }>(
-  'banners/store',
+  'reviews/store',
   async ({ dto, onValidationError, onSuccess, onFail }, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.post<Banner>(APIRoute.Banners.Index, dto);
-      if (onSuccess) onSuccess(data);
+      const { data } = await api.post<Review>(APIRoute.Reviews.Index, dto);
+      if (onSuccess) onSuccess();
+      return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error: AxiosError<ValidationError> = err;
@@ -41,20 +43,21 @@ export const storeBannerAction = createAsyncThunk<void, {
   },
 );
 
-export const updateBannerAction = createAsyncThunk<void, {
-  dto: FormData,
-  onSuccess?: (banner: Banner) => void,
+export const updateReviewAction = createAsyncThunk<Review, {
+  dto: ReviewUpdateDTO,
+  onSuccess?: () => void,
   onValidationError?: (error: ValidationError) => void,
   onFail?: (message: string) => void,
 }, {
   extra: AxiosInstance,
   rejectWithValue: ValidationError,
 }>(
-  'banners/update',
+  'reviews/update',
   async ({ dto, onValidationError, onSuccess, onFail }, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.post<Banner>(APIRoute.Banners.Update, dto);
-      if (onSuccess) onSuccess(data);
+      const { data } = await api.post<Review>(APIRoute.Reviews.Update, dto);
+      if (onSuccess) onSuccess();
+      return data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error: AxiosError<ValidationError> = err;
@@ -66,18 +69,18 @@ export const updateBannerAction = createAsyncThunk<void, {
   },
 );
 
-export const deleteBannerAction = createAsyncThunk<void, {
-  id: BannerId,
+export const deleteReviewAction = createAsyncThunk<void, {
+  id: ReviewId,
   onSuccess?: (message: string) => void,
   onFail?: (message: string) => void,
 }, {
   extra: AxiosInstance,
   rejectWithValue: ValidationError,
 }>(
-  'banners/delete',
+  'reviews/delete',
   async ({ id, onSuccess, onFail }, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.delete<{ message: string }>(generatePath(APIRoute.Banners.Show, { id }));
+      const { data } = await api.delete<{ message: string }>(generatePath(APIRoute.Reviews.Show, { id }));
       if (onSuccess) onSuccess(data.message);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

@@ -1,8 +1,3 @@
-import { BannersFilter } from './types/banners';
-import { CategoriesFilter } from './types/categories';
-import { DoctorsFilter } from './types/doctors';
-import { ProgramsFilter } from './types/programs';
-
 export const AppRoute = {
   Dashboard: {
     Index: '/dashboard',
@@ -27,7 +22,11 @@ export const AppRoute = {
       Create: '/dashboard/doctors/create',
       Edit: '/dashboard/doctors/:id',
     },
-    Reviews: '/dashboard/reviews',
+    Reviews: {
+      Index: '/dashboard/reviews',
+      Create: '/dashboard/reviews/create',
+      Edit: '/dashboard/reviews/:id',
+    },
   },
   Auth: {
     Login: '/auth/login',
@@ -60,6 +59,11 @@ export const APIRoute = {
     Update: '/doctors/update',
     Show: '/doctors/:id',
   },
+  Reviews: {
+    Index: '/reviews',
+    Update: '/reviews/update',
+    Show: '/reviews/:id',
+  },
 };
 
 export enum AuthorizationStatus {
@@ -75,84 +79,5 @@ export enum SliceName {
   Categories = 'Categories',
   Banners = 'Banners',
   Doctors = 'Doctors',
-};
-
-export const initialProgramsFilter: ProgramsFilter = {
-  searchKeyword: '',
-  orderType: 'desc',
-  title: {
-    query: '',
-    visibility: true,
-  },
-  description: {
-    query: '',
-    visibility: true,
-  },
-  info: {
-    query: '',
-    visibility: true,
-  },
-  price: {
-    query: '',
-    visibility: true,
-  },
-  category: {
-    query: 0,
-    visibility: true,
-  },
-};
-
-export const initialCategoriesFilter: CategoriesFilter = {
-  searchKeyword: '',
-  orderType: 'desc',
-  title: {
-    query: '',
-    visibility: true,
-  },
-  description: {
-    query: '',
-    visibility: true,
-  },
-};
-
-export const initialBannersFilter: BannersFilter = {
-  searchKeyword: '',
-  orderType: 'desc',
-  title: {
-    query: '',
-    visibility: true,
-  },
-  description: {
-    query: '',
-    visibility: true,
-  },
-  link: {
-    query: '',
-    visibility: true,
-  },
-  category: {
-    query: 0,
-    visibility: true,
-  },
-};
-
-export const inititalDoctorsFilter: DoctorsFilter = {
-  searchKeyword: '',
-  orderType: 'desc',
-  name: {
-    query: '',
-    visibility: true,
-  },
-  position: {
-    query: '',
-    visibility: true,
-  },
-  specialization: {
-    query: '',
-    visibility: true,
-  },
-  experience: {
-    query: '',
-    visibility: true,
-  },
+  Reviews = 'Reviews',
 };

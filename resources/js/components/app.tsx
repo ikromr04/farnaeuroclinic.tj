@@ -20,6 +20,9 @@ import CategoriesCreatePage from './pages/categories/categories-create-page';
 import CategoriesEditPage from './pages/categories/categories-edit-page';
 import BannersCreatePage from './pages/banners/banners-create-page';
 import BannersEditPage from './pages/banners/banners-edit-page';
+import ReviewsPage from './pages/reviews/reviews-page';
+import ReviewsCreatePage from './pages/reviews/reviews-create-page';
+import ReviewsEditPage from './pages/reviews/reviews-edit-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -61,7 +64,9 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Dashboard.Doctors.Create} element={<DoctorsCreatePage />} />
         <Route path={AppRoute.Dashboard.Doctors.Edit} element={<DoctorsEditPage />} />
 
-        <Route path={AppRoute.Dashboard.Reviews} element={<DashboardPage />} />
+        <Route path={AppRoute.Dashboard.Reviews.Index} element={<ReviewsPage />} />
+        <Route path={AppRoute.Dashboard.Reviews.Create} element={<ReviewsCreatePage />} />
+        <Route path={AppRoute.Dashboard.Reviews.Edit} element={<ReviewsEditPage />} />
 
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>

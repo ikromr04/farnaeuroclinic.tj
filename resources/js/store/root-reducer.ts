@@ -6,6 +6,7 @@ import { programsSlice } from './programs-slice/programs-slice';
 import { categoriesSlice } from './categories-slice/categories-slice';
 import { bannersSlice } from './banners-slice/banners-slice';
 import { doctorsSlice } from './doctors-slice/doctors-slice';
+import { reviewsSlice } from './reviews-slice/reviews-slice';
 
 export const rootReducer = combineReducers({
   [SliceName.App]: appSlice.reducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   [SliceName.Categories]: categoriesSlice.reducer,
   [SliceName.Banners]: bannersSlice.reducer,
   [SliceName.Doctors]: doctorsSlice.reducer,
+  [SliceName.Reviews]: reviewsSlice.reducer,
 });

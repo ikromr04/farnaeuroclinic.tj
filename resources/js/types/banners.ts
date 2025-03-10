@@ -16,26 +16,3 @@ export type Banner = {
 };
 
 export type Banners = Banner[];
-
-export type BannersFilter = {
-  searchKeyword: string;
-  orderBy?: keyof BannersFilter | '';
-  orderType: 'asc' | 'desc';
-  category: {
-    query: CategoryId;
-    visibility: boolean;
-  },
-  title: {
-    query: string;
-    visibility: boolean;
-  },
-  description: {
-    query: string;
-    visibility: boolean;
-  },
-  link: {
-    query: string;
-    visibility: boolean;
-  },
-};
-

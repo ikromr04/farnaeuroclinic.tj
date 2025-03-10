@@ -5,15 +5,10 @@
   <div class="bg-white py-8 px-5 rounded-[10px] border border-brand min-h-[300px]">
     <header class="mb-3">
       <div class="flex items-center gap-x-2 mb-2">
-        <span class="text-white w-12 h-1/2 min-w-12 min-h-12 flex items-center justify-center bg-[#EB5757] rounded-full">
-          <svg width="14" height="20">
-            <use xlink:href="#yandex" />
-          </svg>
-        </span>
         <div>
           <h3 class="font-semibold text-base">{{ $review->name }}</h3>
           <p class="text-xs">
-            <time datetime="{{ $review->date }}">{{ Carbon\Carbon::parse($review->date)->isoFormat('DD MMMM Y') }}</time> на <span class="underline text-blue-600">Яндекс</span>
+            <time datetime="{{ $review->date }}">{{ Carbon\Carbon::parse($review->date)->isoFormat('DD MMMM Y') }}</time>
           </p>
         </div>
       </div>

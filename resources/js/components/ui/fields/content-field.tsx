@@ -11,6 +11,7 @@ type ContentFieldProps = InputHTMLAttributes<HTMLTextAreaElement> & {
   className?: string;
   inputClassname?: string;
   label?: string;
+  required?: boolean;
   before?: JSX.Element;
   after?: JSX.Element;
 };
@@ -21,6 +22,7 @@ export default function ContentField({
   label,
   before,
   after,
+  required,
   ...props
 }: ContentFieldProps): JSX.Element {
   const uniqueId = useId();
@@ -33,7 +35,7 @@ export default function ContentField({
 
   return (
     <div className={classNames(className, 'flex flex-col')}>
-      <Label label={label} htmlFor={uniqueId} />
+      <Label label={label} htmlFor={uniqueId} required={required} />
 
       <div className="relative flex">
         <Before element={before} />

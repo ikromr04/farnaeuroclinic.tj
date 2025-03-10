@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ReviewController;
 
 require base_path('routes/auth.php');
 
@@ -37,5 +38,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update', [DoctorController::class, 'update']);
     Route::get('/{id}', [DoctorController::class, 'show']);
     Route::delete('/{id}', [DoctorController::class, 'delete']);
+  });
+
+  Route::prefix('reviews')->group(function () {
+    Route::get('/', [ReviewController::class, 'index']);
+    Route::post('/', [ReviewController::class, 'store']);
+    Route::post('/update', [ReviewController::class, 'update']);
+    Route::delete('/{id}', [ReviewController::class, 'delete']);
   });
 });
