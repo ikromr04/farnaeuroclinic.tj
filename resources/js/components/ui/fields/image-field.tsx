@@ -31,7 +31,7 @@ export default function ImageField({
   return (
     <div className={classNames(className, 'flex flex-col')}>
       <div className="relative group flex flex-col">
-        {field.value &&
+        {/* {field.value &&
           <Button
             className="!absolute top-6 right-1 z-10 max-w-max ml-auto invisible opacity-0 group-hover:visible group-hover:opacity-100"
             variant="error"
@@ -41,7 +41,7 @@ export default function ImageField({
             }}
           >
             <Icons.delete width={14} height={14} />
-          </Button>}
+          </Button>} */}
         <label className="cursor-pointer flex flex-col">
           <span className="relative z-0 rounded flex max-w-max text-sm text-gray-500 ml-2">
             {label}

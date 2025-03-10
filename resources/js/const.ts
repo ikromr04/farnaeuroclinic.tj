@@ -17,7 +17,11 @@ export const AppRoute = {
       Create: '/dashboard/categories/create',
       Edit: '/dashboard/categories/:id',
     },
-    Banners: '/dashboard/banners',
+    Banners: {
+      Index: '/dashboard/banners',
+      Create: '/dashboard/banners/create',
+      Edit: '/dashboard/banners/:id',
+    },
     Doctors: {
       Index: '/dashboard/doctors',
       Create: '/dashboard/doctors/create',

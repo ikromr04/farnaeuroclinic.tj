@@ -59,7 +59,7 @@ function PageSidebar(): JSX.Element {
           <li>
             <NavLink
               className={({ isActive }) => classNames('group navlink', isActive && 'active')}
-              to={AppRoute.Dashboard.Banners}
+              to={AppRoute.Dashboard.Banners.Index}
             >
               <Icons.banners className="navlink__icon" />
               <span className="navlink__label">Баннеры</span>

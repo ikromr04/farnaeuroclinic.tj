@@ -33,7 +33,7 @@ export type Program = {
   price: number;
   created_at: string;
   updated_at: string;
-  category: Category;
+  category?: Category;
   article: Article;
   blocks?: Blocks;
 };

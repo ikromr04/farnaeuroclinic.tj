@@ -1,46 +1,36 @@
 import Button from '@/components/ui/button';
-import ContentField from '@/components/ui/fields/content-field';
+import EditorField from '@/components/ui/fields/editor-field/editor-field';
 import ImageField from '@/components/ui/fields/image-field';
 import SelectField from '@/components/ui/fields/select-field';
 import TextField from '@/components/ui/fields/text-field';
-import Spinner from '@/components/ui/spinner';
 import { BannerUpdateDTO } from '@/dto/banners-dto';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { updateBannerAction } from '@/store/banners-slice/banners-api-actions';
 import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
 import { getCategories } from '@/store/categories-slice/categories-selector';
 import { Banner } from '@/types/banners';
-import classNames from 'classnames';
 import { Form, Formik, FormikHelpers } from 'formik';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 type BannersEditFormProps = {
-  modal: {
-    isOpen: boolean;
-    banner: Banner;
-  };
-  setModal: Dispatch<SetStateAction<{
-    isOpen: boolean;
-    banner: Banner;
-  }>>
+  banner: Banner;
 }
 
 export default function BannersEditForm({
-  modal,
-  setModal,
+  banner,
 }: BannersEditFormProps): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
 
   const initialValues: BannerUpdateDTO = {
-    id: modal.banner.id,
-    title: modal.banner.title,
-    image: modal.banner.image,
-    description: modal.banner.description,
-    page: modal.banner.page,
-    link: modal.banner.link || '',
-    program_category_id: modal.banner.category?.id.toString() || '',
+    id: banner.id,
+    title: banner.title,
+    image: banner.image,
+    description: banner.description,
+    page: banner.page || '',
+    link: banner.link || '',
+    program_category_id: banner.program_category_id ? String(banner.program_category_id) : '',
   };
 
   const onSubmit = async (
@@ -63,7 +53,6 @@ export default function BannersEditForm({
       onSuccess: () => {
         helpers.resetForm();
         toast.success('Баннер успешно обновлен.');
-        setModal((prevState) => ({ ...prevState, isOpen: false }));
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -81,55 +70,57 @@ export default function BannersEditForm({
       initialValues={initialValues}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, setFieldValue }) => (
-        <Form className="flex flex-col gap-4">
-          <h2 className="text-md text-gray-900 font-semibold">Редактирование категории</h2>
-
+      {({ isSubmitting, setFieldValue, resetForm, values }) => (
+        <Form className="flex flex-col gap-2 px-6 py-3 bg-white border rounded-md">
           <ImageField
+            key={values.image.toString()}
+            className="w-max"
             name="image"
             label="Картинка"
             accept=".jpeg, .jpg, .png"
             imgClass="w-[320px] h-[220px]"
           />
 
-          <TextField name="title" label="Заголовок" />
+          <TextField name="title" label="Заголовок" required />
+          <EditorField name="description" label="Описание" required />
 
-          {categories &&
+          <div className="grid grid-cols-3 gap-4">
+            {categories &&
+              <SelectField
+                name="program_category_id"
+                label="Категория"
+                cleanable
+                onClean={() => setFieldValue('program_category_id', '')}
+                options={categories.map(({ id, title }) => ({ value: String(id), label: title }))}
+              />}
+
             <SelectField
-              name="program_category_id"
-              label="Категория"
+              name="page"
+              label="Страница"
               cleanable
-              onClean={() => setFieldValue('program_category_id', '')}
-              options={categories.map(({ id, title }) => ({ value: id, label: title }))}
-            />}
+              onClean={() => setFieldValue('page', '')}
+              options={[{ value: 'home', label: 'Главная' }, { value: 'for-patient', label: 'Пациентам' }]}
+            />
 
-          <SelectField
-            name="page"
-            label="Страница"
-            cleanable
-            onClean={() => setFieldValue('page', '')}
-            options={[{ value: 'home', label: 'Главная' }, { value: 'for-patient', label: 'Пациентам' }]}
-          />
+            <TextField name="link" label="Ссылка подробнее" type="link" />
+          </div>
 
-          <ContentField name="description" label="Описание" />
-
-          <TextField name="link" label="Ссылка подробнее" />
-
-          <div className="flex justify-end gap-1">
+          <div className="flex justify-end mt-4 gap-2">
             <Button
               type="reset"
-              variant="success"
-              onClick={() => setModal((prevState) => ({ ...prevState, isOpen: false }))}
+              disabled={isSubmitting}
+              variant="error"
+              onClick={() => resetForm()}
             >
               Отмена
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
-              variant="error"
               type="submit"
               disabled={isSubmitting}
+              variant="success"
+              loading={isSubmitting}
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Редактировать'}
+              Добавить
             </Button>
           </div>
         </Form>

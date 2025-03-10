@@ -4,8 +4,6 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
 import { useAppDispatch } from '../../../hooks';
 import Button from '../../ui/button';
-import Spinner from '../../ui/spinner';
-import ContentField from '../../ui/fields/content-field';
 import { storeCategoryAction } from '../../../store/categories-slice/categories-api-actions';
 import TextField from '@/components/ui/fields/text-field';
 import { toast } from 'react-toastify';

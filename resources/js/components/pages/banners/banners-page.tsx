@@ -1,32 +1,41 @@
-import ProgramsDeleteForm from '@/components/forms/programs/programs-delete-form';
 import PageLayout from '@/components/layouts/page-layout';
 import Button from '@/components/ui/button';
 import DataTable from '@/components/ui/data-table';
 import Modal from '@/components/ui/modal';
 import { AppRoute } from '@/const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { fetchProgramsAction } from '@/store/programs-slice/programs-api-actions';
-import { getPrograms } from '@/store/programs-slice/programs-selector';
-import { Program } from '@/types/programs';
+import { fetchBannersAction } from '@/store/banners-slice/banners-api-actions';
+import { getBanners } from '@/store/banners-slice/banners-selector';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
+import BannersDeleteForm from '../../forms/banners/banners-delete-form';
+import { Banner } from '@/types/banners';
+import { getCategories } from '@/store/categories-slice/categories-selector';
+import { fetchCategoriesAction } from '@/store/categories-slice/categories-api-actions';
 
-function ProgramsPage(): JSX.Element {
+function BannersPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const programs = useAppSelector(getPrograms);
+  const banners = useAppSelector(getBanners);
+  const categories = useAppSelector(getCategories);
   const navigate = useNavigate();
   const [deleteModal, setDeleteModal] = useState({
     isOpen: false,
     id: 0,
   });
 
-  useEffect(() => {
-    if (!programs) dispatch(fetchProgramsAction());
-  }, [programs, dispatch]);
+  const Page = {
+    'home': 'Главная',
+    'for-patient': 'Пациентам',
+  };
 
-  const columns: ColumnDef<Program>[] = [
+  useEffect(() => {
+    if (!banners) dispatch(fetchBannersAction());
+    if (!categories) dispatch(fetchCategoriesAction());
+  }, [banners, dispatch, categories]);
+
+  const columns: ColumnDef<Banner>[] = [
     {
       id: 'ID',
       accessorKey: 'id',
@@ -34,15 +43,16 @@ function ProgramsPage(): JSX.Element {
       enableSorting: true,
     },
     {
+      id: 'Картинка',
+      accessorKey: 'img',
+      header: 'Картинка',
+      enableSorting: true,
+      cell: ({ row }) => <img className="min-w-[160px] max-w-16 aspect-[320/220] object-contain" src={row.original.image} />,
+    },
+    {
       id: 'Заголовок',
       accessorKey: 'title',
       header: 'Заголовок',
-      enableSorting: true,
-    },
-    {
-      id: 'Сленг',
-      accessorKey: 'slug',
-      header: 'Сленг',
       enableSorting: true,
     },
     {
@@ -53,39 +63,24 @@ function ProgramsPage(): JSX.Element {
       cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.description }} />,
     },
     {
-      id: 'Информация',
-      accessorKey: 'info',
-      header: 'Информация',
+      id: 'Страница',
+      accessorKey: 'page',
+      header: 'Страница',
       enableSorting: true,
-      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.info }} />,
-    },
-    {
-      id: 'Цена',
-      accessorKey: 'price',
-      header: 'Цена',
-      enableSorting: true,
-      filterFn: 'inNumberRange',
+      cell: ({ row }) => row.original.page ? Page[row.original.page as keyof typeof Page] : '',
     },
     {
       id: 'Категория',
-      accessorKey: 'category',
+      accessorKey: 'program_category_id',
       header: 'Категория',
       enableSorting: true,
-      cell: ({ row }) => row.original.category?.title,
+      cell: ({ row }) => categories?.find(({ id }) => +id === Number(row.original.program_category_id))?.title,
     },
     {
-      id: 'Статья',
-      accessorKey: 'article.info',
-      header: 'Статья',
+      id: 'Ссылка',
+      accessorKey: 'link',
+      header: 'Ссылка',
       enableSorting: true,
-      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.article.info }} />,
-    },
-    {
-      id: 'Блоки',
-      accessorKey: 'blocks',
-      header: 'Блоки',
-      enableSorting: true,
-      cell: ({ row }) => row.original.blocks?.map(({ title }) => title).join(', '),
     },
     {
       id: 'Дата добавления',
@@ -109,16 +104,9 @@ function ProgramsPage(): JSX.Element {
       cell: ({ row }) => (
         <div className="flex items-center gap-1">
           <Button
-            icon="visibility"
-            target="_blank"
-            href={`/programs/${row.original.slug}`}
-          >
-            <span className="sr-only">Просмотреть на сайте</span>
-          </Button>
-          <Button
             icon="edit"
             variant="warn"
-            href={generatePath(AppRoute.Dashboard.Programs.Edit, { id: row.original.id })}
+            href={generatePath(AppRoute.Dashboard.Banners.Edit, { id: row.original.id })}
           >
             <span className="sr-only">Редактировать</span>
           </Button>
@@ -137,28 +125,26 @@ function ProgramsPage(): JSX.Element {
   return (
     <PageLayout>
       <h1 className="title mx-8 mt-4 mb-2">
-        Программы ({programs?.length})
+        Баннеры ({banners?.length})
       </h1>
 
-      {programs &&
+      {banners &&
         <DataTable
           className="mx-4 mb-10"
-          data={programs || []}
+          data={banners}
           columns={columns}
           visibility={{
-            'Сленг': false,
-            'Информация': false,
-            'Статья': false,
-            'Блоки': false,
+            'Картинка': false,
+            'Ссылка': false,
           }}
-          onCreateButtonClick={() => navigate(AppRoute.Dashboard.Programs.Create)}
+          onCreateButtonClick={() => navigate(AppRoute.Dashboard.Banners.Create)}
         />}
 
       <Modal isOpen={deleteModal.isOpen}>
-        <ProgramsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
+        <BannersDeleteForm modal={deleteModal} setModal={setDeleteModal} />
       </Modal>
     </PageLayout>
   );
 }
 
-export default ProgramsPage;
+export default BannersPage;

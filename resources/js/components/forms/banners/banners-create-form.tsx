@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
-import { PropsWithClassname } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import Button from '../../ui/button';
 import Spinner from '../../ui/spinner';
@@ -16,20 +15,14 @@ import SelectField from '@/components/ui/fields/select-field';
 import { BannerStoreDTO } from '@/dto/banners-dto';
 import { storeBannerAction } from '@/store/banners-slice/banners-api-actions';
 import { addBannerAction } from '@/store/banners-slice/banners-slice';
+import EditorField from '@/components/ui/fields/editor-field/editor-field';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Обязательное поле.'),
   description: Yup.string().required('Обязательное поле.'),
 });
 
-type BannersCreateFormProps = PropsWithClassname<{
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}>;
-
-export default function BannersCreateForm({
-  className,
-  setIsOpen,
-}: BannersCreateFormProps): JSX.Element {
+function BannersCreateForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getCategories);
   const initialValues: BannerStoreDTO = {
@@ -61,7 +54,6 @@ export default function BannersCreateForm({
         dispatch(addBannerAction(createdBanner));
         helpers.resetForm();
         toast.success('Новый баннер добавлен.');
-        setIsOpen(false);
       },
       onValidationError: (error) => helpers.setErrors({ ...error.errors }),
       onFail: (message) => toast.error(message),
@@ -80,59 +72,57 @@ export default function BannersCreateForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, setFieldValue, resetForm }) => (
-        <Form className={classNames(className, 'flex flex-col gap-2 py-2 px-3 min-w-[400px]')}>
-          <h2 className="text-md text-gray-900 font-semibold">Добавление категории</h2>
-
+      {({ isSubmitting, setFieldValue, values, resetForm }) => (
+        <Form className="flex flex-col gap-2 px-6 py-3 bg-white border rounded-md">
           <ImageField
+            key={values.image.toString()}
+            className="w-max"
             name="image"
             label="Картинка"
             accept=".jpeg, .jpg, .png"
             imgClass="w-[320px] h-[220px]"
           />
 
-          <TextField name="title" label="Заголовок" />
+          <TextField name="title" label="Заголовок" required />
+          <EditorField name="description" label="Описание" required />
 
-          {categories &&
+          <div className="grid grid-cols-3 gap-4">
+            {categories &&
+              <SelectField
+                name="program_category_id"
+                label="Категория"
+                cleanable
+                onClean={() => setFieldValue('program_category_id', '')}
+                options={categories.map(({ id, title }) => ({ value: id, label: title }))}
+              />}
+
             <SelectField
-              name="program_category_id"
-              label="Категория"
+              name="page"
+              label="Страница"
               cleanable
-              onClean={() => setFieldValue('program_category_id', '')}
-              options={categories.map(({ id, title }) => ({ value: id, label: title }))}
-            />}
+              onClean={() => setFieldValue('page', '')}
+              options={[{ value: 'home', label: 'Главная' }, { value: 'for-patient', label: 'Пациентам' }]}
+            />
 
-          <SelectField
-            name="page"
-            label="Страница"
-            cleanable
-            onClean={() => setFieldValue('page', '')}
-            options={[{ value: 'home', label: 'Главная' }, { value: 'for-patient', label: 'Пациентам' }]}
-          />
-
-          <ContentField name="description" label="Описание" />
-
-          <TextField name="link" label="Ссылка подробнее" />
+            <TextField name="link" label="Ссылка подробнее" type="link" />
+          </div>
 
           <div className="flex justify-end mt-4 gap-2">
             <Button
               type="reset"
               disabled={isSubmitting}
               variant="error"
-              onClick={() => {
-                resetForm();
-                setIsOpen(false);
-              }}
+              onClick={() => resetForm()}
             >
               Отмена
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
               type="submit"
               disabled={isSubmitting}
               variant="success"
+              loading={isSubmitting}
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Добавить'}
+              Добавить
             </Button>
           </div>
         </Form>
@@ -140,3 +130,5 @@ export default function BannersCreateForm({
     </Formik>
   );
 }
+
+export default BannersCreateForm;

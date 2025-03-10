@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Banner extends Model
 {
   protected $guarded = [];
-  protected $hidden = ['program_category_id'];
 
   public function category(): BelongsTo
   {

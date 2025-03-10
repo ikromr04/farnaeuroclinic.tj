@@ -1,7 +1,6 @@
 import Button from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks';
 import { deleteProgramAction } from '@/store/programs-slice/programs-api-actions';
-import classNames from 'classnames';
 import { Form, Formik, FormikHelpers } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
@@ -42,7 +41,6 @@ export default function ProgramsDeleteForm({
 
     helpers.setSubmitting(false);
   };
-
 
   return (
     <Formik
