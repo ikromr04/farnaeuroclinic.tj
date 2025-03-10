@@ -19,6 +19,8 @@ export type Doctor = {
   specialization: string;
   experience: string;
   blocks?: Block[];
+  created_at: string;
+  updated_at: string;
 };
 
 export type Doctors = Doctor[];

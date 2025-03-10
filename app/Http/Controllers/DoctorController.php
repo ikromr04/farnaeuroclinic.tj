@@ -16,27 +16,18 @@ class DoctorController extends Controller
 
   public function get(): JsonResponse
   {
-    $doctors = Doctor::latest()
-      ->select(
-        'id',
-        'name',
-        'slug',
-        'avatar',
-        'position',
-        'specialization',
-        'experience',
-      )->with([
-        'blocks' => function ($query) {
-          $query->select(
-            'id',
-            'doctor_id',
-            'title',
-            'slug',
-            'short_title as shortTitle',
-            'content',
-          );
-        }
-      ])->get();
+    $doctors = Doctor::latest()->with([
+      'blocks' => function ($query) {
+        $query->select(
+          'id',
+          'doctor_id',
+          'title',
+          'slug',
+          'short_title as shortTitle',
+          'content',
+        );
+      }
+    ])->get();
 
     return response()->json($doctors, 200);
   }
@@ -69,15 +60,7 @@ class DoctorController extends Controller
       }
     }
 
-    $doctor = Doctor::select(
-      'id',
-      'name',
-      'slug',
-      'avatar',
-      'position',
-      'specialization',
-      'experience',
-    )->with([
+    $doctor = Doctor::with([
       'blocks' => function ($query) {
         $query->select(
           'id',
@@ -95,15 +78,7 @@ class DoctorController extends Controller
 
   public function show(int $id)
   {
-    $doctor = Doctor::select(
-      'id',
-      'name',
-      'slug',
-      'avatar',
-      'position',
-      'specialization',
-      'experience',
-    )->with([
+    $doctor = Doctor::with([
       'blocks' => function ($query) {
         $query->select(
           'id',
@@ -167,15 +142,7 @@ class DoctorController extends Controller
 
     $doctor->update();
 
-    $doctor = Doctor::select(
-      'id',
-      'name',
-      'slug',
-      'avatar',
-      'position',
-      'specialization',
-      'experience',
-    )->with([
+    $doctor = Doctor::with([
       'blocks' => function ($query) {
         $query->select(
           'id',

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import * as Yup from 'yup';
 import { FieldArray, Form, Formik, FormikHelpers } from 'formik';
 import classNames from 'classnames';
@@ -40,6 +40,7 @@ export default function DoctorsEditForm({
   setDoctor,
 }: DoctorsEditFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const [key, setKey] = useState(1);
   const initialValues: DoctorUpdateDTO = {
     id: doctor.id.toString(),
     name: doctor.name,
@@ -91,62 +92,80 @@ export default function DoctorsEditForm({
       onSubmit={onSubmit}
     >
       {({ values, isSubmitting, resetForm }) => (
-        <Form className={classNames(className, 'flex flex-col gap-4 py-4 px-6 rounded shadow bg-white')}>
-          <div>
-            <h2 className="text-md text-gray-900 font-semibold mb-3">Доктор</h2>
+        <Form className="flex flex-col gap-6">
+          <fieldset>
+            <legend className="text-md text-gray-900 font-semibold">
+              Доктор
+            </legend>
 
-            <ImageField
-              className="mb-4"
-              name="avatar"
-              label="Аватар"
-              accept=".jpeg, .jpg, .png"
-              imgClass={classNames(
-                'w-[240px] h-[360px]',
-                !values.avatar && '!object-contain',
-              )}
-            />
+            <div className="bg-white rounded-md border p-6 flex flex-col gap-2">
+              <ImageField
+                key={key.toString()}
+                className="mb-4"
+                name="avatar"
+                label="Аватар"
+                accept=".jpeg, .jpg, .png"
+                imgClass={classNames(
+                  'w-[240px] h-[360px]',
+                  !values.avatar && '!object-contain',
+                )}
+                required
+              />
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <TextField name="name" label="ФИО" />
-              <TextField name="position" label="Позиция" />
-              <TextField name="specialization" label="Специализация" />
-              <TextField name="experience" label="Стаж работы" />
+              <div className="grid gap-4 md:grid-cols-2">
+                <TextField name="name" label="ФИО" required />
+                <TextField name="position" label="Позиция" required />
+                <TextField name="specialization" label="Специализация" required />
+                <TextField name="experience" label="Стаж работы" required />
+              </div>
             </div>
-          </div>
+          </fieldset>
 
-          <div>
-            <h2 className="text-md text-gray-900 font-semibold mb-3">Блоки</h2>
+          <fieldset>
+            <legend className="text-md text-gray-900 font-semibold">
+              Блоки
+            </legend>
 
-            <FieldArray name="blocks">
-              {({ push, remove }) => (
-                <div className="flex flex-col gap-4">
-                  {values.blocks?.map((_, index) => (
-                    <div key={index}>
-                      <div className="flex justify-between items-end">
-                        <h3 className="font-semibold">Блок {index + 1}</h3>
+            <div className="bg-white rounded-md border p-6 flex flex-col gap-2">
+              <FieldArray name="blocks">
+                {({ push, remove }) => (
+                  <div className="flex flex-col gap-4">
+                    {values.blocks?.map((_, index) => (
+                      <div key={index}>
+                        <div className="flex justify-between items-end">
+                          <h3 className="font-semibold">Блок {index + 1}</h3>
+                        </div>
+                        <TextField name={`blocks[${index}.title]`} label="Заголовок" />
+                        <TextField name={`blocks[${index}.short_title]`} label="Краткий заголовок" />
+                        <EditorField name={`blocks[${index}.content]`} label="Содержание" />
+                        <Button className="ml-auto my-2" variant="error" onClick={() => remove(index)}>
+                          Удалить блок
+                        </Button>
                       </div>
-                      <TextField name={`blocks[${index}.title]`} label="Заголовок" />
-                      <TextField name={`blocks[${index}.short_title]`} label="Краткий заголовок" />
-                      <EditorField name={`blocks[${index}.content]`} label="Содержание" />
-                      <Button className="ml-auto my-2" variant="error" onClick={() => remove(index)}>
-                        Удалить блок
-                      </Button>
-                    </div>
-                  ))}
-                  <button
-                    className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
-                    type="button"
-                    onClick={() => push({ id: '', title: '', short_title: '', content: '' })}
-                  >
-                    <Icons.add width={14} />
-                    Добавить блок
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-          </div>
+                    ))}
+                    <button
+                      className="flex items-center justify-center gap-4 p-2 bg-gray-50 text-gray-500 transition-colors duration-300 hover:bg-gray-100 w-full border border-dashed rounded-md"
+                      type="button"
+                      onClick={() => push({ title: '', short_title: '', content: '' })}
+                    >
+                      <Icons.add width={14} />
+                      Добавить блок
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+          </fieldset>
 
-          <div className="flex justify-end mt-4 gap-2">
+          <div className="flex justify-end mt-4 gap-2 p-4 rounded-tl-md ml-auto sticky bottom-0 bg-gray-100">
+            <Button
+              type="reset"
+              disabled={isSubmitting}
+              href={`/doctors/${doctor.slug}`}
+              target="_blank"
+            >
+              Просмотреть на сайте
+            </Button>
             <Button
               type="reset"
               disabled={isSubmitting}
@@ -158,12 +177,12 @@ export default function DoctorsEditForm({
               Сбросить
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
               variant="success"
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Сохранить'}
+              Сохранить
             </Button>
           </div>
         </Form>

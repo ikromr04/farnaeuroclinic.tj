@@ -8,8 +8,8 @@ import DoctorsCreateForm from '@/components/forms/doctors/doctors-create-form';
 export default function DoctorsCreatePage(): JSX.Element {
   return (
     <PageLayout>
-      <main className="relative flex flex-col h-full transition-all duration-300 overflow-scroll scrollbar-y">
-        <h1 className="relative flex items-end min-h-8 mr-auto mb-1 title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
+      <main className="mx-4">
+        <h1 className="title mt-4 mb-2">
           Добавление доктора
         </h1>
 
@@ -21,7 +21,7 @@ export default function DoctorsCreatePage(): JSX.Element {
             <Icons.chevronRight width={6} />
           </li>
           <li className="font-medium text-[15px]">
-            Добавление доктора
+            Добавить
           </li>
         </ul>
 

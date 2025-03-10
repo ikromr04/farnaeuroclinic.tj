@@ -25,15 +25,15 @@ export default function DoctorsEditPage(): JSX.Element {
 
   return (
     <PageLayout>
-      <main className="relative flex flex-col h-full transition-all duration-300 overflow-scroll scrollbar-y">
-        <h1 className="relative flex items-end mb-1 min-h-8 mr-auto title overflow-scroll no-scrollbar whitespace-nowrap pr-6">
-          Редатирование доктора
+      <main className="mx-4">
+        <h1 className="title mt-4 mb-2">
+          Редактирование доктора
         </h1>
 
         <ul className="flex items-center gap-1 mb-4 leading-none">
           <li className="flex items-center gap-1">
             <Link className="transition-all duration-300 hover:text-brand" to={AppRoute.Dashboard.Doctors.Index}>
-              Докторы
+              Программы
             </Link>
             <Icons.chevronRight width={6} />
           </li>
@@ -42,9 +42,7 @@ export default function DoctorsEditPage(): JSX.Element {
           </li>
         </ul>
 
-        {!doctor
-          ? <Spinner className="w-6 h-6" />
-          : <DoctorsEditForm doctor={doctor} setDoctor={setDoctor} />}
+        {doctor && <DoctorsEditForm doctor={doctor} setDoctor={setDoctor} />}
       </main>
     </PageLayout>
   );

@@ -1,7 +1,6 @@
 import Button from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
 import { useAppDispatch } from '@/hooks';
-import { deleteBannerAction } from '@/store/banners-slice/banners-api-actions';
 import { deleteCategoryAction } from '@/store/categories-slice/categories-api-actions';
 import { deleteDoctorAction } from '@/store/doctors-slice/doctors-api-actions';
 import classNames from 'classnames';
@@ -9,23 +8,20 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import React, { Dispatch, SetStateAction } from 'react';
 import { toast } from 'react-toastify';
 
-type DoctorsDeleteFormProps = {
-  modal: {
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  };
-  setModal: Dispatch<SetStateAction<{
-    isOpen: boolean;
-    deleteId: number;
-    title: string;
-  }>>
+type Modal = {
+  isOpen: boolean;
+  id: number;
+};
+
+type CategoriesDeleteFormProps = {
+  modal: Modal;
+  setModal: Dispatch<SetStateAction<Modal>>
 }
 
 export default function DoctorsDeleteForm({
   modal,
   setModal,
-}: DoctorsDeleteFormProps): JSX.Element {
+}: CategoriesDeleteFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const onSubmit = async (
@@ -35,19 +31,20 @@ export default function DoctorsDeleteForm({
     helpers.setSubmitting(true);
 
     await dispatch(deleteDoctorAction({
-      id: modal.deleteId,
+      id: modal.id,
       onSuccess: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' });
+        setModal({ isOpen: false, id: 0 });
         toast.success(message);
       },
       onFail: (message) => {
-        setModal({ isOpen: false, deleteId: 0, title: '' })
+        setModal({ isOpen: false, id: 0 })
         toast.error(message);
       },
     }));
 
     helpers.setSubmitting(false);
   };
+
 
   return (
     <Formik
@@ -57,24 +54,24 @@ export default function DoctorsDeleteForm({
       {({ isSubmitting }) => (
         <Form className="flex flex-col gap-4">
           <p>
-            Вы уверены что хотите удалить доктора '{modal.title}'?
+            Вы уверены что хотите удалить этого доктора?
           </p>
 
           <div className="flex justify-end gap-1">
             <Button
               type="reset"
               variant="success"
-              onClick={() => setModal({ isOpen: false, deleteId: 0, title: '' })}
+              onClick={() => setModal({ isOpen: false, id: 0 })}
             >
               Отмена
             </Button>
             <Button
-              className={classNames('justify-center', isSubmitting && 'opacity-60')}
               variant="error"
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
             >
-              {isSubmitting ? <Spinner className="w-6 h-6 m-auto" /> : 'Удалить'}
+              Удалить
             </Button>
           </div>
         </Form>

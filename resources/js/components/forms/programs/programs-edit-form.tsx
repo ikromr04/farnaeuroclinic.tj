@@ -54,7 +54,7 @@ function ProgramsEditForm({
   const categories = useAppSelector(getCategories);
   const initialValues: ProgramUpdateDTO = {
     id: program.id,
-    category_id: program.category.id,
+    category_id: program.category ? program.category.id : 0,
     title: program.title,
     description: program.description,
     info: program.info,

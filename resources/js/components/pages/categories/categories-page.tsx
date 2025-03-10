@@ -103,7 +103,7 @@ function CategoriesPage(): JSX.Element {
   return (
     <PageLayout>
       <h1 className="title mx-8 mt-4 mb-2">
-        Категории
+        Категории ({categories?.length})
       </h1>
 
       {categories &&
