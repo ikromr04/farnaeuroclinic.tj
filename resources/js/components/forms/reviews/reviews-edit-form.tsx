@@ -84,7 +84,7 @@ function ReviewsEditForm({
               variant="success"
               loading={isSubmitting}
             >
-              Добавить
+              Сохранить
             </Button>
           </div>
         </Form>
