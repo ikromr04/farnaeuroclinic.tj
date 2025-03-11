@@ -76,7 +76,9 @@ class AppController extends Controller
     $data->programs = Program::where('program_category_id', $data->program->category_id)->paginate(8);
     $data->reviews = Review::get();
 
-    return view('pages.programs.show', compact('data'));
+    $texts = Helper::getTexts('all');
+
+    return view('pages.programs.show', compact('data', 'texts'));
   }
 
   public function doctors()
@@ -94,7 +96,9 @@ class AppController extends Controller
     $data = new stdClass();
     $data->doctor = Doctor::where('slug', $slug)->first();
 
-    return view('pages.doctors.show', compact('data'));
+    $texts = Helper::getTexts('all');
+
+    return view('pages.doctors.show', compact('data', 'texts'));
   }
 
   public function services()
@@ -102,15 +106,18 @@ class AppController extends Controller
     $data = new stdClass();
     $data->programs = Program::paginate(8);
 
-    return view('pages.services.index', compact('data'));
+    $texts = Helper::getTexts('services');
+
+    return view('pages.services.index', compact('data', 'texts'));
   }
 
   public function service($slug)
   {
     $data = new stdClass();
     $data->program = Program::where('slug', $slug)->first();
+    $texts = Helper::getTexts('all');
 
-    return view('pages.services.show', compact('data'));
+    return view('pages.services.show', compact('data', 'texts'));
   }
 
   public function servicesAndPrices()
@@ -118,7 +125,9 @@ class AppController extends Controller
     $data = new stdClass();
     $data->program = Program::paginate(8);
 
-    return view('pages.services&prices', compact('data'));
+    $texts = Helper::getTexts('all');
+
+    return view('pages.services&prices', compact('data', 'texts'));
   }
 
   public function apply(Request $request)

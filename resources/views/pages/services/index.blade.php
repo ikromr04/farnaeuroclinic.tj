@@ -10,13 +10,11 @@
 
       <div class="bg-brand md:bg-transparent mb-8">
         <div class="container text-white py-6 md:py-0 md:text-inherit md:w-auto">
-          <h2 class="leading-[1.2] items-center gap-x-1 font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
-            {{ __('Все услуги') }}
-          </h2>
+          <div class="leading-[1.2] items-center gap-x-1 font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
+            {!! $texts['services']->title !!}
+          </div>
 
-          <p>
-            {{ __('FARNA EUROCLINIC: Будущее репродуктивной медицины сегодня. Мы предлагаем самые современные и эффективные методы лечения бесплодия, основанные на последних научных достижениях. Индивидуальный подход к каждой паре и использование инновационных технологий позволяют нам достигать высоких результатов.') }}
-          </p>
+          {!! $texts['services']->content !!}
         </div>
       </div>
 

@@ -105,6 +105,6 @@
       </div>
     </div>
 
-    <x-application />
+    <x-application :texts="$texts" />
   </main>
 @endsection

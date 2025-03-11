@@ -9,13 +9,11 @@
       <div class="hidden md:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
       <div class="bg-brand text-white md:bg-transparent md:text-inherit py-8 md:py-0">
-        <h1 class="title flex items-center justify-between pl-[5vw] gap-x-4 mb-5 md:p-0">
-          {{ __('Наши специалисты') }}
-        </h1>
+        <div class="title flex items-center justify-between pl-[5vw] gap-x-4 mb-5 md:p-0">
+          {!! $texts['doctors-specialists']->title !!}
+        </div>
 
-        <p class="mx-[5vw] md:mx-0">
-          {{ __('Наши врачи – это признанные эксперты с международным опытом. В FARNA EUROCLINIC мы следуем самым высоким мировым стандартам качества, используя новейшие протоколы и технологии. Благодаря индивидуальному подходу и комплексному лечению, мы помогаем парам преодолеть бесплодие и обрести радость родительства.') }}
-        </p>
+        {!! $texts['doctors-specialists']->content !!}
       </div>
 
       @if ($data->doctors && $data->doctors->count())

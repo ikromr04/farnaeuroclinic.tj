@@ -10,10 +10,10 @@
 
     <x-blocks.advantages :texts="$texts" />
 
-    <x-blocks.program-categories :categories="$data->programCategories" />
+    <x-blocks.program-categories :categories="$data->programCategories" :texts="$texts" />
 
-    <x-blocks.reviews :reviews="$data->reviews" />
+    <x-blocks.reviews :reviews="$data->reviews" :texts="$texts" />
 
-    <x-application />
+    <x-application :texts="$texts" />
   </main>
 @endsection

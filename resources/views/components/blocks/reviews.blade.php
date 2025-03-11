@@ -9,8 +9,12 @@
 
     <div class="bg-brand text-white md:bg-transparent md:text-inherit md:m-0 md:p-0 py-8 md:py-0">
       <div class="flex items-center justify-between pl-[5vw] gap-x-4 mb-5 md:p-0">
-        <div class="title">
-          {!! $texts['reviews']->title !!}
+        <div>
+          <div class="title">
+            {!! $texts['reviews']->title !!}
+          </div>
+
+          {!! $texts['reviews']->content !!}
         </div>
 
         <a class="text-[15px] font-normal min-h-8 pl-4 py-2 !pr-[5vw] !rounded-r-none md:!pr-4 md:text-white md:bg-brand md:!rounded-r-full min-w-max flex items-center gap-x-2 justify-center border border-white text-brand bg-white rounded-full leading-none px-3">

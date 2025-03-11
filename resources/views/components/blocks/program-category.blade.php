@@ -1,4 +1,4 @@
-@props(['category', 'programs'])
+@props(['category', 'programs', 'texts'])
 
 <section {{ $attributes->merge([
     'class' => 'relative group md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white md:mx-auto md:w-[90vw] md:max-w-[1150px] md:mt-[10px]',
@@ -8,16 +8,11 @@
 
   <div class="bg-brand md:bg-transparent mb-8">
     <div class="container text-white py-6 md:py-0 md:text-inherit md:w-auto">
-      <h2 class="leading-[1.2] items-center gap-x-1 font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
-        <a class="inline transition-all duration-300 hover:text-brand" href="{{ route('forpatient') }}">
-          {{ __('Пациентам') }}
-        </a> |
-        <span>{{ $category->title }}</span>
-      </h2>
+      <div class="leading-[1.2] items-center gap-x-1 font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
+        {!! $texts['category-forpatient']->title !!}
+      </div>
 
-      <p>
-        {{ __('Наши врачи – это признанные эксперты с международным опытом. В FARNA EUROCLINIC мы следуем самым высоким мировым стандартам качества, используя новейшие протоколы и технологии. Благодаря индивидуальному подходу и комплексному лечению, мы помогаем парам преодолеть бесплодие и обрести радость родительства.') }}
-      </p>
+      {!! $texts['category-forpatient']->content !!}
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-@props(['categories'])
+@props(['categories', 'texts'])
 
 <section {{ $attributes->merge([
     'class' => 'relative group md:py-10 md:px-20 md:border md:border-brand md:rounded-[10px] md:bg-white md:mx-auto md:w-[90vw] md:max-w-[1150px] md:mt-[10px]',
@@ -8,11 +8,11 @@
 
   <div class="bg-brand md:bg-transparent">
     <div class="container text-white py-8 md:py-0 md:text-inherit md:w-auto">
-      <h2 class="font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">{{ __('Пациентам') }}</h2>
+      <div class="font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
+        {!! $texts['forpatient']->title !!}
+      </div>
 
-      <p>
-        {{ __('Наши врачи – это признанные эксперты с международным опытом. В FARNA EUROCLINIC мы следуем самым высоким мировым стандартам качества, используя новейшие протоколы и технологии. Благодаря индивидуальному подходу и комплексному лечению, мы помогаем парам преодолеть бесплодие и обрести радость родительства.') }}
-      </p>
+      {!! $texts['forpatient']->content !!}
     </div>
   </div>
 
