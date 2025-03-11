@@ -1,3 +1,5 @@
+@props(['texts'])
+
 @php
   $routeName = Route::currentRouteName();
   $isHomePage = $routeName !== 'home';
@@ -13,25 +15,21 @@
         </svg>
       </a>
 
-      <address class="not-italic flex flex-col mb-3 text-white">
-        <strong class="font-normal">ООО «Farna Euroclinic»</strong>
-        Таджикистан, Душанбе ул. Лохути, 13
-      </address>
+      <div class="not-italic flex flex-col mb-3 text-white">
+        {!! $texts['company']->content !!}
+        {!! $texts['address']->content !!}
+      </div>
 
-      <p class="mb-3 text-white">
-        {!! __('Мы работаем по будням с 8:00 до 20:00 <br> По субботам с 09:00 до 18:00') !!}
-      </p>
+      <div class="mb-3 text-white">
+        {!! $texts['work']->content !!}
+      </div>
 
       <ul class="mb-8 md:mb-0 text-white" id="contacts">
         <li>
-          <a href="tel:+992372000000">
-            +992(37)2 000000
-          </a>
+          {!! $texts['tel']->content !!}
         </li>
         <li>
-          <a href="mailto:info@farna.tj">
-            info@farna.tj
-          </a>
+          {!! $texts['email']->content !!}
         </li>
       </ul>
     </div>

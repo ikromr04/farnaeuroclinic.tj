@@ -69,7 +69,7 @@ export default function EditorField({
       Document,
       Paragraph.configure({
         HTMLAttributes: {
-          class: 'paragraph',
+          class: 'min-h-5',
         }
       }),
       Text,
@@ -78,9 +78,6 @@ export default function EditorField({
         openOnClick: false,
         autolink: true,
         linkOnPaste: true,
-        HTMLAttributes: {
-          class: 'text-blue-500',
-        }
       }),
       Bold,
       Italic,

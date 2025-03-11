@@ -11,7 +11,7 @@
         </svg>
       </div>
       <div>
-        {!! $texts['advantage-1']->content !!}
+        {!! $texts['advantage-1']->title !!}
       </div>
     </li>
     <li class="flex gap-x-4 gap-y-4 items-center md:flex md:flex-col md:text-center lg:flex-row lg:text-left">
@@ -21,7 +21,7 @@
         </svg>
       </div>
       <div>
-        {!! $texts['advantage-1']->content !!}
+        {!! $texts['advantage-2']->title !!}
       </div>
     </li>
     <li class="flex gap-x-4 gap-y-4 items-center md:flex md:flex-col md:text-center lg:flex-row lg:text-left">
@@ -31,7 +31,7 @@
         </svg>
       </div>
       <div>
-        {!! $texts['advantage-1']->content !!}
+        {!! $texts['advantage-3']->title !!}
       </div>
     </li>
   </ul>

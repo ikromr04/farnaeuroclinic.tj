@@ -27,6 +27,10 @@ export const AppRoute = {
       Create: '/dashboard/reviews/create',
       Edit: '/dashboard/reviews/:id',
     },
+    Texts: {
+      Index: '/dashboard/texts',
+      Edit: '/dashboard/texts/:id',
+    },
   },
   Auth: {
     Login: '/auth/login',
@@ -64,6 +68,11 @@ export const APIRoute = {
     Update: '/reviews/update',
     Show: '/reviews/:id',
   },
+  Texts: {
+    Index: '/texts',
+    Update: '/texts/update',
+    Show: '/texts/:id',
+  },
 };
 
 export enum AuthorizationStatus {
@@ -80,4 +89,15 @@ export enum SliceName {
   Banners = 'Banners',
   Doctors = 'Doctors',
   Reviews = 'Reviews',
+  Texts = 'Texts',
+};
+
+export const TextPage = {
+  'all': 'Все',
+  'home': 'Главная',
+  'about': 'О нас',
+  'forpatient': 'Пациентам',
+  'category': 'Категории',
+  'doctors': 'Врачи',
+  'services': 'Все услуги',
 };

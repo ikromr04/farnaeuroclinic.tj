@@ -28,7 +28,7 @@
 
   @yield('content')
 
-  <x-layouts.page-footer />
+  <x-layouts.page-footer :texts="$texts" />
 
   <x-blocks.apply-modal :texts="$texts" />
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TextController;
 
 require base_path('routes/auth.php');
 
@@ -45,5 +46,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/', [ReviewController::class, 'store']);
     Route::post('/update', [ReviewController::class, 'update']);
     Route::delete('/{id}', [ReviewController::class, 'delete']);
+  });
+
+  Route::prefix('texts')->group(function () {
+    Route::get('/', [TextController::class, 'index']);
+    Route::post('/', [TextController::class, 'store']);
+    Route::post('/update', [TextController::class, 'update']);
   });
 });

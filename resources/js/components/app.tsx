@@ -23,6 +23,8 @@ import BannersEditPage from './pages/banners/banners-edit-page';
 import ReviewsPage from './pages/reviews/reviews-page';
 import ReviewsCreatePage from './pages/reviews/reviews-create-page';
 import ReviewsEditPage from './pages/reviews/reviews-edit-page';
+import TextsPage from './pages/texts/texts-page';
+import TextsEditPage from './pages/texts/texts-edit-page';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
@@ -67,6 +69,9 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Dashboard.Reviews.Index} element={<ReviewsPage />} />
         <Route path={AppRoute.Dashboard.Reviews.Create} element={<ReviewsCreatePage />} />
         <Route path={AppRoute.Dashboard.Reviews.Edit} element={<ReviewsEditPage />} />
+
+        <Route path={AppRoute.Dashboard.Texts.Index} element={<TextsPage />} />
+        <Route path={AppRoute.Dashboard.Texts.Edit} element={<TextsEditPage />} />
 
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>

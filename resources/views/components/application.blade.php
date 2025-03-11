@@ -7,7 +7,7 @@
   <div class="hidden sm:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
   <div class="md:min-w-[330px]">
-    <div class="relative z-10 leading-[1.2] mb-5">
+    <div class="relative z-10 leading-[1.2] mb-5 title">
       {!! $texts['application']->title !!}
     </div>
 

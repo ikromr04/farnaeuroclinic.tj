@@ -17,7 +17,7 @@ type DataTableProps<T> = {
   data: T[];
   columns: ColumnDef<T>[];
   visibility: VisibilityState;
-  onCreateButtonClick: () => void;
+  onCreateButtonClick?: () => void;
   className?: string;
 };
 
@@ -82,14 +82,14 @@ export default function DataTable<T>({
               value={globalFilter}
               onInput={(evt: BaseSyntheticEvent) => setGlobalFilter(evt.target.value)}
             />
-
-            <Button
-              icon="add"
-              variant="success"
-              onClick={onCreateButtonClick}
-            >
-              Добавить
-            </Button>
+            {onCreateButtonClick &&
+              <Button
+                icon="add"
+                variant="success"
+                onClick={onCreateButtonClick}
+              >
+                Добавить
+              </Button>}
           </div>
         </caption>
 

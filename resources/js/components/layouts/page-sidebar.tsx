@@ -29,7 +29,7 @@ function PageSidebar(): JSX.Element {
 
       <nav className="flex flex-col justify-between grow">
         <ul>
-          <li>
+          {/* <li>
             <NavLink
               className={({ isActive }) => classNames('group navlink', isActive && 'active')}
               to={AppRoute.Dashboard.SiteInfo}
@@ -37,7 +37,7 @@ function PageSidebar(): JSX.Element {
               <Icons.info className="navlink__icon" />
               <span className="navlink__label">Данные сайта</span>
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink
               className={({ isActive }) => classNames('group navlink', isActive && 'active')}
@@ -81,6 +81,15 @@ function PageSidebar(): JSX.Element {
             >
               <Icons.comment className="navlink__icon" />
               <span className="navlink__label">Комментарии</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => classNames('group navlink', isActive && 'active')}
+              to={AppRoute.Dashboard.Texts.Index}
+            >
+              <Icons.fontSize className="navlink__icon" />
+              <span className="navlink__label">Текстовые блоки</span>
             </NavLink>
           </li>
         </ul>

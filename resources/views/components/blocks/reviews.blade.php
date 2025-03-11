@@ -9,7 +9,7 @@
 
     <div class="bg-brand text-white md:bg-transparent md:text-inherit md:m-0 md:p-0 py-8 md:py-0">
       <div class="flex items-center justify-between pl-[5vw] gap-x-4 mb-5 md:p-0">
-        <div>
+        <div class="title">
           {!! $texts['reviews']->title !!}
         </div>
 
