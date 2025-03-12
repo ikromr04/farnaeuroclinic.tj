@@ -143,7 +143,7 @@ function ProgramsPage(): JSX.Element {
       {programs &&
         <DataTable
           className="mx-4 mb-10"
-          data={programs || []}
+          data={programs}
           columns={columns}
           visibility={{
             'Сленг': false,
