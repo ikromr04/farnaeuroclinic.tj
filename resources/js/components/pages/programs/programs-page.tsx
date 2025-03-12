@@ -25,6 +25,7 @@ function ProgramsPage(): JSX.Element {
   useEffect(() => {
     if (!programs) dispatch(fetchProgramsAction());
   }, [programs, dispatch]);
+  console.log(programs);
 
   const columns: ColumnDef<Program>[] = [
     {
@@ -142,6 +143,7 @@ function ProgramsPage(): JSX.Element {
 
       {programs &&
         <DataTable
+          key={programs.length}
           className="mx-4 mb-10"
           data={programs}
           columns={columns}
