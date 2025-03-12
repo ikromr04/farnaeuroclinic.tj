@@ -4,7 +4,6 @@ import { Texts } from '@/types/texts';
 import {
   deleteTextAction,
   fetchTextsAction,
-  storeTextAction,
   updateTextAction,
 } from './texts-api-actions';
 
@@ -24,9 +23,6 @@ export const textsSlice = createSlice({
     builder
       .addCase(fetchTextsAction.fulfilled, (state, action) => {
         state.texts = action.payload;
-      })
-      .addCase(storeTextAction.fulfilled, (state, action) => {
-        state.texts = [action.payload, ...(state.texts || [])];
       })
       .addCase(updateTextAction.fulfilled, (state, action) => {
         if (state.texts) {

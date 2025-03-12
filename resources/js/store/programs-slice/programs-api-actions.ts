@@ -12,6 +12,7 @@ export const fetchProgramsAction = createAsyncThunk<Programs, undefined, {
   'programs/fetch',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<Programs>(APIRoute.Programs.Index);
+    console.log(data);
 
     return data;
   },
@@ -24,7 +25,7 @@ export const fetchProgramByIdAction = createAsyncThunk<void, {
   extra: AxiosInstance
 }>(
   'programs/fetchById',
-  async ({id, onSuccess}, { extra: api }) => {
+  async ({ id, onSuccess }, { extra: api }) => {
     const { data } = await api.get<Program>(generatePath(APIRoute.Programs.Show, { id }));
 
     if (onSuccess) onSuccess(data);
