@@ -49,7 +49,7 @@ function ProgramsPage(): JSX.Element {
       id: 'Описание',
       accessorKey: 'description',
       header: 'Описание',
-      enableSorting: true,
+      enableSorting: false,
       cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.description }} />,
     },
     {
@@ -150,6 +150,7 @@ function ProgramsPage(): JSX.Element {
             'Информация': false,
             'Статья': false,
             'Блоки': false,
+            'Описание': false,
           }}
           onCreateButtonClick={() => navigate(AppRoute.Dashboard.Programs.Create)}
         />}

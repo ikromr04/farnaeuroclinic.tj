@@ -3,7 +3,7 @@
 <section {{ $attributes->merge(['class' => 'container flex justify-center']) }}>
   <h2 class="sr-only">{{ __('Наши преимущества') }}</h2>
 
-  <ul class="flex flex-col gap-y-5 gap-x-8 max-w-max md:flex-row lg:gap-x-[60px]">
+  <ul class="flex flex-col gap-y-5 gap-x-8 max-w-max md:grid md:grid-cols-[1fr_1fr_1fr] lg:gap-x-[60px]">
     <li class="flex gap-x-4 gap-y-4 items-center md:flex md:flex-col md:text-center lg:flex-row lg:text-left">
       <div class="text-brand flex justify-center items-center min-w-14 min-h-14">
         <svg width="44" height="56">

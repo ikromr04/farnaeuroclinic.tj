@@ -9,10 +9,10 @@
   <div class="bg-brand md:bg-transparent mb-8">
     <div class="container text-white py-6 md:py-0 md:text-inherit md:w-auto">
       <div class="leading-[1.2] items-center gap-x-1 font-semibold text-[25px] leaading-[1.2] mb-2 md:mb-5">
-        {!! $texts['category-forpatient']->title !!}
+        Пациентам | {!! $category->title !!}
       </div>
 
-      {!! $texts['category-forpatient']->content !!}
+      {!! $category->description !!}
     </div>
   </div>
 
