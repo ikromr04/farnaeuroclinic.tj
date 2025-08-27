@@ -36,7 +36,7 @@
             <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">01</span>
             {!! $texts['value-1']->title !!}
           </div>
-          <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+          <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
             {!! $texts['value-1']->content !!}
             <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
           </div>
@@ -46,7 +46,7 @@
             <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">03</span>
             {!! $texts['value-3']->title !!}
           </div>
-          <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+          <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
             {!! $texts['value-3']->content !!}
 
             <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
@@ -60,7 +60,7 @@
             <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">02</span>
             {!! $texts['value-2']->title !!}
           </div>
-          <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+          <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
             {!! $texts['value-2']->content !!}
 
             <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
@@ -71,7 +71,7 @@
             <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">04</span>
             {!! $texts['value-4']->title !!}
           </div>
-          <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+          <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
             {!! $texts['value-4']->content !!}
 
             <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
@@ -85,7 +85,7 @@
         <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">05</span>
         {!! $texts['value-5']->title !!}
       </div>
-      <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
+      <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden" data-sizable="180">
         {!! $texts['value-5']->content !!}
 
         <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
@@ -94,13 +94,13 @@
   </div>
 
   <div class="hidden flex-col gap-2 xl:flex group" data-shown>
-    <div class="grid grid-cols-3 gap-2 items-start max-h-[276px] z-10">
+    <div class="grid grid-cols-3 gap-2 items-start max-h-[236px] z-10">
       <div class="relative bg-white border border-brand py-8 px-6 rounded-[10px]" data-show="1">
         <div class="font-semibold mb-3 flex items-center gap-x-2">
           <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">01</span>
           {!! $texts['value-1']->title !!}
         </div>
-        <div class="relative transition-all duration-300 max-h-[150px] group-[[data-shown='1']]:max-h-[500px] overflow-hidden">
+        <div class="relative transition-all duration-300 max-h-[110px] group-[[data-shown='1']]:max-h-[500px] overflow-hidden">
           {!! $texts['value-1']->content !!}
           <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[[data-shown='1']]:opacity-0"></div>
         </div>
@@ -110,7 +110,7 @@
           <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">02</span>
           {!! $texts['value-2']->title !!}
         </div>
-        <div class="relative transition-all duration-300 max-h-[150px] group-[[data-shown='2']]:max-h-[500px] overflow-hidden">
+        <div class="relative transition-all duration-300 max-h-[110px] group-[[data-shown='2']]:max-h-[500px] overflow-hidden">
           {!! $texts['value-2']->content !!}
           <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[[data-shown='2']]:opacity-0"></div>
         </div>
@@ -120,7 +120,7 @@
           <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">03</span>
           {!! $texts['value-3']->title !!}
         </div>
-        <div class="relative transition-all duration-300 max-h-[150px] group-[[data-shown='3']]:max-h-[500px] overflow-hidden">
+        <div class="relative transition-all duration-300 max-h-[110px] group-[[data-shown='3']]:max-h-[500px] overflow-hidden">
           {!! $texts['value-3']->content !!}
           <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[[data-shown='3']]:opacity-0"></div>
         </div>
@@ -133,7 +133,7 @@
           <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">04</span>
           {!! $texts['value-4']->title !!}
         </div>
-        <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden">
+        <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden">
           {!! $texts['value-4']->content !!}
 
           <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
@@ -144,7 +144,7 @@
           <span class="flex items-center justify-center text-white min-w-12 min-h-12 bg-brand rounded-full max-h-12 max-w-12 leading-none font-semibold text-[29px]">05</span>
           {!! $texts['value-5']->title !!}
         </div>
-        <div class="relative transition-all duration-300 max-h-[150px] group-[.shown]:max-h-[500px] overflow-hidden">
+        <div class="relative transition-all duration-300 max-h-[110px] group-[.shown]:max-h-[500px] overflow-hidden">
           {!! $texts['value-5']->content !!}
 
           <div class="absolute bottom-0 left-0 w-full h-[72px] bg-gradient-to-t from-white to-transparent pointer-events-none transition-all duration-300 group-[.shown]:opacity-0"></div>
