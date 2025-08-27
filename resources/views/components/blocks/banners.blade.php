@@ -10,7 +10,7 @@
           <div class="swiper-slide md:flex md:items-center md:gap-11 md:py-12 xl:py-10 lg:gap-8 xl:gap-24">
             <div class="mx-auto max-w-[90vw] pt-8 pb-14 md:max-w-none md:py-0">
               <h2 class="text-2xl md:text-[26px] lg:text-[32px] font-semibold leading-[1.2] mb-5 md:mb-6 lg:mb-8">{{ $banner->title }}</h2>
-              <p>{{ $banner->description }}</p>
+              <p>{!! $banner->description !!}</p>
               @if ($banner->link)
                 <a class="button max-w-max mt-5 md:mt-6 lg:mt-8" href="{{ $banner->link }}">{{ __('Подробнее') }}</a>
               @endif
