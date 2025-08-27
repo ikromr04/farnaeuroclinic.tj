@@ -33,13 +33,6 @@ class ProgramController extends Controller
   public function get(): JsonResponse
   {
     $programs = Program::latest()
-      ->select([
-        'program_category_id',
-        'title',
-        'slug',
-        'info',
-        'price',
-      ])
       ->with(['category', 'blocks', 'article'])
       ->get();
 

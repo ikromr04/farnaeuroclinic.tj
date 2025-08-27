@@ -15,7 +15,8 @@ export const fetchProgramsAction = createAsyncThunk<Programs, {
   async ({onSuccess}, { extra: api }) => {
     const { data } = await api.get<Programs>(APIRoute.Programs.Index);
     if (onSuccess) onSuccess(data);
-
+    console.log(data);
+    
     return data;
   },
 );

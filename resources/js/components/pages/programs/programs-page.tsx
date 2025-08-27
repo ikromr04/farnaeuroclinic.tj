@@ -7,7 +7,6 @@ import Spinner from '@/components/ui/spinner';
 import { AppRoute } from '@/const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { fetchProgramsAction } from '@/store/programs-slice/programs-api-actions';
-import { getPrograms } from '@/store/programs-slice/programs-selector';
 import { Program, Programs } from '@/types/programs';
 import { ColumnDef } from '@tanstack/react-table';
 import dayjs from 'dayjs';
@@ -22,7 +21,7 @@ function ProgramsPage(): JSX.Element {
     isOpen: false,
     id: 0,
   });
-
+  
   useEffect(() => {
     if (!programs) dispatch(fetchProgramsAction({
       onSuccess: (programs) => setPrograms(programs)
@@ -48,13 +47,13 @@ function ProgramsPage(): JSX.Element {
       header: 'Сленг',
       enableSorting: true,
     },
-    {
-      id: 'Описание',
-      accessorKey: 'description',
-      header: 'Описание',
-      enableSorting: false,
-      cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.description }} />,
-    },
+    // {
+    //   id: 'Описание',
+    //   accessorKey: 'description',
+    //   header: 'Описание',
+    //   enableSorting: false,
+    //   cell: ({ row }) => <div dangerouslySetInnerHTML={{ __html: row.original.description }} />,
+    // },
     {
       id: 'Информация',
       accessorKey: 'info',
