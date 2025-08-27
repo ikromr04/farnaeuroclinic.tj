@@ -10,9 +10,9 @@
     </div>
 
     <div class="flex items-center flex-wrap gap-x-5 gap-y-3">
-      <a class="button" href="#application">{{ __('Консультация') }}</a>
+      <a class="button" href="#application">{{ __('Записать на консультацию') }}</a>
       <div class="flex items-center border px-2 gap-1 rounded-[5px] h-8 md:h-10 md:px-5 leading-none">
-        {{ __('По телефону ') }} {!! $texts['tel']->content !!}
+        {{ __('Связаться по телефону ') }} {!! $texts['tel']->content !!}
       </div>
     </div>
   </div>
