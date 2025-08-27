@@ -3,6 +3,7 @@ import PageLayout from '@/components/layouts/page-layout';
 import Button from '@/components/ui/button';
 import DataTable from '@/components/ui/data-table';
 import Modal from '@/components/ui/modal';
+import Spinner from '@/components/ui/spinner';
 import { AppRoute } from '@/const';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { fetchProgramsAction } from '@/store/programs-slice/programs-api-actions';
@@ -140,7 +141,7 @@ function ProgramsPage(): JSX.Element {
         Программы ({programs?.length})
       </h1>
 
-      {programs &&
+      {programs ? (
         <DataTable
           className="mx-4 mb-10"
           data={programs}
@@ -152,7 +153,12 @@ function ProgramsPage(): JSX.Element {
             'Блоки': false,
           }}
           onCreateButtonClick={() => navigate(AppRoute.Dashboard.Programs.Create)}
-        />}
+        />
+      ) : (
+        <div className="p-4">
+          <Spinner className="w-12 h-12" />
+        </div>
+      )}
 
       <Modal isOpen={deleteModal.isOpen}>
         <ProgramsDeleteForm modal={deleteModal} setModal={setDeleteModal} />
