@@ -6,17 +6,13 @@ import { Program, ProgramId, Programs } from '../../types/programs';
 import { ProgramStoreDTO, ProgramUpdateDTO } from '@/dto/programs-dto';
 import { generatePath } from 'react-router-dom';
 
-export const fetchProgramsAction = createAsyncThunk<Programs, {
-  onSuccess?: (programs: Programs) => void,
-}, {
+export const fetchProgramsAction = createAsyncThunk<Programs, undefined, {
   extra: AxiosInstance
 }>(
   'programs/fetchPrograms',
-  async ({onSuccess}, { extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Programs>(APIRoute.Programs.Index);
-    if (onSuccess) onSuccess(data);
-    console.log(data);
-    
+
     return data;
   },
 );
