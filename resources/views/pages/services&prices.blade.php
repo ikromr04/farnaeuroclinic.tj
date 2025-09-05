@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('Услуги и прайс') . ' | ')
+@section('title', __('Услуги') . ' | ')
 
 @section('content')
   <main class="flex flex-col gap-8 md:gap-10 lg:gap-12 mb-8 md:mb-10 lg:mb-12 prices-page">

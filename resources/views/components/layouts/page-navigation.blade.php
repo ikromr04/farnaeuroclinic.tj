@@ -21,7 +21,7 @@
     </li>
     <li>
       <a class="navlink{{ $routeName == 'services&prices' ? ' active' : ' ' }}" href="{{ route('services&prices') }}">
-        {{ __('Услуги и прайс') }}
+        {{ __('Услуги') }}
       </a>
     </li>
     <li>
