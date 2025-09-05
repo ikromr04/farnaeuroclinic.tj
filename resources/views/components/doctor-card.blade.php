@@ -18,7 +18,7 @@
     </span>
   </div>
 
-  <p class="mb-3">{{ explode("\n", $doctor->position)[0] }}</p>
+  <h2 class="mb-3">{{ $doctor->name }}</h2>
 
-  <h2 class="font-light">{{ $doctor->name }}</h2>
+  <p class="font-light line-clamp-3">{{ explode("\n", $doctor->position)[0] }}</p>
 </article>

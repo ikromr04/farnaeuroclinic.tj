@@ -25,9 +25,9 @@
                   <img class="flex w-20 h-20 object-cover object-top rounded-full bg-slate-200" src="{{ asset($doctor->avatar) }}" width="240" height="360" alt="{{ $doctor->name }}">
 
                   <div>
-                    <p class="mb-3">{{ explode("\n", $doctor->position)[0] }}</p>
+                    <h2 class="mb-3">{{ $doctor->name }}</h2>
 
-                    <h2 class="font-light">{{ $doctor->name }}</h2>
+                    <p class="font-light line-clamp-3">{{ explode("\n", $doctor->position)[0] }}</p>
                   </div>
                 </a>
               </article>
@@ -47,9 +47,9 @@
                   </span>
                 </a>
 
-                <p class="mb-3">{{ explode("\n", $doctor->position)[0] }}</p>
+                <h2 class="mb-3">{{ $doctor->name }}</h2>
 
-                <h2 class="font-light">{{ $doctor->name }}</h2>
+                <p class="font-light line-clamp-3">{{ explode("\n", $doctor->position)[0] }}</p>
               </article>
             </li>
           @endforeach

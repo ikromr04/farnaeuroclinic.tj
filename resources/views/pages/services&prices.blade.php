@@ -17,9 +17,9 @@
           <ul>
             @foreach ($category->programs as $program)
               <li>
-                <a class="flex justify-between border-[#222222] border-dashed border-b border-opacity-20 pt-2 transition-all duration-300 hover:font-semibold" href="{{ route('program', $program->slug) }}">
+                <div class="flex justify-between border-[#222222] border-dashed border-b border-opacity-20 pt-2 transition-all duration-300 hover:font-semibold">
                   <span>{{ $program->title }}</span>
-                </a>
+                </div>
               </li>
             @endforeach
           </ul>
