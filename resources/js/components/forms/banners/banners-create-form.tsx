@@ -31,6 +31,7 @@ function BannersCreateForm(): JSX.Element {
     description: '',
     link: '',
     page: '',
+    color: '#00a596',
     program_category_id: '',
   };
 
@@ -46,6 +47,7 @@ function BannersCreateForm(): JSX.Element {
     formData.append('description', values.description);
     formData.append('link', values.link);
     formData.append('page', values.page);
+    formData.append('color', values.color);
     formData.append('program_category_id', values.program_category_id);
 
     await dispatch(storeBannerAction({
@@ -83,7 +85,10 @@ function BannersCreateForm(): JSX.Element {
             imgClass="w-[320px] h-[220px]"
           />
 
-          <TextField name="title" label="Заголовок" required />
+          <div className="grid grid-cols-8 gap-4">
+            <TextField className="col-span-7" name="title" label="Заголовок" required />
+            <TextField name="color" type="color" label="Фон" required />
+          </div>
           <EditorField name="description" label="Описание" required />
 
           <div className="grid grid-cols-3 gap-4">

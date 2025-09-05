@@ -6,6 +6,7 @@ export type BannerStoreDTO = {
   title: string;
   description: string;
   link: string;
+  color: string;
   image: File | string;
 }
 
@@ -16,5 +17,6 @@ export type BannerUpdateDTO = {
   title: string;
   description: string;
   link: string;
+  color: string;
   image: File | string;
 }

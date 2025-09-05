@@ -30,6 +30,7 @@ export default function BannersEditForm({
     description: banner.description,
     page: banner.page || '',
     link: banner.link || '',
+    color: banner.color,
     program_category_id: banner.program_category_id ? String(banner.program_category_id) : '',
   };
 
@@ -46,6 +47,7 @@ export default function BannersEditForm({
     formData.append('description', values.description)
     formData.append('page', values.page)
     formData.append('link', values.link)
+    formData.append('color', values.color)
     formData.append('program_category_id', values.program_category_id)
 
     await dispatch(updateBannerAction({
@@ -81,7 +83,10 @@ export default function BannersEditForm({
             imgClass="w-[320px] h-[220px]"
           />
 
-          <TextField name="title" label="Заголовок" required />
+          <div className="grid grid-cols-8 gap-4">
+            <TextField className="col-span-7" name="title" label="Заголовок" required />
+            <TextField name="color" type="color" label="Фон" required />
+          </div>
           <EditorField name="description" label="Описание" required />
 
           <div className="grid grid-cols-3 gap-4">

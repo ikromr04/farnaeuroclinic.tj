@@ -11,6 +11,7 @@ export type Banner = {
   description: string;
   link?: string;
   image: string;
+  color: string;
   created_at: string;
   updated_at: string;
 };

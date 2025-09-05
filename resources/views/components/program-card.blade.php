@@ -6,8 +6,8 @@
   <div class="hidden sm:block pointer-events-none absolute -top-[5px] -left-[.5px] h-10 rounded-[10px] bg-brand w-[240px] -z-10"></div>
   <div class="hidden sm:block pointer-events-none absolute top-0 left-0 w-full h-10 bg-white rounded-[10px]"></div>
 
-  <h2 class="title mb-3 sm:line-clamp-1 sm:mb-[10px] lg:!text-[26px]">{{ $program->title }}</h2>
-  <p class="mb-7 sm:line-clamp-2 sm:mb-5 lg:mb-3 xl:mb-5">{{ $program->description }}</p>
+  <h2 class="title mb-3 sm:line-clamp-1 sm:mb-[10px] lg:!text-[26px]">{!! $program->title !!}</h2>
+  <p class="mb-7 sm:line-clamp-2 sm:mb-5 lg:mb-3 xl:mb-5">{!! $program->description!!}</p>
 
   <div class="flex justify-between items-center">
     @if ($program->article)

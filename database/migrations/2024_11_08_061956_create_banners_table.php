@@ -20,6 +20,7 @@ return new class extends Migration
         ->onDelete('cascade');
       $table->text('title');
       $table->text('description');
+      $table->string('color')->default('#00a596');
       $table->string('link')->nullable();
       $table->string('image')->default('/favicons/icon-light.svg');
       $table->timestamps();

@@ -24,12 +24,39 @@
         {!! $texts['work']->content !!}
       </div>
 
-      <ul class="mb-8 md:mb-0 text-white" id="contacts">
+      <ul class="mb-8 text-white" id="contacts">
         <li>
           {!! $texts['tel']->content !!}
         </li>
         <li>
           {!! $texts['email']->content !!}
+        </li>
+      </ul>
+
+      <ul class="flex items-center text-white gap-2 justify-center mb-8 md:mb-0 md:justify-start">
+        <li>
+          <a target="_blank" href="https://www.facebook.com/farnaeuroclinic.tj">
+            <svg class="w-9 h-9 -mr-1" xmlns="http://www.w3.org/2000/svg" width="30" height="800" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02Z" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.instagram.com/farnaeuroclinic.tj?igsh=MWFnc29qYmY4N29meA==">
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="30" height="30" viewBox="-143 145 512 512">
+              <path fill="currentColor" d="M113 446c24.8 0 45.1-20.2 45.1-45.1 0-9.8-3.2-18.9-8.5-26.3-8.2-11.3-21.5-18.8-36.5-18.8s-28.3 7.4-36.5 18.8c-5.3 7.4-8.5 16.5-8.5 26.3C68 425.8 88.2 446 113 446zM211.4 345.9v-43.4h-5.6l-37.8.1.2 43.4z" />
+              <path fill="currentColor" d="M183 401c0 38.6-31.4 70-70 70s-70-31.4-70-70c0-9.3 1.9-18.2 5.2-26.3H10v104.8C10 493 21 504 34.5 504h157c13.5 0 24.5-11 24.5-24.5V374.7h-38.2c3.4 8.1 5.2 17 5.2 26.3z" />
+              <path fill="currentColor" d="M113 145c-141.4 0-256 114.6-256 256s114.6 256 256 256 256-114.6 256-256-114.6-256-256-256zm128 229.7v104.8c0 27.3-22.2 49.5-49.5 49.5h-157C7.2 529-15 506.8-15 479.5V322.4c0-27.3 22.2-49.5 49.5-49.5h157c27.3 0 49.5 22.2 49.5 49.5v52.3z" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.youtube.com/@farnaeuroclinic">
+            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="30" height="30" viewBox="-143 145 512 512">
+              <path fill="currentColor" d="m78.9 450.3 83.8-49.2-83.8-49.2z" />
+              <path fill="currentColor" d="M113 145c-141.4 0-256 114.6-256 256s114.6 256 256 256 256-114.6 256-256-114.6-256-256-256zm128 301.8c0 44.1-44.1 44.1-44.1 44.1H29.1c-44.1 0-44.1-44.1-44.1-44.1v-91.5c0-44.1 44.1-44.1 44.1-44.1h167.8c44.1 0 44.1 44.1 44.1 44.1v91.5z" />
+            </svg>
+          </a>
         </li>
       </ul>
     </div>

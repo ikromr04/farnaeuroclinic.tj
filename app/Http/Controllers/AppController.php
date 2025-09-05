@@ -123,7 +123,8 @@ class AppController extends Controller
   public function servicesAndPrices()
   {
     $data = new stdClass();
-    $data->program = Program::paginate(8);
+    $data->categories = ProgramCategory::get();
+    $data->program = ProgramCategory::paginate(8);
 
     $texts = Helper::getTexts('all');
 

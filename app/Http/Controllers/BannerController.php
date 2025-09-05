@@ -30,6 +30,7 @@ class BannerController extends Controller
       'title' => $request->title,
       'description' => $request->description,
       'link' => $request->link,
+      'color' => $request->color,
       'image' => $imgPath ?? '/favicons/icon-light.svg',
     ]);
 
@@ -44,6 +45,7 @@ class BannerController extends Controller
     $banner->page = $request->page;
     $banner->program_category_id = $request->program_category_id;
     $banner->link = $request->link;
+    $banner->color = $request->color;
 
     if ($request->hasFile('image')) {
       $file = $request->file('image');
