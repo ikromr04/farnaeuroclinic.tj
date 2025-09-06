@@ -84,6 +84,7 @@ class AppController extends Controller
   public function doctors()
   {
     $data = new stdClass();
+    $data->count = Doctor::count();
     $data->doctors = Doctor::latest()->paginate(8);
 
     $texts = Helper::getTexts('doctors');

@@ -11,7 +11,7 @@ class DoctorController extends Controller
 {
   public function index()
   {
-    return Doctor::latest()->paginate(4, ['*'], 'page', request()->page);
+    return Doctor::latest()->paginate(8, ['*'], 'page', request()->page);
   }
 
   public function get(): JsonResponse

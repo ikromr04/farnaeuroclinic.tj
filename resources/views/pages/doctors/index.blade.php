@@ -54,15 +54,17 @@
             </li>
           @endforeach
         </ul>
-
-        <div class="container">
-          <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2">
-            {{ __('Показать ещё') }}
-            <svg width="12" height="6">
-              <use xlink:href="#arrow-down" />
-            </svg>
-          </button>
-        </div>
+        
+        @if ($data->count > 8)
+          <div class="container">
+            <button class="button !bg-brand !text-white gap-x-2 mt-8 md:mt-10" type="button" data-show-more="2">
+              {{ __('Показать ещё') }}
+              <svg width="12" height="6">
+                <use xlink:href="#arrow-down" />
+              </svg>
+            </button>
+          </div>
+        @endif
       @endif
     </div>
 
