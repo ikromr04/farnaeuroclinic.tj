@@ -19,7 +19,7 @@ class AppController extends Controller
   {
     $data = (object) [
       'banners' => Banner::where('page', 'home')->get(),
-      'doctors' => Doctor::limit(10)->get(),
+      'doctors' => Doctor::latest()->limit(10)->get(),
       'programs' => Program::limit(8)->get(),
       'reviews' => Review::get(),
     ];
