@@ -56,10 +56,10 @@ import{g as et}from"./_commonjsHelpers-Cpj98o6Y.js";var B={exports:{}};(function
                   <img class="flex w-20 h-20 object-cover object-top rounded-full bg-slate-200" src="${o.avatar}" width="240" height="360" alt="${o.name}">
 
                   <div>
-                    <p class="mb-3">${o.position.split(`
-`)[0]}</p>
+                    <h2 class="mb-3">${o.name}</h2>
 
-                    <h2 class="font-light">${o.name}</h2>
+                    <p class="font-light line-clamp-3">${o.position.split(`
+`)[0]}</p>
                   </div>
                 </a>
               </article>
@@ -82,10 +82,10 @@ import{g as et}from"./_commonjsHelpers-Cpj98o6Y.js";var B={exports:{}};(function
                   </span>
                 </a>
 
-                <p class="mb-3">${o.position.split(`
-`)[0]}</p>
+                <h2 class="mb-3">${o.name}</h2>
 
-                <h2 class="font-light">${o.name}</h2>
+                <p class="font-light line-clamp-3">${o.position.split(`
+`)[0]}</p>
               </article>
             </li>
           `).join(" ")),+d.last_page==+r.target.dataset.showMore?r.target.remove():++r.target.dataset.showMore})});document.querySelector(".prices-page")&&document.querySelector("[data-show-more]").addEventListener("click",r=>{fetch(`/prices?page=${r.target.dataset.showMore}`).then(d=>d.json()).then(d=>{r.target.parentElement.previousElementSibling.insertAdjacentHTML("beforeend",d.data.map(o=>`
